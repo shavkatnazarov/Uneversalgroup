@@ -8,7 +8,6 @@ public class UneversalApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(UneversalApplication.class, args);
-		System.out.println("salom quzi");
 	}
 
 }
