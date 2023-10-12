@@ -15,7 +15,6 @@ import uneversalgroup.uneversal.repository.CategoryRepository;
 public class StatisticsController {
     private final CategoryRepository categoryRepository;
 
-    //    private final ProductRepository productRepository;
     @GetMapping
     public HttpEntity<?> getStatistics() {
         ResStatistics build = ResStatistics.builder()
