@@ -14,14 +14,12 @@ import uneversalgroup.uneversal.repository.CategoryRepository;
 @RequiredArgsConstructor
 public class StatisticsController {
     private final CategoryRepository categoryRepository;
-    private final ProductRepository productRepository;
 
     //    private final ProductRepository productRepository;
     @GetMapping
     public HttpEntity<?> getStatistics() {
         ResStatistics build = ResStatistics.builder()
                 .categorySize(categoryRepository.findAll().size())
-                .productSize(productRepository.findAll().size())
                 .buySize(0)
                 .protcent(0)
                 .build();

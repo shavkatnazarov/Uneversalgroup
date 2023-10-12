@@ -9,13 +9,13 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import uneversalgroup.uneversal.entity.Role;
 import uneversalgroup.uneversal.entity.User;
 import uneversalgroup.uneversal.payload.ApiResponse;
 import uneversalgroup.uneversal.payload.AuthDto;
 import uneversalgroup.uneversal.repository.AuthRepository;
 import uneversalgroup.uneversal.repository.RoleRepository;
 
-import javax.management.relation.Role;
 import java.util.Collections;
 import java.util.UUID;
 
