@@ -9,6 +9,7 @@ export const Statistick = () => {
     const [loading, setLoading] = useState(false)
     const getStatisti = async () => {
         try {
+
             const res = await BaseConfig.doGet(Api.statistics)
             setStat(res.data)
             setLoading(true)

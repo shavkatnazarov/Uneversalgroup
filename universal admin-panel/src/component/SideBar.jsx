@@ -54,13 +54,15 @@ export const SideBar = () => {
                                     ))}
                                 </a>
                             </li>
-
+<h1>salom</h1>
                             <li className="nav-small-cap">
                                 <i className="ti ti-dots nav-small-cap-icon fs-4"></i>
                                 <span className="hide-menu">AUTH</span>
                             </li>
                             <li className="sidebar-item">
                                 <a className="sidebar-link" href="#" aria-expanded="false">
+                                    <>
+                                    </>
                 <span>
                   <i className="ti ti-login"></i>
                 </span>

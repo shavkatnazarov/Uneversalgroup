@@ -13,6 +13,9 @@ function App() {
             <Routes>
                 <Route path={"/"} element={<AdminLayout/>}>
                     <Route index element={<Menyu/>}/>
+                    <>
+
+                    </>
                     <Route path={"auth/admin"} element={<SSSS/>}/>
                     <Route path={"/auth/dashboard/course"} element={<SSSS/>}/>
                 </Route>

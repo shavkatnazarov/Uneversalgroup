@@ -1,5 +1,6 @@
 import rasm1 from "../assets/bg_1.jpg"
-import { useLocation, useNavigate} from "react-router-dom";
+import png from "../assets/photo_2023-10-12_18-25-27 (1).png"
+import {Link, useLocation, useNavigate} from "react-router-dom";
 
 export const Menyu = () => {
 
@@ -11,7 +12,7 @@ export const Menyu = () => {
     const location = useLocation().pathname
 
     const sideArr = [
-        {name: 'asosiy', link: '/auth/admin'},
+        {name: 'asosi', link: '/auth/admin'},
 
     ]
     return (
@@ -29,6 +30,7 @@ export const Menyu = () => {
                                         <i className="ti ti-menu-2"></i>
                                     </a>
                                 </li>
+                                <></>
                                 <li className="nav-item">
                                     <a className="nav-link nav-icon-hover" href="javascript:void(0)">
                                         <i className="ti ti-bell-ringing"></i>
@@ -38,15 +40,6 @@ export const Menyu = () => {
                             </ul>
                             <div className="navbar-collapse justify-content-end px-0" id="navbarNav">
                                 <ul className="navbar-nav flex-row ms-auto align-items-center justify-content-end">
-                                    <div className="dropdown">
-                                        <button className="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
-                                            Dropdown
-                                        </button>
-                                        <ul className="dropdown-menu" aria-labelledby="dropdownMenu2">
-                                                <li><a className="dropdown-item" href="/auth/dashboard/payment"><i className="bi bi-credit-card"></i>To'lov qilish</a></li>
-                                                <li><a className="dropdown-item" href="/auth/dashboard/payment"><i className="bi bi-list-ul"></i>To'lovlar ro'yxati</a></li>
-                                        </ul>
-                                    </div>
                                     <li className="nav-item dropdown">
                                         <a className="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2"
                                            data-bs-toggle="dropdown"
