@@ -1,5 +1,6 @@
 export const SSSS=()=>{
     return(
-        <>salom</>
+        <>salom.</>
+
     )
 }

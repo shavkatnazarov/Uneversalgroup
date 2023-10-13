@@ -61,6 +61,8 @@ export const SideBar = () => {
                             </li>
                             <li className="sidebar-item">
                                 <a className="sidebar-link" href="#" aria-expanded="false">
+                                    <>
+                                    </>
                 <span>
                   <i className="ti ti-login"></i>
                 </span>

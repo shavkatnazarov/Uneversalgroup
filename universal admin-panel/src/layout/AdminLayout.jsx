@@ -13,6 +13,7 @@ export const AdminLayout = () => {
                     <div className={'d-flex '}
                          style={{ width: '80%'}}>
                         <Outlet/>
+                        <></>
                     </div>
                 </div>
             ) : (
