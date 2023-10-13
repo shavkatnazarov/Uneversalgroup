@@ -6,7 +6,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import uneversalgroup.uneversal.entity.template.AbsEntity;
 import javax.persistence.*;
 import java.util.Collection;
-import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -29,8 +28,6 @@ public class User extends AbsEntity implements UserDetails {
     @Column(nullable = false)
     private String password;
 
-    @ManyToMany
-    private List<Payment> payment;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "users_role",

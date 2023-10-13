@@ -1,25 +1,24 @@
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import {AdminLayout} from "../layout/AdminLayout.jsx";
+import {DashboardLayout} from "../templates/DashboardLayout.jsx";
 import "../assets/css/styles.css";
 import "../assets/css/styles.min.css";
 import "../assets/css/icons/tabler-icons/tabler-icons.css";
-import {Login} from "../pages/auth/Login.jsx";
-import {SSSS} from "../pages/auth/SSSS.jsx";
-import {Menyu} from "../pages/Menyu.jsx";
+import {Course} from "../Course.jsx";
+import {Menu} from "../templates/Menu.jsx";
+import {Payment} from "../pages/payment/Payment.jsx";
+import {PaymentGetOne} from "../pages/payment/PaymentGetOne.jsx";
+
 
 function App() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path={"/"} element={<AdminLayout/>}>
-                    <Route index element={<Menyu/>}/>
-                    <>
-
-                    </>
-                    <Route path={"auth/admin"} element={<SSSS/>}/>
-                    <Route path={"/auth/dashboard/course"} element={<SSSS/>}/>
+                <Route path={"/"} element={<DashboardLayout/>}>
+                    <Route index element={<Menu/>}/>
+                    <Route path={"/auth/dashboard/course"} element={<Course/>}/>
+                    <Route path={"/auth/dashboard/payment"} element={<Payment/>}/>
+                    <Route path={"/auth/dashboard/payment/:id"} element={<PaymentGetOne/>}/>
                 </Route>
-                <Route path={"/auth/login"} element={<Login/>}/>
             </Routes>
         </BrowserRouter>
     )
