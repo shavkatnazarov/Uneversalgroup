@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import uneversalgroup.uneversal.impl.controller.PaymentControllerImpl;
 import uneversalgroup.uneversal.payload.PaymentDto;
 import uneversalgroup.uneversal.repository.PaymentRepository;
 import uneversalgroup.uneversal.service.PaymentService;
@@ -17,26 +18,32 @@ import java.util.UUID;
 @RequestMapping("/api/payment")
 @RequiredArgsConstructor
 @CrossOrigin
-public class PaymentController {
+public class PaymentController implements PaymentControllerImpl {
 
     private final PaymentService paymentService;
     private final PaymentRepository paymentRepository;
 
-    @GetMapping()
-    public HttpEntity<?> getAll(){
-        List<Payment> all = paymentRepository.findAll();
-        return ResponseEntity.ok(all);
-    }
-    @GetMapping("/{id}")
-    public HttpEntity<?> getPayment(@PathVariable UUID id) {
-        List<PaymentDto> payment = paymentService.getPayment(id);
-        return ResponseEntity.ok(payment);
-    }
+    @Override
+    @GetMapping
+    public HttpEntity<?> getAll() {
+            List<Payment> all = paymentRepository.findAll();
+            return ResponseEntity.ok(all);
+        }
 
-//    @PostMapping
-//    public HttpEntity<?> addPayment(PaymentDto paymentDto) {
+    @Override
+    @GetMapping("/{id}")
+    public HttpEntity<?> getPayment(UUID id) {
+            List<PaymentDto> payment = paymentService.getPayment(id);
+            return ResponseEntity.ok(payment);
+        }
+
+    @Override
+   @PostMapping
+    public HttpEntity<?> addPayment(PaymentDto paymentDto) {
+        return null;
 //        ApiResponse<?> apiResponse = paymentService.addPayment(paymentDto);
 //        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
-//    }
-}
+    }
+
+    }
 

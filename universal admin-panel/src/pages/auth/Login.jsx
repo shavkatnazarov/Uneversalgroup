@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
-import {LoginHandler} from "../../server/service/AuthService";
 import {isAuthenticated} from "../../utils/Utils";
 import {useNavigate} from 'react-router-dom'
+import {LoginHandler} from "../../connection/service/AuthService.js";
 
 export const Login = () => {
     const [phoneNumber, setPhoneNumber] = useState('')

@@ -1,8 +1,7 @@
 import './statistik.css'
 import {useEffect, useState} from "react";
-import {BaseUrl} from "../server/BaseUrl";
-import {Api} from "../server/Api";
-import {BaseConfig} from "../server/BaseConfig";
+import {Api} from "../connection/Api";
+import {BaseConfig} from "../connection/BaseConfig";
 import {Loading} from "./Loading";
 
 export const Statistick = () => {

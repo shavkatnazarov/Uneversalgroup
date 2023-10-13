@@ -1,65 +1,24 @@
 import rasm1 from "../assets/bg_1.jpg"
-import png from "../assets/photo_2023-10-12_18-25-27 (1).png"
+import { useLocation, useNavigate} from "react-router-dom";
 
 export const Menyu = () => {
+
+    const navigate = useNavigate()
+    const logout = () => {
+        localStorage.clear()
+        navigate("/")
+    }
+    const location = useLocation().pathname
+
+    const sideArr = [
+        {name: 'asosiy', link: '/auth/admin'},
+
+    ]
     return (
         <div>
             <div className="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6"
                  data-sidebartype="full"
                  data-sidebar-position="fixed" data-header-position="fixed">
-                <aside className="left-sidebar">
-
-                    <div>
-                        <div className="brand-logo d-flex align-items-center justify-content-between">
-
-                            <div className="close-btn d-xl-none d-block sidebartoggler cursor-pointer"
-                                 id="sidebarCollapse">
-                                <i className="ti ti-x fs-8"></i>
-                            </div>
-                            <img style={{width: "70px"}} src={png} alt=""/>
-                            <h4 style={{
-                                fontFamily: "table-icons",
-                                fontStyle: "normal", marginLeft: "10px"
-                            }}>Universal academy</h4>
-                        </div>
-
-                        <nav className="sidebar-nav scroll-sidebar" data-simplebar="">
-                            <ul id="sidebarnav">
-                                <li className="sidebar-item">
-                                    <a className="sidebar-link" href="#" aria-expanded="false">
-                <span>
-                  <i className="ti ti-alert-circle"></i>
-                </span>
-                                        <span className="hide-menu">Alerts</span>
-                                    </a>
-                                </li>
-
-                                <li className="nav-small-cap">
-                                    <i className="ti ti-dots nav-small-cap-icon fs-4"></i>
-                                    <span className="hide-menu">AUTH</span>
-                                </li>
-                                <li className="sidebar-item">
-                                    <a className="sidebar-link" href="#" aria-expanded="false">
-                <span>
-                  <i className="ti ti-login"></i>
-                </span>
-                                        <span className="hide-menu">Login</span>
-                                    </a>
-                                </li>
-                                <li className="sidebar-item">
-                                    <a className="sidebar-link" href="#" aria-expanded="false">
-                <span>
-                  <i className="ti ti-user-plus"></i>
-                </span>
-                                        <span className="hide-menu">Register</span>
-                                    </a>
-                                </li>
-                            </ul>
-
-                        </nav>
-                    </div>
-                </aside>
-
                 <div className="body-wrapper">
                     <header className="app-header">
                         <nav className="navbar navbar-expand-lg navbar-light">
@@ -79,6 +38,15 @@ export const Menyu = () => {
                             </ul>
                             <div className="navbar-collapse justify-content-end px-0" id="navbarNav">
                                 <ul className="navbar-nav flex-row ms-auto align-items-center justify-content-end">
+                                    <div className="dropdown">
+                                        <button className="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Dropdown
+                                        </button>
+                                        <ul className="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                                <li><a className="dropdown-item" href="/auth/dashboard/payment"><i className="bi bi-credit-card"></i>To'lov qilish</a></li>
+                                                <li><a className="dropdown-item" href="/auth/dashboard/payment"><i className="bi bi-list-ul"></i>To'lovlar ro'yxati</a></li>
+                                        </ul>
+                                    </div>
                                     <li className="nav-item dropdown">
                                         <a className="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2"
                                            data-bs-toggle="dropdown"

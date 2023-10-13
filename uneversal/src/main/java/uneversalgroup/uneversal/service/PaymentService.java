@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import uneversalgroup.uneversal.entity.Payment;
 import uneversalgroup.uneversal.entity.User;
 import uneversalgroup.uneversal.exception.ResourceNotFoundException;
+import uneversalgroup.uneversal.impl.service.PaymentServiceImpl;
+import uneversalgroup.uneversal.payload.ApiResponse;
 import uneversalgroup.uneversal.payload.PaymentDto;
 import uneversalgroup.uneversal.repository.AuthRepository;
 import uneversalgroup.uneversal.repository.CourseRepository;
@@ -17,13 +19,13 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class PaymentService {
+public class PaymentService  implements PaymentServiceImpl {
 
     private final PaymentRepository paymentRepository;
     private final AuthRepository authRepository;
     private final CourseRepository courseRepository;
 //    private final GroupRepository groupRepository;
-
+   @Override
     public List<PaymentDto> getPayment(UUID userId) {
         User user = authRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException(404,"getUser","user",userId));
         List<PaymentDto> paymentDtos = new ArrayList<>();
@@ -36,6 +38,11 @@ public class PaymentService {
             paymentDtos.add(build);
         }
         return paymentDtos;
+    }
+
+    @Override
+    public ApiResponse<?> addPayment(PaymentDto paymentDto) {
+        return null;
     }
 
 //    public ApiResponse<?> addPayment(PaymentDto paymentDto) {
