@@ -1,4 +1,4 @@
-import {Outlet} from 'react-router-dom'
+// import {Outlet} from 'react-router-dom'
 import {NotFound} from "../component/NotFound.jsx";
 import {Menyu} from "../pages/Menyu.jsx";
 
