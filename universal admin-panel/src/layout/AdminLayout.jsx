@@ -1,12 +1,12 @@
-import {Outlet} from 'react-router-dom'
 import {NotFound} from "../component/NotFound.jsx";
 import {Menyu} from "../pages/Menyu.jsx";
+// import {Outlet} from "react-router-dom";
 
 export const AdminLayout = () => {
     const token = localStorage.getItem("token")
     return (
         <div className={"w-100 d-flex"}>
-            {token ? (
+            {/*{token ? (*/}
                 <div className={"w-100 d-flex"}>
                     <Menyu/>
                     <div className={'d-flex align-items-center justify-content-center flex-column'}
@@ -18,9 +18,9 @@ export const AdminLayout = () => {
                     </div>
                             {/*<Outlet/>*/}
                 </div>
-            ) : (
-                <NotFound/>
-            )}
+            // ) : (
+            //     <NotFound/>
+            {/*// )}*/}
         </div>
     )
 }
