@@ -13,6 +13,7 @@ export const Login = () => {
             const token = localStorage.getItem('token');
             const isAuth = isAuthenticated(token)
             if (isAuth) return navigate('/')
+
         }
         redirectAdminPanel()
     }, [])
@@ -26,6 +27,7 @@ export const Login = () => {
             <form className={"w-50 p-5 shadow"}>
                 <h1 className={"text-center text-primary mb-3"}>Kirish</h1>
                 <div className="form-outline mb-4">
+
                     <input type="phoneNumber" value={phoneNumber} onChange={e => setPhoneNumber(e.target.value)}
                            id="form2Example1" className="form-control"/>
                     <label className="form-label" htmlFor="form2Example1">tel raqam</label>
