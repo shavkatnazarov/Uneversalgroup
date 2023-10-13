@@ -1,17 +1,22 @@
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import {AdminLayout} from "../layout/AdminLayout.jsx";
+import {DashboardLayout} from "../templates/DashboardLayout.jsx";
 import "../assets/css/styles.css";
 import "../assets/css/styles.min.css";
 import "../assets/css/icons/tabler-icons/tabler-icons.css";
-import {Login} from "../pages/auth/Login.jsx";
-import {SSSS} from "../pages/auth/SSSS.jsx";
-import {Menyu} from "../pages/Menyu.jsx";
-import {Course} from "../pages/admin/Course.jsx";
+import {Course} from "../Course.jsx";
+import {Menu} from "../templates/Menu.jsx";
+
 
 function App() {
     return (
-     <>
-     ss</>
+        <BrowserRouter>
+            <Routes>
+                <Route path={"/"} element={<DashboardLayout/>}>
+                    <Route index element={<Menu/>}/>
+                    <Route path={"/auth/dashboard/course"} element={<Course/>}/>
+                </Route>
+            </Routes>
+        </BrowserRouter>
     )
 }
 
