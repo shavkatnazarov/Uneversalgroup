@@ -7,7 +7,7 @@ export const AdminLayout = () => {
     const token = localStorage.getItem("token")
     return (
         <div className={"w-100 d-flex"}>
-            {token ? (
+            {/*{token ? (*/}
                 <div className={"w-100 d-flex"}>
                     <SideBar/>
                     <div className={'d-flex '}
@@ -16,9 +16,9 @@ export const AdminLayout = () => {
                         <></>
                     </div>
                 </div>
-            ) : (
-                <NotFound/>
-            )}
+            // ) : (
+            //     <NotFound/>
+            {/*// )}*/}
         </div>
     )
 }

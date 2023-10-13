@@ -15,7 +15,7 @@ export const SideBar = () => {
     ]
     return (
         <div className="d-flex flex-column flex-shrink-0 p-3 bg-light"
-             style={{width: "20%", height: '100vh', color: 'rgba(199, 132, 33, 0.911)'}}>
+             style={{ color: 'rgba(199, 132, 33, 0.911)'}}>
             <aside className="left-sidebar">
 
                 <div>
