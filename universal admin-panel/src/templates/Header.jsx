@@ -1,6 +1,6 @@
 export const Header=()=>{
     return(
-        <header className="app-header">
+        <header className="app-header shadow">
             <nav className="navbar navbar-expand-lg navbar-light">
                 <ul className="navbar-nav">
                     <li className="nav-item d-block d-xl-none">

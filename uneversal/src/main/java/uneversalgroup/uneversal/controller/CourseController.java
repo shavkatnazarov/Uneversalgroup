@@ -30,7 +30,7 @@ public class CourseController implements CourseControllerImpl {
     }
 
     @Override
-    @GetMapping("/list")
+    @GetMapping
     public HttpEntity<?> getCourse() {
         List<CourseDto> course = courseService.getCourse();
         return ResponseEntity.ok(course);
@@ -51,7 +51,8 @@ public class CourseController implements CourseControllerImpl {
     }
 
     @Override
-    public HttpEntity<?> deleteCourse(Integer id) {
+    @DeleteMapping("/{id}")
+    public HttpEntity<?> deleteCourse(@PathVariable Integer id) {
         ApiResponse<?> apiResponse = courseService.deleteCourse(id);
        return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
     }

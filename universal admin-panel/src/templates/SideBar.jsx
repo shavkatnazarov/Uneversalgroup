@@ -3,7 +3,7 @@ import {SIDE_ARR} from "../utils/SideArr.js";
 
 export const SideBar = () => {
     return (
-        <aside className="left-sidebar">
+        <aside className="left-sidebar shadow">
             <div>
                 <div className="brand-logo  justify-content-between">
                     <a href="./index.html" className="text-nowrap logo-img">
@@ -17,7 +17,6 @@ export const SideBar = () => {
                         <ul id="sidebarnav">
                             <li className="nav-small-cap">
                                 <i className="ti ti-dots nav-small-cap-icon fs-4"></i>
-                                <span className="hide-menu">Home</span>
                             </li>
                     {SIDE_ARR.map((item)=>(
                             <li className="sidebar-item">
