@@ -2,9 +2,7 @@ package uneversalgroup.uneversal.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import uneversalgroup.uneversal.impl.controller.GroupControllerImpl;
 import uneversalgroup.uneversal.payload.GroupDto;
 
@@ -14,7 +12,8 @@ import uneversalgroup.uneversal.payload.GroupDto;
 @RequestMapping("/api/group")
 public class GroupController implements GroupControllerImpl {
     @Override
-    public HttpEntity<?> addGroup(GroupDto groupDto) {
+    @PostMapping
+    public HttpEntity<?> addGroup(@RequestBody GroupDto groupDto) {
         return null;
     }
 }
