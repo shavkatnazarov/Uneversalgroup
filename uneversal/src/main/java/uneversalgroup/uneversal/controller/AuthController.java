@@ -5,12 +5,16 @@ import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 import uneversalgroup.uneversal.entity.User;
-import uneversalgroup.uneversal.payload.LoginDto;
+import uneversalgroup.uneversal.payload.*;
 import uneversalgroup.uneversal.repository.AuthRepository;
+import uneversalgroup.uneversal.security.JwtTokenProvider;
 import uneversalgroup.uneversal.service.AuthService;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -20,6 +24,7 @@ public class AuthController {
     private final AuthService authService;
     private final AuthRepository authRepository;
     private final AuthenticationManager authenticationManager;
+    private final JwtTokenProvider jwtTokenProvider ;
     @PostMapping("/login")
     public HttpEntity<?> login(@RequestBody LoginDto request) {
         return authService.login(request, authenticationManager);
@@ -31,8 +36,12 @@ public class AuthController {
         return ResponseEntity.ok(user);
     }
 
-//    @PostMapping("/register")
-//    public HttpEntity<?> register(@RequestBody RegisterDto registerDto) {
-//        return authService.register(registerDto, authenticationManager );
-//    }
+    private String generateToken(String phoneNumber) {
+        User user = authRepository.findUserByPhoneNumber(phoneNumber).orElseThrow(() -> new UsernameNotFoundException("getUser"));
+        return jwtTokenProvider.generateToken(user.getId());
+    }
+
+    public GetData getMal(User user, ResToken resToken) {
+        return new GetData(user, resToken);
+    }
 }
