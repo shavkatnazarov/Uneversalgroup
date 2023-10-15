@@ -62,6 +62,12 @@ public class AuthController {
         return ResponseEntity.status(register.isSuccess() ? 200 : 409).body(register);
     }
 
+    @GetMapping("/teacher")
+    public HttpEntity<?> getTeacher() {
+        List<LoginDto> teacher = authService.getTeacher();
+        return ResponseEntity.ok(teacher);
+    }
+
     private String generateToken(String phoneNumber) {
         User user = authRepository.findUserByPhoneNumber(phoneNumber).orElseThrow(() -> new UsernameNotFoundException("getUser"));
         return jwtTokenProvider.generateToken(user.getId());

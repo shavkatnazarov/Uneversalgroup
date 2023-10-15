@@ -13,10 +13,13 @@ import uneversalgroup.uneversal.entity.Role;
 import uneversalgroup.uneversal.entity.User;
 import uneversalgroup.uneversal.payload.ApiResponse;
 import uneversalgroup.uneversal.payload.AuthDto;
+import uneversalgroup.uneversal.payload.LoginDto;
 import uneversalgroup.uneversal.repository.AuthRepository;
 import uneversalgroup.uneversal.repository.RoleRepository;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -45,6 +48,26 @@ public class AuthService implements UserDetailsService {
         }
     }
 
+
+    public List<LoginDto> getTeacher() {
+        Role role1 = roleRepository.findById(3).orElseThrow(() -> new ResourceNotFoundException("get User"));
+        List<User> all = authRepository.findAll();
+        List<LoginDto> registerDtoList = new ArrayList<>();
+        for (User user : all) {
+            for (Role role : user.getRoles()) {
+                if (role.equals(role1)){
+                    registerDtoList.add(
+                            LoginDto.builder()
+                                    .phoneNumber(user.getPhoneNumber())
+                                    .password(user.getPassword())
+                                    .build()
+                    );
+                }
+            }
+        }
+        return registerDtoList;
+    }
+
     @Override
     public UserDetails loadUserByUsername(String phoneNumber) throws UsernameNotFoundException {
         return authRepository.findUserByPhoneNumber(phoneNumber).orElseThrow(() -> new UsernameNotFoundException("getUser"));
@@ -53,4 +76,6 @@ public class AuthService implements UserDetailsService {
     public UserDetails getUserById(UUID id) {
         return authRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("getUser"));
     }
+
+
 }
