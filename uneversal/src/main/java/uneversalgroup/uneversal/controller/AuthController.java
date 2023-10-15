@@ -5,69 +5,34 @@ import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 import uneversalgroup.uneversal.entity.User;
-import uneversalgroup.uneversal.payload.*;
+import uneversalgroup.uneversal.payload.LoginDto;
 import uneversalgroup.uneversal.repository.AuthRepository;
-import uneversalgroup.uneversal.security.JwtTokenProvider;
 import uneversalgroup.uneversal.service.AuthService;
 
-import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
 public class AuthController {
-    private final
-    AuthService authService;
-    private final
-    AuthenticationManager authenticationManager;
-    private final
-    AuthRepository authRepository;
-    private final
-    JwtTokenProvider jwtTokenProvider;
-
-    @PostMapping("/findUser")
-    public HttpEntity<?> findUser(@RequestBody LoginDto loginDto) {
-        boolean b = authRepository.existsUsersByPhoneNumber(loginDto.getPhoneNumber());
-        if (b) {
-            return ResponseEntity.ok(new ApiResponse("login", true));
-        } else {
-            return ResponseEntity.ok(new ApiResponse("register", true));
-        }
-    }
-
+    private final AuthService authService;
+    private final AuthRepository authRepository;
+    private final AuthenticationManager authenticationManager;
     @PostMapping("/login")
     public HttpEntity<?> login(@RequestBody LoginDto request) {
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(request.getPhoneNumber(), request.getPassword())
-        );
-        User user = authRepository.findUserByPhoneNumber(request.getPhoneNumber()).orElseThrow(() -> new ResourceNotFoundException("getUser"));
-        ResToken resToken = new ResToken(generateToken(request.getPhoneNumber()));
-        System.out.println(ResponseEntity.ok(getMal(user, resToken)));
-        return ResponseEntity.ok(getMal(user, resToken));
+        return authService.login(request, authenticationManager);
     }
 
-    @GetMapping
-    public HttpEntity<?> getUser() {
-        List<User> all = authRepository.findAll();
-        return ResponseEntity.ok(all);
+    @GetMapping("/{id}")
+    public HttpEntity<?> getOneUser(@PathVariable UUID id) {
+        User user = authRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("getUser"));
+        return ResponseEntity.ok(user);
     }
 
-    @PostMapping("/register")
-    public HttpEntity<?> register(@RequestBody AuthDto dto) {
-        ApiResponse register = authService.register(dto);
-        return ResponseEntity.status(register.isSuccess() ? 200 : 409).body(register);
-    }
-
-    private String generateToken(String phoneNumber) {
-        User user = authRepository.findUserByPhoneNumber(phoneNumber).orElseThrow(() -> new UsernameNotFoundException("getUser"));
-        return jwtTokenProvider.generateToken(user.getId());
-    }
-
-    public GetData getMal(User user, ResToken resToken) {
-        return new GetData(user, resToken);
-    }
+//    @PostMapping("/register")
+//    public HttpEntity<?> register(@RequestBody RegisterDto registerDto) {
+//        return authService.register(registerDto, authenticationManager );
+//    }
 }
