@@ -6,5 +6,6 @@ import uneversalgroup.uneversal.entity.Group;
 import java.util.UUID;
 
 public interface GroupRepository extends JpaRepository<Group, UUID> {
+    boolean existsGroupByNameEqualsIgnoreCase(String name);
 
 }
