@@ -1,21 +1,13 @@
 //start payment
-import {BASE_CONFIG} from "../BaseConfig.js";
-import {APP_API} from "../AppApi.js";
 
-export const GetOnePayment = async (id) => {
-    try {
-        const res = await BASE_CONFIG.doGetOne(APP_API.payment, id)
-        return res.data
-    } catch (err) {
-        console.log(err.message)
-    }
-}
+import {BASE_CONFIG} from "../BaseConfig.js";
+
+
 //end payment
 //start payment
-import {BASE_CONFIG} from "../BaseConfig.js";
-import {APP_API} from "../AppApi.js";
 import {toast} from "react-toastify";
 import {IS_STATUS} from "../../utils/IsStatus.js";
+import {APP_API} from "../AppApi.js";
 
 export const GetOnePayment = async (id) => {
     try {
@@ -56,18 +48,7 @@ export const SaveCourse = async (data, setName, setPrice, setExpireDate, setDesc
         console.log(err.message)
     }
 }
-export const PhotoUpload = async (formData, setModal) => {
-    try {
-        const res = await BASE_CONFIG.doPost(APP_API.uploadPhoto, formData)
-        if (IS_STATUS(res.status)) {
-            setModal(false)
-            return res.data
-        }
 
-    } catch (err) {
-        console.log(err)
-    }
-}
 export const PhotoUpload = async (formData, setModal) => {
     try {
         const res = await BASE_CONFIG.doPost(APP_API.uploadPhoto, formData)

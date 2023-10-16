@@ -1,8 +1,8 @@
 //start course
-import {BASE_CONFIG as BaseConfig, BASE_CONFIG} from "../BaseConfig.js";
 import {APP_API} from "../AppApi.js";
 import {IS_STATUS} from "../../utils/IsStatus.js";
 import {toast} from "react-toastify";
+import {BASE_CONFIG} from "../BaseConfig.js";
 
 
 //end course
@@ -16,7 +16,7 @@ export const LoginHandler = async (data) => {
         return toast.error("parolda xatolik")
     }
     try {
-        const res = await BaseConfig.doPost(APP_API.login, data)
+        const res = await BASE_CONFIG.doPost(APP_API.login, data)
         if (IS_STATUS(res.status)) {
             localStorage.setItem("id", res.data.user.id)
             localStorage.setItem("firstName", res.data.user.firstName)

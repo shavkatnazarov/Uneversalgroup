@@ -24,7 +24,6 @@ public class GroupDto {
     private String end_date;
     private UUID teacherId;
     private User teacher;
-    private List<User> pupil;
     private List<SelectDto>weekDays;
     private Day_type dayType;
     private boolean active;
