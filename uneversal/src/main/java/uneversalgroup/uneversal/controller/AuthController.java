@@ -25,6 +25,7 @@ public class AuthController {
     private final AuthRepository authRepository;
     private final AuthenticationManager authenticationManager;
     private final JwtTokenProvider jwtTokenProvider ;
+
     @PostMapping("/login")
     public HttpEntity<?> login(@RequestBody LoginDto request) {
         return authService.login(request, authenticationManager);
