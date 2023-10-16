@@ -1,4 +1,5 @@
 package uneversalgroup.uneversal.config;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,6 +19,8 @@ import org.springframework.security.web.firewall.StrictHttpFirewall;
 import uneversalgroup.uneversal.security.JwtErrors;
 import uneversalgroup.uneversal.security.JwtTokenFilter;
 import uneversalgroup.uneversal.service.AuthService;
+
+import javax.servlet.Filter;
 
 @Configuration
 @EnableWebSecurity
@@ -55,7 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public JwtTokenFilter jwtTokenFilter() {
+    public Filter jwtTokenFilter() {
         return new JwtTokenFilter();
     }
 
@@ -73,7 +76,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeHttpRequests()
-                .antMatchers("/api/auth/**", "/api/course/**","/api/group/**", "/api/attachment/**",  "/api/statistics/**")
+                .antMatchers("/api/auth/**","/api/course/**","/api/attachment/**")
                 .permitAll()
                 .antMatchers("/api/**")
                 .authenticated();

@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import {DeleteCourse, EditeCourse, GetCourse, PhotoUpload, SaveCourse} from "../../connection/service/AuthService.js";
-import {Button, Card, CardBody, CardFooter, CardHeader, Form, Offcanvas} from "react-bootstrap";
+import {Button, Card, CardBody, CardHeader, Offcanvas} from "react-bootstrap";
 import {
     DropdownMenu,
     DropdownToggle,

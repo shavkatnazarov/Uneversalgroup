@@ -15,61 +15,25 @@ import uneversalgroup.uneversal.security.JwtTokenProvider;
 import uneversalgroup.uneversal.service.AuthService;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
 public class AuthController {
-    private final
-    AuthService authService;
-    private final
-    AuthenticationManager authenticationManager;
-    private final
-    AuthRepository authRepository;
-    private final
-    JwtTokenProvider jwtTokenProvider;
-
-    @PostMapping("/findUser")
-    public HttpEntity<?> findUser(@RequestBody LoginDto loginDto) {
-        boolean b = authRepository.existsUsersByPhoneNumber(loginDto.getPhoneNumber());
-        if (b) {
-            return ResponseEntity.ok(new ApiResponse("login", true));
-        } else {
-            return ResponseEntity.ok(new ApiResponse("register", true));
-        }
-    }
-    @PostMapping("/teacher")
-    public HttpEntity<?> teacher(@RequestBody AuthDto authDto){
-        ApiResponse teacher = authService.teacher(authDto);
-        return ResponseEntity.status(teacher.isSuccess()? 200 : 400).body(teacher);
-    }
+    private final AuthService authService;
+    private final AuthRepository authRepository;
+    private final AuthenticationManager authenticationManager;
+    private final JwtTokenProvider jwtTokenProvider ;
     @PostMapping("/login")
     public HttpEntity<?> login(@RequestBody LoginDto request) {
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(request.getPhoneNumber(), request.getPassword())
-        );
-        User user = authRepository.findUserByPhoneNumber(request.getPhoneNumber()).orElseThrow(() -> new ResourceNotFoundException("getUser"));
-        ResToken resToken = new ResToken(generateToken(request.getPhoneNumber()));
-        System.out.println(ResponseEntity.ok(getMal(user, resToken)));
-        return ResponseEntity.ok(getMal(user, resToken));
+        return authService.login(request, authenticationManager);
     }
 
-    @GetMapping
-    public HttpEntity<?> getUser() {
-        List<User> all = authRepository.findAll();
-        return ResponseEntity.ok(all);
-    }
-
-    @PostMapping("/register")
-    public HttpEntity<?> register(@RequestBody AuthDto dto) {
-        ApiResponse register = authService.register(dto);
-        return ResponseEntity.status(register.isSuccess() ? 200 : 409).body(register);
-    }
-
-    @GetMapping("/teacher")
-    public HttpEntity<?> getTeacher() {
-        List<LoginDto> teacher = authService.getTeacher();
-        return ResponseEntity.ok(teacher);
+    @GetMapping("/{id}")
+    public HttpEntity<?> getOneUser(@PathVariable UUID id) {
+        User user = authRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("getUser"));
+        return ResponseEntity.ok(user);
     }
 
     private String generateToken(String phoneNumber) {

@@ -5,4 +5,6 @@ export const APP_API={
     uploadPhoto:'/attachment/upload',
     login: '/auth/login',
     downloadPhoto:BASE_URL+"/attachment/download?id=",
+    payment:'/payment',
+    login:'/auth/login'
 }

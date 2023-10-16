@@ -7,7 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class UneversalApplication {
 
 	public static void main(String[] args) {
-		System.err.println("quzi");
 		SpringApplication.run(UneversalApplication.class, args);
 	}
 
