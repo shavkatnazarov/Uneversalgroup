@@ -30,6 +30,7 @@ public class AuthService implements UserDetailsService {
     private final JwtTokenProvider jwtTokenProvider;
     private final AuthRepository authRepository;
     private final RoleRepository roleRepository;
+
     @Autowired
     public PasswordEncoder pass(){
         return new BCryptPasswordEncoder();
