@@ -1,7 +1,7 @@
 export const Header=()=>{
     return(
-        <header className="app-header shadow">
-            <nav className="navbar navbar-expand-lg navbar-light">
+        <header className="app-header">
+            <nav className="navbar navbar-expand-lg navbar-light shadow" style={{width:'85%',marginLeft:'16.7%'}}>
                 <ul className="navbar-nav">
                     <li className="nav-item d-block d-xl-none">
                         <a className="nav-link sidebartoggler nav-icon-hover" id="headerCollapse" >

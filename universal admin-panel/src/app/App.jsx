@@ -6,7 +6,7 @@ import "../assets/css/icons/tabler-icons/tabler-icons.css";
 import {Course} from "../admin/course/Course.jsx";
 import {Menu} from "../templates/Menu.jsx";
 import {CourseItem} from "../admin/course/CourseItem.jsx";
-import {Login} from "../pages/auth/Login.jsx";
+import {Login} from "../templates/auth/Login.jsx";
 
 
 function App() {
