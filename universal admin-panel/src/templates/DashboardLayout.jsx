@@ -10,7 +10,7 @@ export const DashboardLayout = () => {
         <div>
             {token ?(
             <div>
-                <div >
+                <div>
                     <Header/>
                 </div>
                 <div style={{width: "20%",height: "100%",overflow: "auto"}} >

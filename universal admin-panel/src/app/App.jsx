@@ -15,7 +15,7 @@ function App() {
             <Routes>
                 <Route path={"/"} element={<Login/>}/>
 
-                <Route path={"/"} element={<DashboardLayout/>}>
+                <Route path={"/auth/dashboard"} element={<DashboardLayout/>}>
                     <Route index element={<Menu/>}/>
                     <Route path={"/auth/dashboard/course"} element={<Course/>}/>
                     <Route path={"/auth/dashboard/course/:id"} element={<CourseItem/>}/>
