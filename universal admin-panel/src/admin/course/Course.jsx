@@ -228,20 +228,17 @@ navigate("/auth/dashboard/course/"+id)
                             Xaqida
                         </button>
                     </td>
-                    <td><UncontrolledDropdown
-                        className="me-2"
-                        direction="start">
-                        <DropdownToggle
-                            caret
-                            color="primary">
-                        </DropdownToggle>
-                        <DropdownMenu>
-                            <div className={"text-center"}>
-                                <Button variant="warning" onClick={()=>handleShow('edit',item.id,item.name)} className=" w-75">Taxrirlash</Button>
-                                <button className={"btn btn-danger w-75 mt-2"} onClick={()=>deleteCourse(item.id)}> O'chirish</button>
-                            </div>
-                        </DropdownMenu>
-                    </UncontrolledDropdown>
+                    <td>
+                        <div className="dropdown">
+                            <button style={{color: "black", width: "-10px"}} className="btn btn-light" type="button"
+                                    data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                <i className="bi  bi-gear"/>
+                            </button>
+                            <ul className="dropdown-menu">
+                                <li>jkl</li>
+                            </ul>
+                        </div>
                     </td>
                 </tr>
             ))}
