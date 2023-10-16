@@ -5,8 +5,8 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.7.15</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<version>2.7.16</version>
+		<relativePath/>
 	</parent>
 	<groupId>uneversalgroup</groupId>
 	<artifactId>uneversal</artifactId>
