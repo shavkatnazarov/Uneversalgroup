@@ -32,11 +32,20 @@ public class AuthService implements UserDetailsService {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
+    public ApiResponse teacher(AuthDto authDto){
+        try{
+            Role getRole = roleRepository.findById(2).orElseThrow(() -> new ResourceNotFoundException("getRole"));
+               User teacher = User.builder().roles(Collections.singleton(getRole)).lastName(authDto.getSurName()).password(authDto.getPhoneNumber()).phoneNumber(authDto.getPhoneNumber()).firstName(authDto.getName()).build();
+               authRepository.save(teacher);
+                return new ApiResponse("Saqlandi", true);
+        }catch (Exception e){
+            return new ApiResponse<>("uqituvchi saqlashda xatolik sababi"+e,false);
+        }
+    }
     public ApiResponse register(AuthDto dto) {
         try {
             boolean b = authRepository.existsUsersByPhoneNumber(dto.getPhoneNumber());
-            Role getRole = roleRepository.findById(1).orElseThrow(() -> new ResourceNotFoundException("getRole"));
+            Role getRole = roleRepository.findById(3).orElseThrow(() -> new ResourceNotFoundException("getRole"));
             if (!b) {
                 User build = User.builder().roles(Collections.singleton(getRole)).lastName(dto.getSurName()).password(dto.getPhoneNumber()).phoneNumber(dto.getPhoneNumber()).firstName(dto.getName()).build();
                 authRepository.save(build);

@@ -38,7 +38,11 @@ public class AuthController {
             return ResponseEntity.ok(new ApiResponse("register", true));
         }
     }
-
+    @PostMapping("/teacher")
+    public HttpEntity<?> teacher(@RequestBody AuthDto authDto){
+        ApiResponse teacher = authService.teacher(authDto);
+        return ResponseEntity.status(teacher.isSuccess()? 200 : 400).body(teacher);
+    }
     @PostMapping("/login")
     public HttpEntity<?> login(@RequestBody LoginDto request) {
         authenticationManager.authenticate(

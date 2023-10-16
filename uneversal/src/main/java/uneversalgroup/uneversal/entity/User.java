@@ -5,9 +5,11 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import uneversalgroup.uneversal.entity.template.AbsEntity;
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -50,6 +52,16 @@ public class User extends AbsEntity implements UserDetails {
         this.roles = roles;
     }
 
+    public User (UUID id, Timestamp createAt, Timestamp updateAt, UUID createBy, UUID updateBy, String firstName, String lastName, String phoneNumber, String password, Set<Role> roles, boolean enabled, boolean credentialsNonExpired, boolean accountNonLocked, boolean accountNonExpired) {
+        super(id, createAt, updateAt, createBy, updateBy);
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+        this.password = password;
+        this.roles = roles;
+
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles;
@@ -80,3 +92,4 @@ public class User extends AbsEntity implements UserDetails {
         return enabled;
     }
 }
+

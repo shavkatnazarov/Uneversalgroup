@@ -26,10 +26,11 @@ export const SideBar = () => {
                 </span>
                                     <span className="hide-menu">{item.name}</span>
                                 </Link>
+
                             </li>
                         </ul>
                     ))}
-
+                    <button style={{marginLeft:"30px",marginTop:"350px"}} className={"btn btn-danger"}>logout</button>
                 </nav>
             </div>
         </aside>
