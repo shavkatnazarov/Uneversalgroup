@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {DeleteCourse, EditeCourse, GetCourse, PhotoUpload, SaveCourse} from "../../connection/service/AuthService.js";
+import {DeleteCourse, EditeCourse, GetCourse, PhotoUpload, SaveCourse} from "../../connection/service/AppService.js";
 import {Button, Card, CardBody, CardHeader, Offcanvas} from "react-bootstrap";
 import {
     DropdownMenu,
@@ -236,7 +236,10 @@ navigate("/auth/dashboard/course/"+id)
                                 <i className="bi  bi-gear"/>
                             </button>
                             <ul className="dropdown-menu">
-                                <li>jkl</li>
+                                <div className={"text-center"}>
+                                    <Button variant="warning" onClick={()=>handleShow('edit',item.id,item.name)} className=" w-75">Taxrirlash</Button>
+                                    <button className={"btn btn-danger w-75 mt-2"} onClick={()=>deleteCourse(item.id)}> O'chirish</button>
+                                </div>
                             </ul>
                         </div>
                     </td>

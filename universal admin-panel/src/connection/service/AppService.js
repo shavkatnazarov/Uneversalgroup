@@ -68,6 +68,18 @@ export const PhotoUpload = async (formData, setModal) => {
         console.log(err)
     }
 }
+export const PhotoUpload = async (formData, setModal) => {
+    try {
+        const res = await BASE_CONFIG.doPost(APP_API.uploadPhoto, formData)
+        if (IS_STATUS(res.status)) {
+            setModal(false)
+            return res.data
+        }
+
+    } catch (err) {
+        console.log(err)
+    }
+}
 export const DeleteCourse = async (id, getAll) => {
     try {
         const res = await  BASE_CONFIG.doDelete(APP_API.course,id)
