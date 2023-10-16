@@ -13,7 +13,7 @@ export const Login = () => {
         const redirectAdminPanel = () => {
             const token = localStorage.getItem('token');
             const isAuth = isAuthenticated(token)
-            if (isAuth) return navigate('/')
+            if (isAuth) return navigate('/auth/dashboard')
         }
         redirectAdminPanel()
     }, [])

@@ -25,7 +25,6 @@ public class DataLoader implements CommandLineRunner {
     private final AuthRepository authRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
-
     @Override
     public void run(String... args) throws Exception {
         if (init.equals("create-drop") || init.equals("create")) {
