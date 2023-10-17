@@ -20,6 +20,7 @@ import java.lang.module.ResolutionException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -44,7 +45,7 @@ public class GroupService implements GroupServiceImpl {
                 weekDays.add(Monday);
                 weekDays.add(WEDNESDAY);
                 weekDays.add(Friday);
-                if (!exist){
+                if (!exist) {
                     Group build = Group.builder()
                             .name(groupDto.getName())
                             .course(course)
@@ -56,7 +57,7 @@ public class GroupService implements GroupServiceImpl {
                             .active(true)
                             .build();
                     groupRepository.save(build);
-                    return new ApiResponse<>("group saqlandi",true);
+                    return new ApiResponse<>("group saqlandi", true);
                 }
 
             } else if (groupDto.getDayType().getDayTypeName().name().equals("JUFT")) {
@@ -66,7 +67,7 @@ public class GroupService implements GroupServiceImpl {
                 weekDays.add(TUESDAY);
                 weekDays.add(THURSDAY);
                 weekDays.add(SUNDAY);
-                if (!exist){
+                if (!exist) {
                     Group group = Group.builder()
                             .name(groupDto.getName())
                             .course(course)
@@ -78,14 +79,14 @@ public class GroupService implements GroupServiceImpl {
                             .active(true)
                             .build();
                     groupRepository.save(group);
-                    return new ApiResponse<>("group saqlandi",true);
+                    return new ApiResponse<>("group saqlandi", true);
                 }
             } else {
                 for (SelectDto weekDay : groupDto.getWeekDays()) {
                     Week_day getWeekDays = weekDaysRepository.findById(weekDay.getValue()).orElseThrow(() -> new org.springframework.data.rest.webmvc.ResourceNotFoundException("getWeekDays"));
                     weekDays.add(getWeekDays);
                 }
-                if (!exist){
+                if (!exist) {
                     Group group1 = Group.builder()
                             .name(groupDto.getName())
                             .course(course)
@@ -97,7 +98,7 @@ public class GroupService implements GroupServiceImpl {
                             .active(true)
                             .build();
                     groupRepository.save(group1);
-                    return new ApiResponse<>("group saqlandi",true);
+                    return new ApiResponse<>("group saqlandi", true);
                 }
             }
             return null;
@@ -105,4 +106,18 @@ public class GroupService implements GroupServiceImpl {
             return new ApiResponse<>("xatolik", false);
         }
     }
+
+    @Override
+    public ApiResponse<?> changeActive(UUID id, boolean active) {
+        try {
+            Group group = groupRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(404, "getGroupId", "groupId", id));
+            group.setActive(active);
+            groupRepository.save(group);
+            return new ApiResponse<>("Arxivlandi",true);
+        } catch (Exception e) {
+            return new ApiResponse<>("activda xatolik", false);
+        }
+    }
+
+
 }

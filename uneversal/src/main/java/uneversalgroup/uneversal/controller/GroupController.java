@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.*;
 import uneversalgroup.uneversal.impl.controller.GroupControllerImpl;
 import uneversalgroup.uneversal.payload.GroupDto;
 
+import java.util.UUID;
+
 @RestController
 @RequiredArgsConstructor
 @CrossOrigin
@@ -15,5 +17,11 @@ public class GroupController implements GroupControllerImpl {
     @PostMapping
     public HttpEntity<?> addGroup(@RequestBody GroupDto groupDto) {
         return null;
+    }
+
+    @Override
+    public HttpEntity<?> changeActive(UUID id, boolean active) {
+
+
     }
 }
