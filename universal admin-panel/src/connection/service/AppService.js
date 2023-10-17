@@ -12,8 +12,7 @@ export const GetOnePayment = async (id) => {
 }
 //end payment
 //start payment
-import {BASE_CONFIG} from "../BaseConfig.js";
-import {APP_API} from "../AppApi.js";
+
 import {toast} from "react-toastify";
 import {IS_STATUS} from "../../utils/IsStatus.js";
 

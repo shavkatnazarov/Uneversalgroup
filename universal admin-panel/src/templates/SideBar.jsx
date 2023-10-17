@@ -1,28 +1,34 @@
 import {Link} from "react-router-dom";
 import {SIDE_ARR} from "../utils/SideArr.js";
+import {useNavigate} from 'react-router-dom'
 
 export const SideBar = () => {
+    const navigate = useNavigate()
+    const logout = () => {
+        localStorage.clear()
+        navigate("/")
+    }
     return (
         <aside className="left-sidebar shadow">
             <div>
                 <div className="brand-logo  justify-content-between">
-                    <a href="./index.html" className="text-nowrap logo-img">
-                        <img src="../assets/images/logos/dark-logo.svg" width="180" alt="" />
+                    <a href="#" className="text-nowrap logo-img">
+                        <img src="https://flxt.tmsimg.com/assets/533352_v9_bb.jpg" width="180" alt="" />
                     </a>
                     <div className="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
-                        <i className="ti ti-x fs-8"></i>
+                        <i className="ti ti-x fs-8"/>
                     </div>
                 </div>
                 <nav className="sidebar-nav scroll-sidebar" data-simplebar="">
                     {SIDE_ARR.map((item)=>(
                         <ul id="sidebarnav">
                             <li className="nav-small-cap">
-                                <i className="ti ti-dots nav-small-cap-icon fs-4"></i>
+                                <i className="ti ti-dots nav-small-cap-icon fs-4"/>
                             </li>
                             <li className="sidebar-item">
                                 <Link className="sidebar-link" to={item.link} aria-expanded="false">
                 <span>
-                  <i className={item.icon+"ti ti-layout-dashboard"}></i>
+                  <i className={item.icon + "ti ti-layout-dashboard"}/>
                 </span>
                                     <span className="hide-menu">{item.name}</span>
                                 </Link>
@@ -30,7 +36,7 @@ export const SideBar = () => {
                             </li>
                         </ul>
                     ))}
-                    <button style={{marginLeft:"30px",marginTop:"350px"}} className={"btn btn-danger"}>logout</button>
+                    <button style={{marginLeft:"30px",marginTop:"350px"}} className={"btn btn-danger"} onClick={() => logout()}>logout</button>
                 </nav>
             </div>
         </aside>

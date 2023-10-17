@@ -4,9 +4,11 @@ import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import uneversalgroup.uneversal.entity.template.AbsEntity;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -23,13 +25,14 @@ public class User extends AbsEntity implements UserDetails {
     @Column(nullable = false)
     private String lastName;
 
-
     @Column(nullable = false, unique = true)
     private String phoneNumber;
 
     @Column(nullable = false)
     private String password;
-
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "user_group")
+    private List<Group> groups;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "users_role",
@@ -47,15 +50,16 @@ public class User extends AbsEntity implements UserDetails {
         this.phoneNumber = phoneNumber;
         this.password = password;
         this.roles = roles;
+
     }
 
-    public User (UUID id, Timestamp createAt, Timestamp updateAt, UUID createBy, UUID updateBy, String firstName, String lastName, String phoneNumber, String password, Set<Role> roles, boolean enabled, boolean credentialsNonExpired, boolean accountNonLocked, boolean accountNonExpired) {
+    public User(UUID id, Timestamp createAt, Timestamp updateAt, UUID createBy, UUID updateBy, String firstName, String lastName, String phoneNumber, Set<Role> roles, boolean enabled, boolean credentialsNonExpired, boolean accountNonLocked, boolean accountNonExpired, List<Group> groups) {
         super(id, createAt, updateAt, createBy, updateBy);
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
-        this.password = password;
         this.roles = roles;
+        this.groups = groups;
 
     }
 

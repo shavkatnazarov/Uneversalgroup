@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/Uneversalgroup.iml" filepath="$PROJECT_DIR$/.idea/Uneversalgroup.iml" />
+      <module fileurl="file://$PROJECT_DIR$/uneversal/uneversal.iml" filepath="$PROJECT_DIR$/uneversal/uneversal.iml" />
     </modules>
   </component>
 </project>
