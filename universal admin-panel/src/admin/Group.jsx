@@ -5,6 +5,8 @@ export const Group = () => {
     const [loading, setLoading] = useState(false)
     const [group, setGroup] = useState([])
     const [teacher, setTeacher] = useState([])
+    const [course,setCourse]=useState([])
+    const [courseId,setCourseId]=useState('')
     const [teacherId, setTeacherId] = useState('')
     const [name, setName] = useState('')
     const [startDate, setStartDate] = useState('')
@@ -31,6 +33,13 @@ export const Group = () => {
                 <Offcanvas.Body>
                     <div className={"w-100 row d-flex align-items-center justify-content-between"}>
                         <form>
+
+                            <label htmlFor="courseId">Cursni tanlang</label>
+                            <select name="courseId" id="courseId" onChange={e => setCourseId(e.target.value)}
+                                    value={courseId} className={"form-control"}>
+                                <option value="0" selected={true}>Tanlang</option>
+                                {course.map(item => (<option value={item.id}>{item.name}</option>))}
+                            </select>
                             <label htmlFor="name" className={"fw-bold  m-2"}>Gruppa nomi</label>
                             <input type="text" placeholder={"coure nomini kiritng"} className={"form-control"}
                                    onChange={(e) => setName(e.target.value)} value={name} id={"name"} name={"name"}/>
