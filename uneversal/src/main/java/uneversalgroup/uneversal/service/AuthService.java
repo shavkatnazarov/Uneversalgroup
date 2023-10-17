@@ -32,7 +32,7 @@ public class AuthService implements UserDetailsService {
     private final RoleRepository roleRepository;
 
     @Autowired
-    public PasswordEncoder pass(){
+    public PasswordEncoder pas(){
         return new BCryptPasswordEncoder();
     }
 
@@ -79,41 +79,6 @@ public class AuthService implements UserDetailsService {
         System.out.println(ResponseEntity.ok(getMal(user, resToken)));
         return ResponseEntity.ok(getMal(user, resToken));
     }
-
-//    public HttpEntity<?> register(RegisterDto registerDto, AuthenticationManager authenticationManager) {
-//        if (!registerDto.getPassword().equals(registerDto.getPrePassword())) {
-//            return ResponseEntity.ok(new ApiResponse<>("Parol va tasdiqlash paroli teng bo'lishi shart", false));
-//        }
-//        if (registerDto.getPhoneNumber().length() != 9) {
-//            return ResponseEntity.ok(new ApiResponse<>("telefon raqamda xatolik", false));
-//        }
-//        try {
-//            long number = Long.parseLong(registerDto.getPhoneNumber());
-//            int name = (int) (Math.random() * 1000000);
-//            int surname = (int) (Math.random() * 1000000);
-//            User user = User.builder()
-//                    .name(String.valueOf(name))
-//                    .surname(String.valueOf(surname))
-//                    .phoneNumber(registerDto.getPhoneNumber())
-//                    .password(pass().encode(registerDto.getPassword()))
-//                    .roles(Collections.singleton(roleRepository.findById(4).orElseThrow(() -> new ResourceNotFoundException("getRole"))))
-//                    .buyProducts(null)
-//                    .accountNonLocked(true)
-//                    .accountNonExpired(true)
-//                    .credentialsNonExpired(true)
-//                    .enabled(true)
-//                    .build();
-//            User save = authRepository.save(user);
-//            LoginDto loginDto = LoginDto.builder()
-//                    .phoneNumber(save.getPhoneNumber())
-//                    .password(registerDto.getPassword())
-//                    .build();
-//            return login(loginDto, authenticationManager);
-//        } catch (NumberFormatException e) {
-//            return ResponseEntity.ok(new ApiResponse<>("Telefon raqam faqat raqamdan iborat bo'lishi kerak", false));
-//        }
-//    }
-
     private String generateToken(String phoneNumber) {
         User user = authRepository.findUserByPhoneNumber(phoneNumber).orElseThrow(() -> new UsernameNotFoundException("getUser"));
         return jwtTokenProvider.generateToken(user.getId());
