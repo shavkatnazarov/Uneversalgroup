@@ -14,7 +14,6 @@ function App() {
         <BrowserRouter>
             <Routes>
                 <Route path={"/"} element={<Login/>}/>
-
                 <Route path={"/auth/dashboard"} element={<DashboardLayout/>}>
                     <Route index element={<Menu/>}/>
                     <Route path={"/auth/dashboard/course"} element={<Course/>}/>
