@@ -72,11 +72,11 @@ public class AuthService implements UserDetailsService {
             return new ApiResponse<>("Xatolik", false);
         }
     }
-    public ApiResponse<?> addTeacher(UUID userId, AuthDto authDto){
+    public ApiResponse<?> addTeacher(UUID id, AuthDto authDto){
         try {
-            User user = authRepository.findById(userId).orElseThrow(() -> new uneversalgroup.uneversal.exception.ResourceNotFoundException(404, "getUser", "user", userId));
-            Role adminRole = roleRepository.findById(1).orElseThrow(() -> new uneversalgroup.uneversal.exception.ResourceNotFoundException(404, "getRole", "id", userId));
-            Role teacherRole = roleRepository.findById(2).orElseThrow(() -> new uneversalgroup.uneversal.exception.ResourceNotFoundException(404, "getRole", "id", userId));
+            User user = authRepository.findById(id).orElseThrow(() -> new uneversalgroup.uneversal.exception.ResourceNotFoundException(404, "getUser", "user", id));
+            Role adminRole = roleRepository.findById(1).orElseThrow(() -> new uneversalgroup.uneversal.exception.ResourceNotFoundException(404, "getRole", "id", id));
+            Role teacherRole = roleRepository.findById(2).orElseThrow(() -> new uneversalgroup.uneversal.exception.ResourceNotFoundException(404, "getRole", "id", id));
             for (Role role : user.getRoles()) {
                 if (role.equals(adminRole)){
                     User build = User.builder()

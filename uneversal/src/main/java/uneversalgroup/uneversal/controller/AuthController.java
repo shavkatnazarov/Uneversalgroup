@@ -41,7 +41,7 @@ public class AuthController {
         ApiResponse<?> apiResponse = authService.addPupil(authDto, groupId, id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 400).body(apiResponse);
     }
-    @PostMapping("/teacher{userId}")
+    @PostMapping("/teacher{id}")
     public HttpEntity<?> addTeachers(@PathVariable UUID id,@RequestBody AuthDto authDto){
         ApiResponse<?> apiResponse = authService.addTeacher(id, authDto);
         return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
