@@ -121,7 +121,7 @@ export const Course = () => {
                 <ModalFooter>
                     <Button variant="danger" onClick={() =>handleClose() }>Bekor qilsh
                     </Button>
-                    <Button variant="primary" onClick={()=>photoUpload()} className="me-2">
+                      <Button variant="primary" onClick={()=>photoUpload()} className="me-2">
                         Davom etish
                     </Button>
 
