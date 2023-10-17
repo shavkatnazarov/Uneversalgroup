@@ -1,4 +1,3 @@
-
 import {BASE_CONFIG} from "../BaseConfig.js";
 import {APP_API} from "../AppApi.js";
 import {toast} from "react-toastify";
@@ -100,4 +99,29 @@ export const GetOneCourse = async (id) => {
         console.log(err.message)
     }
 }
-//end payment
+//start teacher
+export const AddTeacher =async(data,setFirstName,setLastName,setPhoneNumber,setPassword)=>{
+    const check={
+        ism:data.firstName.trim().length===0,
+        familya:data.lastName.trim().length===0,
+        tel:data.phoneNumber.trim().length!==9,
+        pas:data.password.trim().length===6,
+    }
+    if (check.ism||check.familya){
+        return toast.warning("Malumot bosh bolmasin")
+    }
+    if (check.tel){
+        return toast.warning("Telefon raqamda xatolik")
+    }
+    if (check.pas){
+        return toast.warning("parol 6ta belgidan kop bolsin")
+    }
+    const res = await BASE_CONFIG.doPost(APP_API.teacher, data)
+    if (IS_STATUS(res.status)) {
+        toast.success(res.data.message)
+        setFirstName('')
+        setLastName('')
+        setPhoneNumber('')
+        setPassword('')
+    }
+}

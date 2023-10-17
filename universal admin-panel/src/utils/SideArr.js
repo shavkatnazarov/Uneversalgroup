@@ -3,4 +3,5 @@ export const SIDE_ARR=[
     {name: 'Curslar',icon: '',link: '/auth/dashboard/course'},
     {name: 'Gruppa',icon: '',link: "/auth/dashboard/group"},
     {name: 'To\'lov',icon: '',link: '/auth/dashboard/payment'},
+    {name: 'Teacher',icon: '',link: '/auth/dashboard/teacher'},
 ]
