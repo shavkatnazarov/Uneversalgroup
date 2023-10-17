@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
-import {GetOneCourse} from "../../connection/service/AuthService.js";
+import {GetOneCourse} from "/s  /connection/service/AuthService.js";
 import {Loading} from "../../pages/Loading.jsx";
 import {Card, CardBody, CardHeader} from "react-bootstrap";
 import {APP_API} from "../../connection/AppApi.js";

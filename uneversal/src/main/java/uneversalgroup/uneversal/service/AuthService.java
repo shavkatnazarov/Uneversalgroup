@@ -14,14 +14,14 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import uneversalgroup.uneversal.entity.Role;
 import uneversalgroup.uneversal.entity.User;
-import uneversalgroup.uneversal.payload.GetData;
-import uneversalgroup.uneversal.payload.LoginDto;
-import uneversalgroup.uneversal.payload.ResToken;
+import uneversalgroup.uneversal.payload.*;
 import uneversalgroup.uneversal.repository.AuthRepository;
 import uneversalgroup.uneversal.repository.RoleRepository;
 import uneversalgroup.uneversal.security.JwtTokenProvider;
 
+import java.util.Collections;
 import java.util.UUID;
 
 @Service
@@ -43,6 +43,31 @@ public class AuthService implements UserDetailsService {
 
     public UserDetails getUserById(UUID id) {
         return authRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("getUser"));
+    }
+    public ApiResponse<?> addTeacher(UUID userId, AuthDto authDto){
+        try {
+            User user = authRepository.findById(userId).orElseThrow(() -> new uneversalgroup.uneversal.exception.ResourceNotFoundException(404, "getUser", "user", userId));
+            Role adminRole = roleRepository.findById(1).orElseThrow(() -> new uneversalgroup.uneversal.exception.ResourceNotFoundException(404, "getRole", "id", userId));
+            Role teacherRole = roleRepository.findById(2).orElseThrow(() -> new uneversalgroup.uneversal.exception.ResourceNotFoundException(404, "getRole", "id", userId));
+            for (Role role : user.getRoles()) {
+                if (role.equals(adminRole)){
+                    User build = User.builder()
+                            .firstName(authDto.getFirstName())
+                            .lastName(authDto.getLastName())
+                            .phoneNumber(authDto.getPhoneNumber())
+                            .password(authDto.getPassword())
+                            .roles(Collections.singleton(teacherRole))
+                            .build();
+                    authRepository.save(build);
+                    return new ApiResponse<>("O'qtuvchi qoshildi",true);
+                }
+                return new ApiResponse<>("Faqat admin qusha oladi",false);
+            }
+            return new ApiResponse<>("xatolik",false);
+
+        }catch (Exception e){
+            return new ApiResponse<>("Xatolik",false);
+        }
     }
 
     public HttpEntity<?> login(LoginDto request, AuthenticationManager authenticationManager) {
