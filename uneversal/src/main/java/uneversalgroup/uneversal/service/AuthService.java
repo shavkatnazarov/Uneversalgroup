@@ -37,10 +37,10 @@ public class AuthService implements UserDetailsService {
     private final RoleRepository roleRepository;
     private final GroupRepository groupRepository;
 
-    @Autowired
-    public PasswordEncoder pas(){
-        return new BCryptPasswordEncoder();
-    }
+//    @Autowired
+//    public PasswordEncoder pas(){
+//        return new BCryptPasswordEncoder();
+//    }
 
     @Override
     public UserDetails loadUserByUsername(String phoneNumber) throws UsernameNotFoundException {
@@ -65,7 +65,8 @@ public class AuthService implements UserDetailsService {
                             .password(authDto.getPassword())
                             .build();
                     build.getRoles().add(pupil);
-                    build.getGroups().add(group);
+                 group.getPupil().add(build);
+                 groupRepository.save(group);
                     authRepository.save(build);
                     return new ApiResponse<>("saqlandi", true);
                 }
@@ -100,24 +101,28 @@ public class AuthService implements UserDetailsService {
             return new ApiResponse<>("Xatolik",false);
         }
     }
-    public List<AuthDto> getTeacher(AuthDto authDto) {
-        List<User> all = authRepository.findAll();
-        Role role1 = roleRepository.findById(2).orElseThrow(() -> new ResourceNotFoundException("getRole"));
-        List<AuthDto> teacher = new ArrayList<>();
-        for (User user : all) {
-            for (Role role : user.getRoles()) {
-                if (role == role1) {
-                    AuthDto build = AuthDto.builder()
-                            .firstName(authDto.getFirstName())
-                            .lastName(authDto.getLastName())
-                            .phoneNumber(authDto.getPhoneNumber())
-                            .password(authDto.getPassword())
-                            .build();
-                    teacher.add(build);
+    public List<AuthDto> getTeacher() {
+        try {
+            List<User> all = authRepository.findAll();
+            Role role1 = roleRepository.findById(2).orElseThrow(() -> new ResourceNotFoundException("getRole"));
+            List<AuthDto> teacher = new ArrayList<>();
+            for (User user : all) {
+                for (Role role : user.getRoles()) {
+                    if (role == role1) {
+                        AuthDto build = AuthDto.builder()
+                                .firstName(user.getFirstName())
+                                .lastName(user.getLastName())
+                                .phoneNumber(user.getPhoneNumber())
+                                .password(user.getPassword())
+                                .build();
+                        teacher.add(build);
+                    }
                 }
             }
+            return teacher;
+        } catch (Exception e) {
+            return null;
         }
-                return teacher;
     }
 
     public HttpEntity<?> login(LoginDto request, AuthenticationManager authenticationManager) {

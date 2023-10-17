@@ -1,8 +1,8 @@
 import {Button, Card, CardBody, CardHeader, Offcanvas} from "react-bootstrap";
-import {Loading} from "../Loading.jsx";
-import {useState} from "react";
-import {EditeCourse, SaveCourse} from "../../connection/service/AppService.js";
+import React, {useEffect, useState} from "react";
+import {AddTeacher, GetTeacher,} from "../../connection/service/AppService.js";
 import {toast} from "react-toastify";
+import {Loading} from "../Loading.jsx";
 
 export const Teacher=()=>{
     const [teacher,setTeacher] = useState([])
@@ -16,18 +16,30 @@ export const Teacher=()=>{
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
+    const getAll = async () => {
+        try {
+            const res = await GetTeacher()
+            setTeacher(res)
+            setLoading(true)
+        } catch (err) {
+            console.log(err.message)
+        }
+    }
     const addTeacher=async()=>{
         const data = {
-
+            firstName,lastName,phoneNumber,password
         }
         try {
-            await SaveCourse(data, setName, setPrice, setExpireDate, setDescription, getAll)
-            toast.success("Teacher qo'shildi")
+            await AddTeacher(data, setFirstName,setLastName,setPhoneNumber,setPassword, getAll)
             await getAll()
         } catch (err) {
             console.log(err.message)
         }
     }
+
+    useEffect(() => {
+        getAll()
+    }, []);
 
     return(
         <div>
@@ -41,26 +53,24 @@ export const Teacher=()=>{
                 <Card>
                     <CardHeader>
                         {teacher.length !== 0 ? (
-                            <h2 className={"text-primary text-center"}>Siz yaratgan kurslar</h2>) : (
-                            <h2 style={{color: 'red'}} className={"text-center"}>Xozirda kurslar mavjud emas</h2>)}
+                            <h2 className={"text-primary text-center"}>Siz yaratgan teacherlar</h2>) : (
+                            <h2 style={{color: 'red'}} className={"text-center"}>Xozirda teacherlar mavjud emas</h2>)
+                        }
                     </CardHeader>
                     <CardBody>
                         {loading ? (
                             teacher.length === 0 ? (
                                 <></>
                             ) : (
-                                <GetTeacher teacher={teacher} handleShow={handleShow} navigate={navigate}/>
+                                <GetTeachers teacher={teacher}/>
                             )
                         ) : (
                             <Loading/>
                         )}
                     </CardBody>
                 </Card>
+
             </div>
-
-
-
-
             <Offcanvas show={show} onHide={handleClose} placement={"end"} >
                 <Offcanvas.Header closeButton>
                     <Offcanvas.Title>Add</Offcanvas.Title>
@@ -81,7 +91,7 @@ export const Teacher=()=>{
                                  onChange={(e) => setPhoneNumber(e.target.value)} value={phoneNumber} id={"phoneNumber"}
                                  name={"phoneNumber"}/>
                           <label htmlFor="password" className={"fw-bold  m-2"}>Teacher password</label>
-                          <input type="number" placeholder={"Teacher passwordini kiritng"}
+                          <input type="password" placeholder={"Teacher passwordini kiritng"}
                                  className={"form-control"}
                                  onChange={(e) => setPassword(e.target.value)} value={password} id={"password"}
                                  name={"password"}/>
@@ -90,7 +100,7 @@ export const Teacher=()=>{
                   </div>
                 </Offcanvas.Body>
                 <div style={{marginTop: '60%'}}>
-                    <button className={"btn btn-primary w-100 mt-2"} onClick={() => saveCourse()}>Saqlash
+                    <button className={"btn btn-primary w-100 mt-2"} onClick={() => addTeacher()}>Saqlash
                     </button>
                 </div>
             </Offcanvas>
@@ -98,9 +108,32 @@ export const Teacher=()=>{
         </div>
     )
 }
-const GetTeacher=({teacher,handleShow,navigate})=>{
+const GetTeachers=({teacher})=>{
     return(
-        <div>salom</div>
+        <div>
+            <table className={"table"}>
+                <thead>
+                <tr>
+                    <th>T/r</th>
+                    <th>Ismi</th>
+                    <th>Familya</th>
+                    <th>Phone number</th>
+                    <th>password</th>
+                </tr>
+                </thead>
+                <tbody>
+                {teacher.map((item,i)=>(
+                    <tr>
+                        <td>{i+1}</td>
+                        <td>{item.firstName}</td>
+                        <td>{item.lastName}</td>
+                        <td>+998-{item.phoneNumber}</td>
+                        <td>{item.password}</td>
+                    </tr>
+                ))}
+                </tbody>
+            </table>
+        </div>
     )
 }
 

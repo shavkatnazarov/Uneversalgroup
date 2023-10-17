@@ -30,9 +30,6 @@ public class User extends AbsEntity implements UserDetails {
 
     @Column(nullable = false)
     private String password;
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "user_group")
-    private List<Group> groups;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "users_role",
@@ -53,13 +50,12 @@ public class User extends AbsEntity implements UserDetails {
 
     }
 
-    public User(UUID id, Timestamp createAt, Timestamp updateAt, UUID createBy, UUID updateBy, String firstName, String lastName, String phoneNumber, Set<Role> roles, boolean enabled, boolean credentialsNonExpired, boolean accountNonLocked, boolean accountNonExpired, List<Group> groups) {
+    public User(UUID id, Timestamp createAt, Timestamp updateAt, UUID createBy, UUID updateBy, String firstName, String lastName, String phoneNumber, Set<Role> roles, boolean enabled, boolean credentialsNonExpired, boolean accountNonLocked, boolean accountNonExpired) {
         super(id, createAt, updateAt, createBy, updateBy);
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
         this.roles = roles;
-        this.groups = groups;
 
     }
 
