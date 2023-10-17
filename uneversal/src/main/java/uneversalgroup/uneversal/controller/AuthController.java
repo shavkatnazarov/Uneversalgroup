@@ -37,6 +37,12 @@ public class AuthController {
         return ResponseEntity.ok(user);
     }
 
+    @PostMapping("/teacher{userId}")
+    public HttpEntity<?> addTeachers(@PathVariable UUID id,@RequestBody AuthDto authDto){
+        ApiResponse<?> apiResponse = authService.addTeacher(id, authDto);
+        return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
+    }
+
     private String generateToken(String phoneNumber) {
         User user = authRepository.findUserByPhoneNumber(phoneNumber).orElseThrow(() -> new UsernameNotFoundException("getUser"));
         return jwtTokenProvider.generateToken(user.getId());
