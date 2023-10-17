@@ -6,5 +6,5 @@ export const APP_API={
     login: '/auth/login',
     downloadPhoto:BASE_URL+"/attachment/download?id=",
     payment:'/payment',
-    login:'/auth/login'
+    teacher:'/teacher'
 }

@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import uneversalgroup.uneversal.entity.Course;
 import uneversalgroup.uneversal.entity.Group;
 import uneversalgroup.uneversal.entity.Role;
 import uneversalgroup.uneversal.entity.User;
@@ -23,7 +24,9 @@ import uneversalgroup.uneversal.repository.GroupRepository;
 import uneversalgroup.uneversal.repository.RoleRepository;
 import uneversalgroup.uneversal.security.JwtTokenProvider;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -96,6 +99,25 @@ public class AuthService implements UserDetailsService {
         }catch (Exception e){
             return new ApiResponse<>("Xatolik",false);
         }
+    }
+    public List<AuthDto> getTeacher(AuthDto authDto) {
+        List<User> all = authRepository.findAll();
+        Role role1 = roleRepository.findById(2).orElseThrow(() -> new ResourceNotFoundException("getRole"));
+        List<AuthDto> teacher = new ArrayList<>();
+        for (User user : all) {
+            for (Role role : user.getRoles()) {
+                if (role == role1) {
+                    AuthDto build = AuthDto.builder()
+                            .firstName(authDto.getFirstName())
+                            .lastName(authDto.getLastName())
+                            .phoneNumber(authDto.getPhoneNumber())
+                            .password(authDto.getPassword())
+                            .build();
+                    teacher.add(build);
+                }
+            }
+        }
+                return teacher;
     }
 
     public HttpEntity<?> login(LoginDto request, AuthenticationManager authenticationManager) {

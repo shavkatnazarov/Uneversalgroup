@@ -124,8 +124,6 @@ export const Course = () => {
                     <Button variant="primary" onClick={()=>photoUpload()} className="me-2">
                         Davom etish
                     </Button>
-
-
                 </ModalFooter>
             </Modal>
             <div className={'mt-5'}>
