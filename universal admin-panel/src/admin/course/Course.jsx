@@ -18,7 +18,6 @@ import {APP_API} from "../../connection/AppApi.js";
 
 export const Course = () => {
     const navigate = useNavigate()
-
     const [show, setShow] = useState(false);
     const [currentCourse, setCurrentCourse] = useState('');
     const [course, setCourse] = useState([])

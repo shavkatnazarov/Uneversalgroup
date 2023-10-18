@@ -5,7 +5,7 @@ export const Group = () => {
     const [loading, setLoading] = useState(false)
     const [group, setGroup] = useState([])
     const [teacher, setTeacher] = useState([])
-    const [course,setCourse]=useState([])
+    const [course, setCourse] = useState([])
     const [courseId,setCourseId]=useState('')
     const [teacherId, setTeacherId] = useState('')
     const [name, setName] = useState('')
@@ -17,7 +17,13 @@ export const Group = () => {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-
+    const getAll =async ()=>{
+        try {
+            await GetGroup()
+        }catch (err){
+            console.log(err)
+        }
+    }
     return (
         <div>
             <div className={'d-flex justify-content-between align-items-center text-center mt-5'}>
@@ -33,8 +39,7 @@ export const Group = () => {
                 <Offcanvas.Body>
                     <div className={"w-100 row d-flex align-items-center justify-content-between"}>
                         <form>
-
-                            <label htmlFor="courseId">Cursni tanlang</label>
+                            <label htmlFor="courseId">Bo'lim tanlang</label>
                             <select name="courseId" id="courseId" onChange={e => setCourseId(e.target.value)}
                                     value={courseId} className={"form-control"}>
                                 <option value="0" selected={true}>Tanlang</option>
