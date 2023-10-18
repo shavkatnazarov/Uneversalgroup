@@ -132,6 +132,21 @@ public class AuthService implements UserDetailsService {
             return null;
         }
     }
+    public List<Group> getTeacherGroup(UUID teacherId,UUID uuid){
+        try {
+            User user = authRepository.findById(uuid).orElseThrow((() -> new ResourceNotFoundException("user")));
+            Role role1 = roleRepository.findById(1).orElseThrow(() -> new ResourceNotFoundException("role"));
+            for (Role role : user.getRoles()) {
+                if (role.equals(role1)){
+                    return groupRepository.findGroupByTeacherId(teacherId);
+                }
+                return null;
+            }
+        }catch (Exception e){
+            return null;
+        }
+        return null;
+    }
 
     public HttpEntity<?> login(LoginDto request, AuthenticationManager authenticationManager) {
         authenticationManager.authenticate(

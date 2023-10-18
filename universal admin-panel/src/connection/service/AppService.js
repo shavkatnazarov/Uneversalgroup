@@ -135,11 +135,20 @@ export const GetTeacher = async () => {
     try {
         const res = await BASE_CONFIG.doGet(APP_API.teacher)
         return res.data
-        console.log(res.data)
     } catch (err) {
         console.log(err)
     }
 }
+export const GetOneTeacher = async (id) => {
+    try {
+        const res = await BASE_CONFIG.doGetOne(APP_API.teacher, id)
+        return res.data
+    } catch (err) {
+        console.log(err.message)
+    }
+}
+//end teacher
+
 //start group
 export const GetGroup = async () => {
     try {

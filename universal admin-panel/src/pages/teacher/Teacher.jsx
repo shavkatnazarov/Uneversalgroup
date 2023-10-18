@@ -3,8 +3,10 @@ import React, {useEffect, useState} from "react";
 import {AddTeacher, GetTeacher,} from "../../connection/service/AppService.js";
 import {toast} from "react-toastify";
 import {Loading} from "../Loading.jsx";
+import {useNavigate} from "react-router-dom";
 
 export const Teacher=()=>{
+    const navigate = useNavigate()
     const [teacher,setTeacher] = useState([])
     const [loading,setLoading] = useState(false)
     const [firstName,setFirstName] = useState('')
@@ -63,7 +65,7 @@ export const Teacher=()=>{
                             teacher.length === 0 ? (
                                 <></>
                             ) : (
-                                <GetTeachers teacher={teacher}/>
+                                <GetTeachers teacher={teacher} navigate={navigate}/>
                             )
                         ) : (
                             <Loading/>
@@ -109,7 +111,10 @@ export const Teacher=()=>{
         </div>
     )
 }
-const GetTeachers=({teacher})=>{
+const GetTeachers=({teacher,navigate})=>{
+    const oneTeacher=(id)=>{
+        navigate("/auth/dashboard/teacher/"+id)
+    }
     return(
         <div>
             <table className={"table"}>
@@ -120,6 +125,7 @@ const GetTeachers=({teacher})=>{
                     <th>Familya</th>
                     <th>Phone number</th>
                     <th>password</th>
+                    <th>Ma'lumot</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -130,6 +136,9 @@ const GetTeachers=({teacher})=>{
                         <td>{item.lastName}</td>
                         <td>+998-{item.phoneNumber}</td>
                         <td>{item.password}</td>
+                        <td>
+                            <button className={"btn btn-success"} onClick={()=>oneTeacher(item.id)}>Bosing</button>
+                        </td>
                     </tr>
                 ))}
                 </tbody>
