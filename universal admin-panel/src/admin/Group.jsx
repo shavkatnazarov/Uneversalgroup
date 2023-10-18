@@ -1,12 +1,15 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Button, Offcanvas} from "react-bootstrap";
+import {GetGroup} from "../connection/service/AppService.js";
+import {BASE_CONFIG} from "../connection/BaseConfig.js";
+import {APP_API} from "../connection/AppApi.js";
 
 export const Group = () => {
     const [loading, setLoading] = useState(false)
     const [group, setGroup] = useState([])
     const [teacher, setTeacher] = useState([])
     const [course, setCourse] = useState([])
-    const [courseId,setCourseId]=useState('')
+    const [courseId, setCourseId] = useState('')
     const [teacherId, setTeacherId] = useState('')
     const [name, setName] = useState('')
     const [startDate, setStartDate] = useState('')
@@ -17,13 +20,20 @@ export const Group = () => {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    const getAll =async ()=>{
+    const getAll = async () => {
         try {
-            await GetGroup()
-        }catch (err){
+            const res = await GetGroup()
+            const resCourse=await BASE_CONFIG.doGet(APP_API.course)
+            const resTeacher=await BASE_CONFIG.doGet(APP_API.teacher)
+            setCourse(resCourse.data)
+            setTeacher(resTeacher.data)
+        } catch (err) {
             console.log(err)
         }
     }
+    useEffect(() => {
+        getAll()
+    }, []);
     return (
         <div>
             <div className={'d-flex justify-content-between align-items-center text-center mt-5'}>
@@ -44,6 +54,12 @@ export const Group = () => {
                                     value={courseId} className={"form-control"}>
                                 <option value="0" selected={true}>Tanlang</option>
                                 {course.map(item => (<option value={item.id}>{item.name}</option>))}
+                            </select>
+                            <label htmlFor="teacherId">Bo'lim tanlang</label>
+                            <select name="teacherId" id="teacherId" onChange={e => setTeacherId(e.target.value)}
+                                    value={teacherId} className={"form-control"}>
+                                <option value="0" selected={true}>Tanlang</option>
+                                {teacher.map(item => (<option value={item.id}>{item.firstName}</option>))}
                             </select>
                             <label htmlFor="name" className={"fw-bold  m-2"}>Gruppa nomi</label>
                             <input type="text" placeholder={"coure nomini kiritng"} className={"form-control"}
