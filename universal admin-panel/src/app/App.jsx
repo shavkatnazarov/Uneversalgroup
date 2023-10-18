@@ -24,7 +24,6 @@ function App() {
                     <Route path={"/auth/dashboard/group"} element={<Group/>}/>
                     <Route path={"/auth/dashboard/teacher"} element={<Teacher/>}/>
                 </Route>
-                    <Route path={"/teacher/cabinet"} element={<TeacherPanel/>}/>
             </Routes>
         </BrowserRouter>
     )

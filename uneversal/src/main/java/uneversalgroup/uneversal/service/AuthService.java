@@ -89,6 +89,10 @@ public class AuthService implements UserDetailsService {
                             .phoneNumber(authDto.getPhoneNumber())
                             .password(authDto.getPassword())
                             .roles(Collections.singleton(teacherRole))
+                            .accountNonLocked(true)
+                            .accountNonExpired(true)
+                            .credentialsNonExpired(true)
+                            .enabled(true)
                             .build();
                     authRepository.save(build);
                     return new ApiResponse<>("O'qtuvchi qoshildi",true);
