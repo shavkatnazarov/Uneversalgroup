@@ -8,6 +8,7 @@ import {Menu} from "../templates/Menu.jsx";
 import {CourseItem} from "../admin/course/CourseItem.jsx";
 import {Login} from "../templates/auth/Login.jsx";
 import {Group} from "../admin/Group.jsx";
+import {Teacher} from "../pages/teacher/Teacher.jsx";
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
                     <Route path={"/auth/dashboard/course"} element={<Course/>}/>
                     <Route path={"/auth/dashboard/course/:id"} element={<CourseItem/>}/>
                     <Route path={"/auth/dashboard/group"} element={<Group/>}/>
+                    <Route path={"/auth/dashboard/teacher"} element={<Teacher/>}/>
                 </Route>
             </Routes>
         </BrowserRouter>

@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import uneversalgroup.uneversal.entity.Course;
 import uneversalgroup.uneversal.entity.Group;
 import uneversalgroup.uneversal.entity.Role;
 import uneversalgroup.uneversal.entity.User;
@@ -23,7 +24,9 @@ import uneversalgroup.uneversal.repository.GroupRepository;
 import uneversalgroup.uneversal.repository.RoleRepository;
 import uneversalgroup.uneversal.security.JwtTokenProvider;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -34,10 +37,10 @@ public class AuthService implements UserDetailsService {
     private final RoleRepository roleRepository;
     private final GroupRepository groupRepository;
 
-    @Autowired
-    public PasswordEncoder pas(){
-        return new BCryptPasswordEncoder();
-    }
+//    @Autowired
+//    public PasswordEncoder pas(){
+//        return new BCryptPasswordEncoder();
+//    }
 
     @Override
     public UserDetails loadUserByUsername(String phoneNumber) throws UsernameNotFoundException {
@@ -62,7 +65,8 @@ public class AuthService implements UserDetailsService {
                             .password(authDto.getPassword())
                             .build();
                     build.getRoles().add(pupil);
-                    build.getGroups().add(group);
+                 group.getPupil().add(build);
+                 groupRepository.save(group);
                     authRepository.save(build);
                     return new ApiResponse<>("saqlandi", true);
                 }
@@ -72,11 +76,11 @@ public class AuthService implements UserDetailsService {
             return new ApiResponse<>("Xatolik", false);
         }
     }
-    public ApiResponse<?> addTeacher(UUID userId, AuthDto authDto){
+    public ApiResponse<?> addTeacher(UUID id, AuthDto authDto){
         try {
-            User user = authRepository.findById(userId).orElseThrow(() -> new uneversalgroup.uneversal.exception.ResourceNotFoundException(404, "getUser", "user", userId));
-            Role adminRole = roleRepository.findById(1).orElseThrow(() -> new uneversalgroup.uneversal.exception.ResourceNotFoundException(404, "getRole", "id", userId));
-            Role teacherRole = roleRepository.findById(2).orElseThrow(() -> new uneversalgroup.uneversal.exception.ResourceNotFoundException(404, "getRole", "id", userId));
+            User user = authRepository.findById(id).orElseThrow(() -> new uneversalgroup.uneversal.exception.ResourceNotFoundException(404, "getUser", "user", id));
+            Role adminRole = roleRepository.findById(1).orElseThrow(() -> new uneversalgroup.uneversal.exception.ResourceNotFoundException(404, "getRole", "id", id));
+            Role teacherRole = roleRepository.findById(2).orElseThrow(() -> new uneversalgroup.uneversal.exception.ResourceNotFoundException(404, "getRole", "id", id));
             for (Role role : user.getRoles()) {
                 if (role.equals(adminRole)){
                     User build = User.builder()
@@ -95,6 +99,29 @@ public class AuthService implements UserDetailsService {
 
         }catch (Exception e){
             return new ApiResponse<>("Xatolik",false);
+        }
+    }
+    public List<AuthDto> getTeacher() {
+        try {
+            List<User> all = authRepository.findAll();
+            Role role1 = roleRepository.findById(2).orElseThrow(() -> new ResourceNotFoundException("getRole"));
+            List<AuthDto> teacher = new ArrayList<>();
+            for (User user : all) {
+                for (Role role : user.getRoles()) {
+                    if (role == role1) {
+                        AuthDto build = AuthDto.builder()
+                                .firstName(user.getFirstName())
+                                .lastName(user.getLastName())
+                                .phoneNumber(user.getPhoneNumber())
+                                .password(user.getPassword())
+                                .build();
+                        teacher.add(build);
+                    }
+                }
+            }
+            return teacher;
+        } catch (Exception e) {
+            return null;
         }
     }
 
