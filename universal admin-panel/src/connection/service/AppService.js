@@ -133,7 +133,6 @@ export const GetTeacher = async () => {
     try {
         const res = await BASE_CONFIG.doGet(APP_API.teacher)
         return res.data
-        console.log(res.data)
     } catch (err) {
         console.log(err)
     }
