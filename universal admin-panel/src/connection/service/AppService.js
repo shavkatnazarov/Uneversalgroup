@@ -57,12 +57,12 @@ export const PhotoUpload = async (formData, setModal) => {
 
 export const DeleteCourse = async (id, getAll) => {
     try {
-        const res = await  BASE_CONFIG.doDelete(APP_API.course,id)
-        if (IS_STATUS(res.status)){
+        const res = await BASE_CONFIG.doDelete(APP_API.course, id)
+        if (IS_STATUS(res.status)) {
             getAll()
             toast.success("O'chirib tashlandi")
         }
-    }catch (err){
+    } catch (err) {
         console.log(err.message)
     }
 }
@@ -100,34 +100,34 @@ export const GetOneCourse = async (id) => {
     }
 }
 //start teacher
-export const AddTeacher =async(data,setFirstName,setLastName,setPhoneNumber,setPassword)=>{
-  try {
-      const check={
-          ism:data.firstName.trim().length===0,
-          familya:data.lastName.trim().length===0,
-          tel:data.phoneNumber.trim().length!==9,
-          pas:data.password.length<=6,
-      }
-      if (check.ism||check.familya){
-          return toast.warning("Malumot bosh bolmasin")
-      }
-      if (check.tel){
-          return toast.warning("Telefon raqamda xatolik")
-      }
-      if (check.pas){
-          return toast.warning("parol 6ta belgidan kop bolsin")
-      }
-      const res = await BASE_CONFIG.doPost(APP_API.teacher+"/"+localStorage.getItem("id"), data)
-      if (IS_STATUS(res.status)) {
-          toast.success("Teacher qo'shildi")
-          setFirstName('')
-          setLastName('')
-          setPhoneNumber('')
-          setPassword('')
-      }
-  }catch (err){
-      console.log(err)
-  }
+export const AddTeacher = async (data, setFirstName, setLastName, setPhoneNumber, setPassword) => {
+    try {
+        const check = {
+            ism: data.firstName.trim().length === 0,
+            familya: data.lastName.trim().length === 0,
+            tel: data.phoneNumber.trim().length !== 9,
+            pas: data.password.length <= 6,
+        }
+        if (check.ism || check.familya) {
+            return toast.warning("Malumot bosh bolmasin")
+        }
+        if (check.tel) {
+            return toast.warning("Telefon raqamda xatolik")
+        }
+        if (check.pas) {
+            return toast.warning("parol 6ta belgidan kop bolsin")
+        }
+        const res = await BASE_CONFIG.doPost(APP_API.teacher + "/" + localStorage.getItem("id"), data)
+        if (IS_STATUS(res.status)) {
+            toast.success("Teacher qo'shildi")
+            setFirstName('')
+            setLastName('')
+            setPhoneNumber('')
+            setPassword('')
+        }
+    } catch (err) {
+        console.log(err)
+    }
 }
 export const GetTeacher = async () => {
     try {
@@ -142,6 +142,32 @@ export const GetGroup = async () => {
     try {
         const res = await BASE_CONFIG.doGet(APP_API.group)
         return res.data
+    } catch (err) {
+        console.log(err)
+    }
+}
+export const SaveGroup = async (data, setCourseId, setTeacherId, setName, setStartData, setEndData, getAll) => {
+    const check = {
+        courseId: data.courseId === "0",
+        teacherId: data.teacherId === "0",
+        name: data.name.trim().length === 0,
+        startDate: data.start_date.length < 0,
+        endDate: data.end_date.length < 0
+    }
+    if (check.courseId || check.teacherId || check.startDate || check.endDate) {
+        return toast.warning("Bush joy bulmasin !")
+    }
+    try {
+        const res = await BASE_CONFIG.doPost("/group/add", data)
+        if (IS_STATUS(res.status)) {
+            getAll()
+            setCourseId('')
+            setTeacherId('')
+            setName('')
+            setStartData('')
+            setEndData('')
+            return toast.success("gruppa saqlandi")
+        }
     } catch (err) {
         console.log(err)
     }
