@@ -20,7 +20,7 @@ export const GetCourse = async () => {
         console.log(err.message)
     }
 }
-export const SaveCourse = async (data, setName, setPrice, setExpireDate, setDescription,setPhotoId) => {
+export const SaveCourse = async (data, setName, setPrice, setExpireDate, setDescription, setPhotoId) => {
     const check = {
         name: data.name.trim().length === 0,
         price: data.price <= 0,
@@ -106,7 +106,7 @@ export const AddTeacher =async(data,setFirstName,setLastName,setPhoneNumber,setP
           ism:data.firstName.trim().length===0,
           familya:data.lastName.trim().length===0,
           tel:data.phoneNumber.trim().length!==9,
-          pas:data.password.length!==6,
+          pas:data.password.length<=6,
       }
       if (check.ism||check.familya){
           return toast.warning("Malumot bosh bolmasin")
@@ -119,8 +119,6 @@ export const AddTeacher =async(data,setFirstName,setLastName,setPhoneNumber,setP
       }
       const res = await BASE_CONFIG.doPost(APP_API.teacher+"/"+localStorage.getItem("id"), data)
       if (IS_STATUS(res.status)) {
-          localStorage.setItem("role",res.data.user.roles[0].roleName)
-          localStorage.setItem("token1", res.data.resToken.body)
           toast.success("Teacher qo'shildi")
           setFirstName('')
           setLastName('')
@@ -135,11 +133,17 @@ export const GetTeacher = async () => {
     try {
         const res = await BASE_CONFIG.doGet(APP_API.teacher)
         return res.data
-        console.log(res.data)
     } catch (err) {
         console.log(err)
     }
 }
 //start group
-
+export const GetGroup = async () => {
+    try {
+        const res = await BASE_CONFIG.doGet(APP_API.group)
+        return res.data
+    } catch (err) {
+        console.log(err)
+    }
+}
 //end group
