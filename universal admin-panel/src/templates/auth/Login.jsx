@@ -1,30 +1,17 @@
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import img from '../../assets/photo_2023-10-14_15-42-52.jpg'
 import {useNavigate} from 'react-router-dom'
 import {LoginHandler} from "../../connection/service/AuthService.js";
 import {isAuthenticated} from "../../utils/IsStatus.js";
 
 export const Login = () => {
+    const navigate = useNavigate()
     const [phoneNumber, setPhoneNumber] = useState('')
     const [password, setPassword] = useState('')
-    const navigate = useNavigate()
-
-    useEffect(() => {
-        const redirectAdminPanel = () => {
-            const token = localStorage.getItem('token');
-            const token1 = localStorage.getItem("token1")
-            const isAuth = isAuthenticated(token)
-            const isAuth1 = isAuthenticated(token1)
-            if (isAuth1) return navigate('/teacher/cabinet')
-            if (isAuth) return navigate('/auth/dashboard')
-
-        }
-        redirectAdminPanel()
-    }, [])
 
     const loginHandler = async () => {
         const data = {phoneNumber, password}
-        await LoginHandler(data)
+        await LoginHandler(data,navigate)
     }
     return (
         <div className={"container d-flex align-items-center justify-content-center"} style={{height: '100vh'}}>

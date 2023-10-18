@@ -100,39 +100,42 @@ export const GetOneCourse = async (id) => {
     }
 }
 //start teacher
-export const AddTeacher = async (data, setFirstName, setLastName, setPhoneNumber, setPassword) => {
-    try {
-        const check = {
-            ism: data.firstName.trim().length === 0,
-            familya: data.lastName.trim().length === 0,
-            tel: data.phoneNumber.trim().length !== 9,
-            pas: data.password.length <= 6,
-        }
-        if (check.ism || check.familya) {
-            return toast.warning("Malumot bosh bolmasin")
-        }
-        if (check.tel) {
-            return toast.warning("Telefon raqamda xatolik")
-        }
-        if (check.pas) {
-            return toast.warning("parol 6ta belgidan kop bolsin")
-        }
-        const res = await BASE_CONFIG.doPost(APP_API.teacher + "/" + localStorage.getItem("id"), data)
-        if (IS_STATUS(res.status)) {
-            toast.success("Teacher qo'shildi")
-            setFirstName('')
-            setLastName('')
-            setPhoneNumber('')
-            setPassword('')
-        }
-    } catch (err) {
-        console.log(err)
-    }
+export const AddTeacher =async(data,setFirstName,setLastName,setPhoneNumber,setPassword)=>{
+  try {
+      const check={
+          ism:data.firstName.trim().length===0,
+          familya:data.lastName.trim().length===0,
+          tel:data.phoneNumber.trim().length!==9,
+          pas:data.password.length<=6,
+      }
+      if (check.ism||check.familya){
+          return toast.warning("Malumot bosh bolmasin")
+      }
+      if (check.tel){
+          return toast.warning("Telefon raqamda xatolik")
+      }
+      if (check.pas){
+          return toast.warning("parol 6ta belgidan kop bolsin")
+      }
+      const res = await BASE_CONFIG.doPost(APP_API.teacher+"/"+localStorage.getItem("id"), data)
+      if (IS_STATUS(res.status)) {
+          toast.success("Teacher qo'shildi")
+          localStorage.setItem("role", res.data.user.roles[0].roleName)
+          localStorage.setItem("token", res.data.resToken.body)
+          setFirstName('')
+          setLastName('')
+          setPhoneNumber('')
+          setPassword('')
+      }
+  }catch (err){
+      console.log(err)
+  }
 }
 export const GetTeacher = async () => {
     try {
         const res = await BASE_CONFIG.doGet(APP_API.teacher)
         return res.data
+        console.log(res.data)
     } catch (err) {
         console.log(err)
     }
