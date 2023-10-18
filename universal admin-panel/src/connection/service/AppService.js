@@ -119,6 +119,8 @@ export const AddTeacher =async(data,setFirstName,setLastName,setPhoneNumber,setP
       }
       const res = await BASE_CONFIG.doPost(APP_API.teacher+"/"+localStorage.getItem("id"), data)
       if (IS_STATUS(res.status)) {
+          localStorage.setItem("role",res.data.user.roles[0].roleName)
+          localStorage.setItem("token1", res.data.resToken.body)
           toast.success("Teacher qo'shildi")
           setFirstName('')
           setLastName('')

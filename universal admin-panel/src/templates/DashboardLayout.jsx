@@ -5,6 +5,7 @@ import {NotFount} from "../pages/NotFount.jsx";
 
 export const DashboardLayout = () => {
     const token = localStorage.getItem("token")
+    const token1 = localStorage.getItem("token1")
 
     return (
         <div>
