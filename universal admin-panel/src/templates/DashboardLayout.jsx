@@ -2,7 +2,6 @@ import {Header} from "./Header.jsx";
 import {SideBar} from "./SideBar.jsx";
 import {Outlet} from "react-router-dom";
 import {NotFount} from "../pages/NotFount.jsx";
-import {TeacherPanel} from "../pages/teacher/TeacherPanel.jsx";
 
 export const DashboardLayout = () => {
     const token = localStorage.getItem("token")
