@@ -27,6 +27,7 @@ export const Group = () => {
             const resTeacher=await BASE_CONFIG.doGet(APP_API.teacher)
             setCourse(resCourse.data)
             setTeacher(resTeacher.data)
+            setGroup(res)
         } catch (err) {
             console.log(err)
         }
@@ -49,17 +50,17 @@ export const Group = () => {
                 <Offcanvas.Body>
                     <div className={"w-100 row d-flex align-items-center justify-content-between"}>
                         <form>
-                            <label htmlFor="courseId">Bo'lim tanlang</label>
+                            <label htmlFor="name" className={"fw-bold  m-2"}>Cursni tanlang</label>
                             <select name="courseId" id="courseId" onChange={e => setCourseId(e.target.value)}
                                     value={courseId} className={"form-control"}>
                                 <option value="0" selected={true}>Tanlang</option>
                                 {course.map(item => (<option value={item.id}>{item.name}</option>))}
                             </select>
-                            <label htmlFor="teacherId">Bo'lim tanlang</label>
+                            <label htmlFor="name" className={"fw-bold  m-2"}>O'qitvchini tanlang </label>
                             <select name="teacherId" id="teacherId" onChange={e => setTeacherId(e.target.value)}
                                     value={teacherId} className={"form-control"}>
                                 <option value="0" selected={true}>Tanlang</option>
-                                {teacher.map(item => (<option value={item.id}>{item.firstName}</option>))}
+                                {teacher.map(item => (<option value={item.id}>{item.firstName}  {item.lastName}</option>))}
                             </select>
                             <label htmlFor="name" className={"fw-bold  m-2"}>Gruppa nomi</label>
                             <input type="text" placeholder={"coure nomini kiritng"} className={"form-control"}
