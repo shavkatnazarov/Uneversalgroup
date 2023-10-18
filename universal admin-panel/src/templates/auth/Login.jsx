@@ -12,7 +12,10 @@ export const Login = () => {
     useEffect(() => {
         const redirectAdminPanel = () => {
             const token = localStorage.getItem('token');
+            const token1 = localStorage.getItem("token1")
             const isAuth = isAuthenticated(token)
+            const isAuth1 = isAuthenticated(token1)
+            if (isAuth1) return navigate('/teacher/cabinet')
             if (isAuth) return navigate('/auth/dashboard')
 
         }

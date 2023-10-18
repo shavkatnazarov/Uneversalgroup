@@ -49,7 +49,7 @@ public class AuthController {
 
     @GetMapping("/teacher")
     public HttpEntity<?> getTeacher() {
-        List<AuthDto> teacher = authService.getTeacher();
+         List<AuthDto> teacher = authService.getTeacher();
         return ResponseEntity.ok(teacher);
     }
     private String generateToken(String phoneNumber) {
