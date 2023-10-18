@@ -18,7 +18,6 @@ public class Day_type {
     private Integer id;
     @Enumerated(value = EnumType.STRING)
     private DayTypeName dayTypeName;
-
     public Day_type(DayTypeName dayTypeName) {
         this.dayTypeName =dayTypeName ;
     }

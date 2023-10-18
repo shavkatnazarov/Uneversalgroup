@@ -1,21 +1,23 @@
 import {useEffect, useState} from "react";
 import {Button, Offcanvas} from "react-bootstrap";
-import {GetGroup} from "../connection/service/AppService.js";
+import {GetGroup, SaveGroup} from "../connection/service/AppService.js";
 import {BASE_CONFIG} from "../connection/BaseConfig.js";
 import {APP_API} from "../connection/AppApi.js";
 
 export const Group = () => {
     const [loading, setLoading] = useState(false)
     const [group, setGroup] = useState([])
+    const [dayType, setDayType] = useState('')
     const [teacher, setTeacher] = useState([])
     const [course, setCourse] = useState([])
     const [courseId, setCourseId] = useState('')
     const [teacherId, setTeacherId] = useState('')
     const [name, setName] = useState('')
-    const [startDate, setStartDate] = useState('')
-    const [endDate, setEndData] = useState('')
+    const [start_date, setStartDate] = useState('')
+    const [end_date, setEndData] = useState('')
     const [active, setActive] = useState(true)
     const [show, setShow] = useState(false);
+    console.log(teacher)
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -23,8 +25,8 @@ export const Group = () => {
     const getAll = async () => {
         try {
             const res = await GetGroup()
-            const resCourse=await BASE_CONFIG.doGet(APP_API.course)
-            const resTeacher=await BASE_CONFIG.doGet(APP_API.teacher)
+            const resCourse = await BASE_CONFIG.doGet(APP_API.course)
+            const resTeacher = await BASE_CONFIG.doGet(APP_API.teacher)
             setCourse(resCourse.data)
             setTeacher(resTeacher.data)
             setGroup(res)
@@ -32,6 +34,14 @@ export const Group = () => {
             console.log(err)
         }
     }
+    const saveGroup = async () => {
+        const data = {
+            courseId, teacherId, name, dayType, start_date, end_date
+        }
+        console.log(data)
+        await SaveGroup(data, setCourseId, setTeacherId, setName, setStartDate, setEndData, getAll)
+    }
+
     useEffect(() => {
         getAll()
     }, []);
@@ -60,15 +70,40 @@ export const Group = () => {
                             <select name="teacherId" id="teacherId" onChange={e => setTeacherId(e.target.value)}
                                     value={teacherId} className={"form-control"}>
                                 <option value="0" selected={true}>Tanlang</option>
-                                {teacher.map(item => (<option value={item.id}>{item.firstName}  {item.lastName}</option>))}
+                                {teacher.map(item => (
+                                    <option value={item.id}>{item.firstName} {item.lastName}</option>))}
                             </select>
                             <label htmlFor="name" className={"fw-bold  m-2"}>Gruppa nomi</label>
                             <input type="text" placeholder={"coure nomini kiritng"} className={"form-control"}
                                    onChange={(e) => setName(e.target.value)} value={name} id={"name"} name={"name"}/>
+                            <label htmlFor="start_date" className={"fw-bold  m-2"}>Gruppa boshlanishi</label>
+                            <input type="number" placeholder={"Gruppa boshlanish vaqti"} className={"form-control"}
+                                   onChange={(e) => setStartDate(e.target.value)} value={start_date} id={"start_date"}
+                                   name={"start_date"}/>
+                            <label htmlFor="end_date" className={"fw-bold  m-2"}>Gruppa tugashi</label>
+                            <input type="number" placeholder={"Guruppa tugash vaqti"} className={"form-control"}
+                                   onChange={(e) => setEndData(e.target.value)} value={end_date} id={"end_date"}
+                                   name={"end_date"}/>
+                            <label className={"fw-bold  m-2"} htmlFor="daytype">Kunni tanlang</label>
+                            <select className={"form-control"} name="dayType"
+                                    onChange={event => setDayType(event.target.value)} id="daytype">
+                                <option value="" selected={false}>Tanlang</option>
+                                <option value="TOQ">Toq</option>
+                                <option value="JUFT">Juft</option>
+                                <option value="BotCamp">BotCamp</option>
+                            </select>
+                            <label className={"fw-bold  m-2"} htmlFor="daytype">Kunni tanlang</label>
+                            {dayType === "BotCamp" ? (
+                                <>
+                                    <input type="text" className={"form-control"} placeholder={"aaaaaaa"}/>
+                                </>
+                            ) : (
+                                ""
+                            )}
                         </form>
                     </div>
-                    <div style={{marginTop: '80%'}}>
-                        <button className={"btn btn-primary w-100 mt-2"}>Saqlash
+                    <div style={{marginTop: '60%'}}>
+                        <button className={"btn btn-primary w-100 mt-2"} onClick={() => saveGroup()}>Saqlash
                         </button>
                     </div>
                 </Offcanvas.Body>

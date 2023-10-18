@@ -1,6 +1,7 @@
 import {Link} from "react-router-dom";
 import {SIDE_ARR} from "../utils/SideArr.js";
 import {useNavigate} from 'react-router-dom'
+import rasm from '../assets/photo_2023-10-14_15-42-52.jpg'
 
 export const SideBar = () => {
     const navigate = useNavigate()
@@ -12,8 +13,9 @@ export const SideBar = () => {
         <aside className="left-sidebar shadow">
             <div>
                 <div className="brand-logo  justify-content-between">
-                    <a href="#" className="text-nowrap logo-img">
-                        <img src="https://flxt.tmsimg.com/assets/533352_v9_bb.jpg" width="180" alt="" />
+                    <a href="#" className="text-nowrap logo-img" style={{textDecoration:'none'}}>
+                        <img src={rasm} width="100" style={{marginTop:'-70px',marginLeft:'50px'}} alt="" />
+                        <h3 style={{marginLeft:'-10px'}}>Universal   <span className={"text-danger"} >Academy</span></h3>
                     </a>
                     <div className="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
                         <i className="ti ti-x fs-8"/>
@@ -36,7 +38,7 @@ export const SideBar = () => {
                             </li>
                         </ul>
                     ))}
-                    <button style={{marginLeft:"30px",marginTop:"350px"}} className={"btn btn-danger"} onClick={() => logout()}>logout</button>
+                    <button style={{marginLeft:"30px",marginTop:'100px'}} className={"btn btn-danger "} onClick={() => logout()}>logout</button>
                 </nav>
             </div>
         </aside>

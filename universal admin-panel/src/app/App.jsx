@@ -9,7 +9,7 @@ import {CourseItem} from "../admin/course/CourseItem.jsx";
 import {Login} from "../templates/auth/Login.jsx";
 import {Group} from "../admin/Group.jsx";
 import {Teacher} from "../pages/teacher/Teacher.jsx";
-import {TeacherPanel} from "../pages/teacher/TeacherPanel.jsx";
+import {TeacherItem} from "../pages/teacher/TeacherItem.jsx";
 
 
 function App() {
@@ -23,8 +23,8 @@ function App() {
                     <Route path={"/auth/dashboard/course/:id"} element={<CourseItem/>}/>
                     <Route path={"/auth/dashboard/group"} element={<Group/>}/>
                     <Route path={"/auth/dashboard/teacher"} element={<Teacher/>}/>
+                    <Route path={"/auth/dashboard/teacher/:id"} element={<TeacherItem/>}/>
                 </Route>
-                    <Route path={"/teacher/cabinet"} element={<TeacherPanel/>}/>
             </Routes>
         </BrowserRouter>
     )

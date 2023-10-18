@@ -5,11 +5,14 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.UUID;
+
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 public class AuthDto {
+    private UUID id;
     private String firstName;
     private String lastName;
     private String phoneNumber;

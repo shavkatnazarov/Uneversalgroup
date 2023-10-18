@@ -50,7 +50,8 @@ public class AuthService implements UserDetailsService {
     public UserDetails getUserById(UUID id) {
         return authRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("getUser"));
     }
-    public ApiResponse<?>addPupil(AuthDto authDto,UUID groupId, UUID userId) {
+
+    public ApiResponse<?> addPupil(AuthDto authDto, UUID groupId, UUID userId) {
         try {
             User user = authRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("user"));
             Role role1 = roleRepository.findById(1).orElseThrow(() -> new ResourceNotFoundException("role"));
@@ -65,8 +66,8 @@ public class AuthService implements UserDetailsService {
                             .password(authDto.getPassword())
                             .build();
                     build.getRoles().add(pupil);
-                 group.getPupil().add(build);
-                 groupRepository.save(group);
+                    group.getPupil().add(build);
+                    groupRepository.save(group);
                     authRepository.save(build);
                     return new ApiResponse<>("saqlandi", true);
                 }
@@ -76,31 +77,37 @@ public class AuthService implements UserDetailsService {
             return new ApiResponse<>("Xatolik", false);
         }
     }
-    public ApiResponse<?> addTeacher(UUID id, AuthDto authDto){
+
+    public ApiResponse<?> addTeacher(UUID id, AuthDto authDto) {
         try {
             User user = authRepository.findById(id).orElseThrow(() -> new uneversalgroup.uneversal.exception.ResourceNotFoundException(404, "getUser", "user", id));
             Role adminRole = roleRepository.findById(1).orElseThrow(() -> new uneversalgroup.uneversal.exception.ResourceNotFoundException(404, "getRole", "id", id));
             Role teacherRole = roleRepository.findById(2).orElseThrow(() -> new uneversalgroup.uneversal.exception.ResourceNotFoundException(404, "getRole", "id", id));
             for (Role role : user.getRoles()) {
-                if (role.equals(adminRole)){
+                if (role.equals(adminRole)) {
                     User build = User.builder()
                             .firstName(authDto.getFirstName())
                             .lastName(authDto.getLastName())
                             .phoneNumber(authDto.getPhoneNumber())
                             .password(authDto.getPassword())
                             .roles(Collections.singleton(teacherRole))
+                            .accountNonLocked(true)
+                            .accountNonExpired(true)
+                            .credentialsNonExpired(true)
+                            .enabled(true)
                             .build();
                     authRepository.save(build);
-                    return new ApiResponse<>("O'qtuvchi qoshildi",true);
+                    return new ApiResponse<>("O'qtuvchi qoshildi", true);
                 }
-                return new ApiResponse<>("Faqat admin qusha oladi",false);
+                return new ApiResponse<>("Faqat admin qusha oladi", false);
             }
-            return new ApiResponse<>("xatolik",false);
+            return new ApiResponse<>("xatolik", false);
 
-        }catch (Exception e){
-            return new ApiResponse<>("Xatolik",false);
+        } catch (Exception e) {
+            return new ApiResponse<>("Xatolik", false);
         }
     }
+
     public List<AuthDto> getTeacher() {
         try {
             List<User> all = authRepository.findAll();
@@ -110,6 +117,7 @@ public class AuthService implements UserDetailsService {
                 for (Role role : user.getRoles()) {
                     if (role == role1) {
                         AuthDto build = AuthDto.builder()
+                                .id(user.getId())
                                 .firstName(user.getFirstName())
                                 .lastName(user.getLastName())
                                 .phoneNumber(user.getPhoneNumber())
@@ -124,6 +132,21 @@ public class AuthService implements UserDetailsService {
             return null;
         }
     }
+    public List<Group> getTeacherGroup(UUID teacherId,UUID uuid){
+        try {
+            User user = authRepository.findById(uuid).orElseThrow((() -> new ResourceNotFoundException("user")));
+            Role role1 = roleRepository.findById(1).orElseThrow(() -> new ResourceNotFoundException("role"));
+            for (Role role : user.getRoles()) {
+                if (role.equals(role1)){
+                    return groupRepository.findGroupByTeacherId(teacherId);
+                }
+                return null;
+            }
+        }catch (Exception e){
+            return null;
+        }
+        return null;
+    }
 
     public HttpEntity<?> login(LoginDto request, AuthenticationManager authenticationManager) {
         authenticationManager.authenticate(
@@ -134,6 +157,7 @@ public class AuthService implements UserDetailsService {
         System.out.println(ResponseEntity.ok(getMal(user, resToken)));
         return ResponseEntity.ok(getMal(user, resToken));
     }
+
     private String generateToken(String phoneNumber) {
         User user = authRepository.findUserByPhoneNumber(phoneNumber).orElseThrow(() -> new UsernameNotFoundException("getUser"));
         return jwtTokenProvider.generateToken(user.getId());

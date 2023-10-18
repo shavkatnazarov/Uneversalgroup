@@ -23,7 +23,7 @@ public class GroupController implements GroupControllerImpl {
     private final GroupRepository groupRepository;
 
     @Override
-    @PostMapping
+    @PostMapping("/add")
     public HttpEntity<?> addGroup(@RequestBody GroupDto groupDto) {
         ApiResponse<?> apiResponse = groupService.addGroup(groupDto);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);

@@ -37,20 +37,21 @@ public class GroupService implements GroupServiceImpl {
             boolean exist = groupRepository.existsGroupByNameEqualsIgnoreCase(groupDto.getName());
             Course course = courseRepository.findById(groupDto.getCourseId()).orElseThrow(() -> new ResolutionException("getCourseId"));
             User teacher = authRepository.findById(groupDto.getTeacherId()).orElseThrow(() -> new ResolutionException("getTeacherId"));
+
             List<Week_day> weekDays = new ArrayList<>();
-            if (groupDto.getDayType().getDayTypeName().name().equals("TOQ")) {
-                Week_day Monday = weekDaysRepository.findById(1).orElseThrow(() -> new ResourceNotFoundException(404, "weekDay", "id", 1));
+            if (groupDto.getDayType().equals("TOQ")) {
+                Week_day MONDAY = weekDaysRepository.findById(1).orElseThrow(() -> new ResourceNotFoundException(404, "weekDay", "id", 1));
                 Week_day WEDNESDAY = weekDaysRepository.findById(3).orElseThrow(() -> new ResourceNotFoundException(404, "weekDay", "id", 1));
-                Week_day Friday = weekDaysRepository.findById(5).orElseThrow(() -> new ResourceNotFoundException(404, "weekDay", "id", 1));
-                weekDays.add(Monday);
+                Week_day FRIDAY = weekDaysRepository.findById(5).orElseThrow(() -> new ResourceNotFoundException(404, "weekDay", "id", 1));
+                weekDays.add(MONDAY);
                 weekDays.add(WEDNESDAY);
-                weekDays.add(Friday);
+                weekDays.add(FRIDAY);
                 if (!exist) {
                     Group build = Group.builder()
                             .name(groupDto.getName())
                             .course(course)
                             .teacher(teacher)
-                            .dayType(groupDto.getDayType())
+                            .dayType(groupDto.getDay())
                             .weekDays(weekDays)
                             .start_date(groupDto.getStart_date())
                             .end_date(groupDto.getEnd_date())
@@ -60,7 +61,7 @@ public class GroupService implements GroupServiceImpl {
                     return new ApiResponse<>("group saqlandi", true);
                 }
 
-            } else if (groupDto.getDayType().getDayTypeName().name().equals("JUFT")) {
+            } else if (groupDto.getDayType().equals("JUFT")) {
                 Week_day TUESDAY = weekDaysRepository.findById(2).orElseThrow(() -> new ResourceNotFoundException(404, "weekDay", "id", 1));
                 Week_day THURSDAY = weekDaysRepository.findById(4).orElseThrow(() -> new ResourceNotFoundException(404, "weekDay", "id", 1));
                 Week_day SUNDAY = weekDaysRepository.findById(6).orElseThrow(() -> new ResourceNotFoundException(404, "weekDay", "id", 1));
@@ -72,7 +73,6 @@ public class GroupService implements GroupServiceImpl {
                             .name(groupDto.getName())
                             .course(course)
                             .teacher(teacher)
-                            .dayType(groupDto.getDayType())
                             .weekDays(weekDays)
                             .start_date(groupDto.getStart_date())
                             .end_date(groupDto.getEnd_date())
@@ -91,7 +91,6 @@ public class GroupService implements GroupServiceImpl {
                             .name(groupDto.getName())
                             .course(course)
                             .teacher(teacher)
-                            .dayType(groupDto.getDayType())
                             .weekDays(weekDays)
                             .start_date(groupDto.getStart_date())
                             .end_date(groupDto.getEnd_date())

@@ -9,9 +9,12 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.password.PasswordEncoder;
 import uneversalgroup.uneversal.entity.Role;
 import uneversalgroup.uneversal.entity.User;
+import uneversalgroup.uneversal.entity.Week_day;
 import uneversalgroup.uneversal.entity.enums.RoleName;
+import uneversalgroup.uneversal.entity.enums.WeekDaysName;
 import uneversalgroup.uneversal.repository.AuthRepository;
 import uneversalgroup.uneversal.repository.RoleRepository;
+import uneversalgroup.uneversal.repository.WeekDaysRepository;
 
 
 import java.util.Collections;
@@ -25,6 +28,7 @@ public class DataLoader implements CommandLineRunner {
     private final AuthRepository authRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
+    private final WeekDaysRepository weekDaysRepository;
     @Override
     public void run(String... args) throws Exception {
         if (init.equals("create-drop") || init.equals("create")) {
@@ -37,7 +41,9 @@ public class DataLoader implements CommandLineRunner {
                     )
 
             );
-
+            for (WeekDaysName value : WeekDaysName.values()) {
+                weekDaysRepository.save(new Week_day(value));
+            }
         }
     }
 }

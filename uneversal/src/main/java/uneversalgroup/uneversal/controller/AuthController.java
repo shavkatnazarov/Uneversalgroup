@@ -8,12 +8,16 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
+import uneversalgroup.uneversal.entity.Course;
+import uneversalgroup.uneversal.entity.Group;
 import uneversalgroup.uneversal.entity.User;
 import uneversalgroup.uneversal.payload.*;
 import uneversalgroup.uneversal.repository.AuthRepository;
+import uneversalgroup.uneversal.repository.GroupRepository;
 import uneversalgroup.uneversal.security.JwtTokenProvider;
 import uneversalgroup.uneversal.service.AuthService;
 
+import java.lang.module.ResolutionException;
 import java.util.List;
 import java.util.UUID;
 
@@ -23,6 +27,7 @@ import java.util.UUID;
 public class AuthController {
     private final AuthService authService;
     private final AuthRepository authRepository;
+    private final GroupRepository groupRepository;
     private final AuthenticationManager authenticationManager;
     private final JwtTokenProvider jwtTokenProvider ;
 
@@ -51,6 +56,11 @@ public class AuthController {
     public HttpEntity<?> getTeacher() {
         List<AuthDto> teacher = authService.getTeacher();
         return ResponseEntity.ok(teacher);
+    }
+    @GetMapping("teacher/{id}")
+    public HttpEntity<?> getOneTeacher(@PathVariable UUID id,@RequestParam UUID teacherId) {
+        List<Group> teacherGroup = authService.getTeacherGroup(teacherId, id);
+        return ResponseEntity.ok(teacherGroup);
     }
     private String generateToken(String phoneNumber) {
         User user = authRepository.findUserByPhoneNumber(phoneNumber).orElseThrow(() -> new UsernameNotFoundException("getUser"));

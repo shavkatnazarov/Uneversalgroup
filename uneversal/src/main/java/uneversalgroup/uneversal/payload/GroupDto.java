@@ -18,13 +18,13 @@ import java.util.UUID;
 public class GroupDto {
     private UUID id;
     private Integer courseId;
-    private Course course;
+    private String dayType;
+    private String end_date;
     private String name;
     private String start_date;
-    private String end_date;
     private UUID teacherId;
     private User teacher;
+    private Day_type day;
     private List<SelectDto>weekDays;
-    private Day_type dayType;
     private boolean active;
 }
