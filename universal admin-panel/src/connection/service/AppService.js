@@ -106,7 +106,7 @@ export const AddTeacher =async(data,setFirstName,setLastName,setPhoneNumber,setP
           ism:data.firstName.trim().length===0,
           familya:data.lastName.trim().length===0,
           tel:data.phoneNumber.trim().length!==9,
-          pas:data.password.length===6,
+          pas:data.password.length!==6,
       }
       if (check.ism||check.familya){
           return toast.warning("Malumot bosh bolmasin")
@@ -140,3 +140,6 @@ export const GetTeacher = async () => {
         console.log(err)
     }
 }
+//start group
+
+//end group
