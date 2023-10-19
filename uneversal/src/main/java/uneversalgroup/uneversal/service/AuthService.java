@@ -73,6 +73,7 @@ public class AuthService implements UserDetailsService {
             return new ApiResponse<>("Xatolik", false);
         }
     }
+
     public List<AuthDto> getPuple() {
         try {
             List<User> all = authRepository.findAll();
@@ -91,6 +92,7 @@ public class AuthService implements UserDetailsService {
                     }
                 }
             }
+
             return pupil;
         } catch (Exception e) {
             return null;

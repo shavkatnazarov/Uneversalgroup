@@ -9,7 +9,7 @@ import {CourseItem} from "../admin/course/CourseItem.jsx";
 import {Login} from "../templates/auth/Login.jsx";
 import {Group} from "../admin/Group.jsx";
 import {Teacher} from "../pages/teacher/Teacher.jsx";
-import {Pupil} from "../pages/pupil/Pupil.jsx";
+import {Pupil} from "../admin/pupil/Pupil.jsx";
 import {TeacherItem} from "../pages/teacher/TeacherItem.jsx";
 import {GroupItem} from "../admin/GroupItem.jsx";
 
