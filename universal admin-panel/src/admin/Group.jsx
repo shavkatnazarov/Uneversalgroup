@@ -1,11 +1,14 @@
 import {useEffect, useState} from "react";
-import {Button, Offcanvas} from "react-bootstrap";
-import {GetGroup, SaveGroup} from "../connection/service/AppService.js";
+import {Button, Card, CardBody, CardHeader, Offcanvas} from "react-bootstrap";
+import {changeActive, GetGroup, SaveGroup} from "../connection/service/AppService.js";
 import {BASE_CONFIG} from "../connection/BaseConfig.js";
 import {APP_API} from "../connection/AppApi.js";
+import {MultiSelect} from "react-multi-select-component";
+import {toast} from "react-toastify";
 
 export const Group = () => {
     const [loading, setLoading] = useState(false)
+    const [selected, setSelected] = useState([]);
     const [group, setGroup] = useState([])
     const [dayType, setDayType] = useState('')
     const [teacher, setTeacher] = useState([])
@@ -15,10 +18,10 @@ export const Group = () => {
     const [name, setName] = useState('')
     const [start_date, setStartDate] = useState('')
     const [end_date, setEndData] = useState('')
-    const [active, setActive] = useState(true)
+    const [active, setActive] = useState()
     const [show, setShow] = useState(false);
-    console.log(teacher)
 
+    console.log(group)
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
@@ -41,6 +44,18 @@ export const Group = () => {
         console.log(data)
         await SaveGroup(data, setCourseId, setTeacherId, setName, setStartDate, setEndData, getAll)
     }
+    const changeActives=async (id)=>{
+       try {
+           const arxiv=confirm("Arxivlaysizmi?")
+           if (arxiv){
+               await changeActive(id,false)
+               toast.success("arxivlandi")
+               window.location.reload()
+           }
+       }catch (err){
+           console.log(err)
+       }
+    }
 
     useEffect(() => {
         getAll()
@@ -53,6 +68,14 @@ export const Group = () => {
                     Gruppa qushish+
                 </Button>
             </div>
+            <Card className={"mt-5"}>
+                <CardHeader>
+                    {group.length!==0?(<h2 className={"text-primary text-center"}>Siz yaratgan kurslar</h2>):(<h2 className={"text-center text-danger"}>Hozirda kurslar mavjud emas</h2>)}
+                </CardHeader>
+                <CardBody>
+                    <GetGroups group={group} changeActives={changeActives}/>
+                </CardBody>
+            </Card>
             <Offcanvas show={show} placement={"end"} onHide={handleClose}>
                 <Offcanvas.Header closeButton>
                     <Offcanvas.Title>Offcanvas</Offcanvas.Title>
@@ -90,16 +113,8 @@ export const Group = () => {
                                 <option value="" selected={false}>Tanlang</option>
                                 <option value="TOQ">Toq</option>
                                 <option value="JUFT">Juft</option>
-                                <option value="BotCamp">BotCamp</option>
+                                <option value="BOOTCAMP">Bootcamp</option>
                             </select>
-                            <label className={"fw-bold  m-2"} htmlFor="daytype">Kunni tanlang</label>
-                            {dayType === "BotCamp" ? (
-                                <>
-                                    <input type="text" className={"form-control"} placeholder={"aaaaaaa"}/>
-                                </>
-                            ) : (
-                                ""
-                            )}
                         </form>
                     </div>
                     <div style={{marginTop: '60%'}}>
@@ -109,5 +124,36 @@ export const Group = () => {
                 </Offcanvas.Body>
             </Offcanvas>
         </div>
+    )
+}
+
+const GetGroups = ({group,changeActives}) => {
+    return (
+        <table className={"table"}>
+            <thead>
+            <tr>
+                <th>T/r</th>
+                <th>Gruppa nomi</th>
+                <th>Boshlanish vaqti</th>
+                <th>Tugash vaqti</th>
+                <th>Arxivlash</th>
+            </tr>
+            </thead>
+            <tbody>
+            {group.map((item,i)=>(
+                item.active?(
+                    <tr>
+                        <td>{i + 1}</td>
+                        <td>{item.name}</td>
+                        <td>{item.start_date}</td>
+                        <td>{item.end_date}</td>
+                        <td><button className={"btn btn-danger"} onClick={()=>changeActives(item.id)}>A</button></td>
+                    </tr>
+                ):(
+                   <></>
+                )
+            ))}
+            </tbody>
+        </table>
     )
 }

@@ -32,6 +32,24 @@ public class GroupService implements GroupServiceImpl {
 
 
     @Override
+    public List<GroupDto> getGroup() {
+        List<Group> all = groupRepository.findAll();
+        List<GroupDto> groupDtoList = new ArrayList<>();
+        for (Group group : all) {
+            GroupDto groupDto = GroupDto.builder()
+                    .id(group.getId())
+                    .name(group.getName())
+                    .start_date(group.getStart_date())
+                    .end_date(group.getEnd_date())
+                    .teacher(group.getTeacher())
+                    .active(group.isActive())
+                    .build();
+            groupDtoList.add(groupDto);
+        }
+        return groupDtoList;
+    }
+
+    @Override
     public ApiResponse<?> addGroup(GroupDto groupDto) {
         try {
             boolean exist = groupRepository.existsGroupByNameEqualsIgnoreCase(groupDto.getName());
@@ -81,11 +99,19 @@ public class GroupService implements GroupServiceImpl {
                     groupRepository.save(group);
                     return new ApiResponse<>("group saqlandi", true);
                 }
-            } else {
-                for (SelectDto weekDay : groupDto.getWeekDays()) {
-                    Week_day getWeekDays = weekDaysRepository.findById(weekDay.getValue()).orElseThrow(() -> new org.springframework.data.rest.webmvc.ResourceNotFoundException("getWeekDays"));
-                    weekDays.add(getWeekDays);
-                }
+            } else if (groupDto.getDayType().equals("BOOTCAMP")) {
+                Week_day MONDAY = weekDaysRepository.findById(1).orElseThrow(() -> new ResourceNotFoundException(404, "weekDay", "id", 1));
+                Week_day TUESDAY = weekDaysRepository.findById(2).orElseThrow(() -> new ResourceNotFoundException(404, "weekDay", "id", 1));
+                Week_day WEDNESDAY = weekDaysRepository.findById(3).orElseThrow(() -> new ResourceNotFoundException(404, "weekDay", "id", 1));
+                Week_day THURSDAY = weekDaysRepository.findById(4).orElseThrow(() -> new ResourceNotFoundException(404, "weekDay", "id", 1));
+                Week_day FRIDAY = weekDaysRepository.findById(5).orElseThrow(() -> new ResourceNotFoundException(404, "weekDay", "id", 1));
+                Week_day SUNDAY = weekDaysRepository.findById(6).orElseThrow(() -> new ResourceNotFoundException(404, "weekDay", "id", 1));
+                weekDays.add(TUESDAY);
+                weekDays.add(THURSDAY);
+                weekDays.add(SUNDAY);
+                weekDays.add(MONDAY);
+                weekDays.add(WEDNESDAY);
+                weekDays.add(FRIDAY);
                 if (!exist) {
                     Group group1 = Group.builder()
                             .name(groupDto.getName())
@@ -100,6 +126,7 @@ public class GroupService implements GroupServiceImpl {
                     return new ApiResponse<>("group saqlandi", true);
                 }
             }
+
             return null;
         } catch (Exception e) {
             return new ApiResponse<>("xatolik", false);
@@ -112,7 +139,7 @@ public class GroupService implements GroupServiceImpl {
             Group group = groupRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(404, "getGroupId", "groupId", id));
             group.setActive(active);
             groupRepository.save(group);
-            return new ApiResponse<>("Arxivlandi",true);
+            return new ApiResponse<>("Arxivlandi", true);
         } catch (Exception e) {
             return new ApiResponse<>("activda xatolik", false);
         }

@@ -2,6 +2,8 @@ import {BASE_CONFIG} from "../BaseConfig.js";
 import {APP_API} from "../AppApi.js";
 import {toast} from "react-toastify";
 import {IS_STATUS} from "../../utils/IsStatus.js";
+import axios from "axios";
+import {BASE_URL} from "../BaseUrl.js";
 
 export const GetOnePayment = async (id) => {
     try {
@@ -106,7 +108,7 @@ export const AddTeacher =async(data,setFirstName,setLastName,setPhoneNumber,setP
           ism:data.firstName.trim().length===0,
           familya:data.lastName.trim().length===0,
           tel:data.phoneNumber.trim().length!==9,
-          pas:data.password.length<=6,
+          pas:data.password.length < 6,
       }
       if (check.ism||check.familya){
           return toast.warning("Malumot bosh bolmasin")
@@ -174,5 +176,13 @@ export const SaveGroup = async (data, setCourseId, setTeacherId, setName, setSta
     } catch (err) {
         console.log(err)
     }
+}
+export const changeActive=async(id,active) =>{
+    try {
+        await axios.put(BASE_URL+APP_API.group+'/active/'+id+'?active='+active)
+    }catch (err){
+        console.log(err)
+    }
+
 }
 //end group
