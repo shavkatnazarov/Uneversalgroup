@@ -3,6 +3,7 @@ import React, {useEffect, useState} from "react";
 import {Modal, ModalBody, ModalFooter, ModalHeader} from "reactstrap";
 import {createHashRouter} from "react-router-dom";
 import {toast} from "react-toastify";
+import {AddPupil, GetPupil} from "../../connection/service/AppService.js";
 
 export const Pupil = () => {
     const [loading, setLoading] = useState(false)
