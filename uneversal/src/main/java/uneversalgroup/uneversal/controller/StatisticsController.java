@@ -28,7 +28,7 @@ public class StatisticsController {
     @GetMapping
     public HttpEntity<?> getStatistics() {
         Role role = roleRepository.findById(1).orElseThrow(() -> new ResourceNotFoundException("role"));
-        Role role1 = roleRepository.findById(1).orElseThrow(() -> new ResourceNotFoundException("role"));
+        Role role1 = roleRepository.findById(3).orElseThrow(() -> new ResourceNotFoundException("role"));
         int teacher = 0;
         int pupil = 0;
         for (User user : authRepository.findAll()) {
