@@ -1,4 +1,3 @@
-import {GetOneGroup} from "../connection/service/AppService.js";
 import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import {Card, CardBody, CardHeader} from "react-bootstrap";

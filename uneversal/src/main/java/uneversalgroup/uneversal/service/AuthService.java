@@ -132,6 +132,7 @@ public class AuthService implements UserDetailsService {
                 for (Role role : user.getRoles()) {
                     if (role == role1) {
                         AuthDto build = AuthDto.builder()
+                                .id(user.getId())
                                 .firstName(user.getFirstName())
                                 .lastName(user.getLastName())
                                 .phoneNumber(user.getPhoneNumber())
@@ -146,6 +147,9 @@ public class AuthService implements UserDetailsService {
             return null;
         }
     }
+    public List<Group> getTeacherGroup(UUID teacherId){
+        return groupRepository.getGroupByTeacherId(teacherId);
+    }
 
     public HttpEntity<?> login(LoginDto request, AuthenticationManager authenticationManager) {
         authenticationManager.authenticate(
@@ -156,6 +160,7 @@ public class AuthService implements UserDetailsService {
         System.out.println(ResponseEntity.ok(getMal(user, resToken)));
         return ResponseEntity.ok(getMal(user, resToken));
     }
+
     private String generateToken(String phoneNumber) {
         User user = authRepository.findUserByPhoneNumber(phoneNumber).orElseThrow(() -> new UsernameNotFoundException("getUser"));
         return jwtTokenProvider.generateToken(user.getId());
