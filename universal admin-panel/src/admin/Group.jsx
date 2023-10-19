@@ -1,6 +1,5 @@
 import {useEffect, useState} from "react";
 import {Button, Card, CardBody, CardHeader, Offcanvas} from "react-bootstrap";
-import {changeActive, GetGroup, SaveGroup} from "../connection/service/AppService.js";
 import {BASE_CONFIG} from "../connection/BaseConfig.js";
 import {APP_API} from "../connection/AppApi.js";
 import {toast} from "react-toastify";
@@ -118,7 +117,7 @@ export const Group = () => {
                         </form>
                     </div>
                     <div style={{marginTop: '60%'}}>
-                        <button className={"btn btn-primary w-100 mt-2"} onClick={() => saveGroup()}>Saqlash
+                        <button className={"btn btn-primary w-100 mt-3"} onClick={() => saveGroup()}>Saqlash
                         </button>
                     </div>
                 </Offcanvas.Body>

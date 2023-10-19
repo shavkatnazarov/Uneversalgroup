@@ -3,7 +3,6 @@ import {APP_API} from "../AppApi.js";
 import {toast} from "react-toastify";
 import {IS_STATUS} from "../../utils/IsStatus.js";
 import axios from "axios";
-import {BASE_URL} from "../BaseUrl.js";
 
 export const GetOnePayment = async (id) => {
     try {
@@ -144,6 +143,7 @@ export const GetTeacher = async () => {
 export const GetOneTeacher = async (id) => {
     try {
         const res = await BASE_CONFIG.doGetOne(APP_API.teacher, id)
+        console.log(res)
         return res.data
     } catch (err) {
         console.log(err.message)
@@ -186,78 +186,4 @@ export const SaveGroup = async (data, setCourseId, setTeacherId, setName, setSta
         console.log(err)
     }
 }
-export const changeActive=async(id,active) =>{
-    try {
-        await axios.put(BASE_URL+APP_API.group+'/active/'+id+'?active='+active)
-    }catch (err){
-        console.log(err)
-    }
-
-}
-export const GetOneGroup = async (id) => {
-    try {
-        const res = await BASE_CONFIG.doGetOne(APP_API.group, id)
-        return res.data
-    } catch (err) {
-        console.log(err.message)
-    }
-}
 //end group
-
-
-//start pupil
-export const AddPupil =async(data,setFirstName,setLastName,setPhoneNumber,setPassword)=>{
-    try {
-        const check={
-            ism:data.firstName.trim().length===0,
-            familya:data.lastName.trim().length===0,
-            tel:data.phoneNumber.trim().length!==9,
-            pas:data.password.length===0,
-        }
-        if (check.ism||check.familya){
-            return toast.warning(" ism yoki familya  bo'sh bolmasin")
-        }
-        if (check.tel){
-            return toast.warning("Telefon raqamda xatolik")
-        }
-        if (check.pas){
-            return toast.warning("parol    bolsin")
-        }
-        const res = await BASE_CONFIG.doPost(APP_API.puple+"/"+localStorage.getItem("id"), data)
-        if (IS_STATUS(res.status)) {
-            localStorage.setItem("role",res.data.user.roles[0].roleName)
-            localStorage.setItem("token1", res.data.resToken.body)
-            toast.success("Teacher qo'shildi")
-            setFirstName('')
-            setLastName('')
-            setPhoneNumber('')
-            setPassword('')
-        }
-    }catch (err){
-        console.log(err)
-    }
-}
-
-
-export const GetPupil = async () => {
-    try {
-        const res = await BASE_CONFIG.doGet(APP_API.puple)
-        console.log(res.data)
-        return res.data
-    } catch (err) {
-        console.log(err)
-    }
-}
-export const DeletePupil = async (id) => {
-    try {
-        await BaseConfig.doDelete(APP_API.puple, id)
-        toast.success("uquvchi o'chirildi")
-    } catch (err) {
-        toast.error("xatolik")
-    }
-}
-
-//end pupil
-
-
-//

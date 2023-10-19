@@ -9,8 +9,8 @@ import java.util.UUID;
 
 public interface GroupRepository extends JpaRepository<Group, UUID> {
     boolean existsGroupByNameEqualsIgnoreCase(String name);
-     List<Group> findGroupByTeacherId(UUID id);
 
-//     @Query("select c from groupss  c  where c.course.id=?1")
-//    List<Group>GroupAndCourse(Integer id);
+    @Query(value = "select * from guruhlar where teacher_id=?1", nativeQuery = true )
+     List<Group> getGroupByTeacherId(UUID id);
+
 }

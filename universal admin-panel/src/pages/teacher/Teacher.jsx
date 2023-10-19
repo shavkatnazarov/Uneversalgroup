@@ -112,6 +112,7 @@ export const Teacher=()=>{
     )
 }
 const GetTeachers=({teacher,navigate})=>{
+    console.log(teacher)
     const oneTeacher=(id)=>{
         navigate("/auth/dashboard/teacher/"+id)
     }

@@ -13,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Entity(name = "groupss")
+@Entity(name = "guruhlar")
 public class Group extends AbsEntity {
     @Column(nullable = false)
     private String name;
