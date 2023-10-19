@@ -4,6 +4,7 @@ import {BASE_CONFIG} from "../connection/BaseConfig.js";
 import {APP_API} from "../connection/AppApi.js";
 import {toast} from "react-toastify";
 import {useNavigate} from "react-router-dom";
+import {GetGroup, SaveGroup} from "../connection/service/AppService.js";
 
 export const Group = () => {
     const [loading, setLoading] = useState(false)
@@ -123,11 +124,8 @@ export const Group = () => {
                         </form>
                     </div>
                     <div style={{marginTop: '60%'}}>
-<<<<<<< HEAD
-                        <button className={"btn btn-primary w-100 mt-2"} onClick={()=>saveGroup()}>Saqlasha
-=======
+
                         <button className={"btn btn-primary w-100 mt-3"} onClick={() => saveGroup()}>Saqlash
->>>>>>> cf8b987043161f95b858c1c8a3b7b5f951e2a98d
                         </button>
                     </div>
                 </Offcanvas.Body>

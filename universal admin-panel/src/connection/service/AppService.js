@@ -1,4 +1,4 @@
-import {BASE_CONFIG} from "../BaseConfig.js";
+import {BASE_CONFIG as BaseConfig, BASE_CONFIG} from "../BaseConfig.js";
 import {APP_API} from "../AppApi.js";
 import {toast} from "react-toastify";
 import {IS_STATUS} from "../../utils/IsStatus.js";
@@ -186,7 +186,6 @@ export const SaveGroup=async (data,setCourseId,setTeacherId,setName,setStartData
         console.log(err)
     }
 }
-<<<<<<< HEAD
 // export const SaveGroup = async (data, setCourseId, setTeacherId, setName, setStartData, setEndData, getAll) => {
 //
 //     const check = {
@@ -289,6 +288,4 @@ export const DeletePupil = async (id) => {
 
 
 //
-=======
 //end group
->>>>>>> cf8b987043161f95b858c1c8a3b7b5f951e2a98d

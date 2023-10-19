@@ -2,6 +2,7 @@ import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import {Card, CardBody, CardHeader} from "react-bootstrap";
 import {Loading} from "../pages/Loading.jsx";
+import {GetOneGroup} from "../connection/service/AppService.js";
 
 export const GroupItem=()=>{
     const [group,setGroup]=useState({})
