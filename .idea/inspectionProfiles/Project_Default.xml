@@ -5,6 +5,7 @@
       <Languages>
         <language minSize="68" name="Java" />
         <language minSize="56" name="JavaScript" />
+        <language minSize="46" name="JavaScript" />
       </Languages>
     </inspection_tool>
   </profile>

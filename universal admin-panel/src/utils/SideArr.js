@@ -1,8 +1,7 @@
 export const SIDE_ARR=[
-    {name:'Asosiy bo\'lim',icon:'',link:'/'},
+    {name:'Asosiy bo\'lim',icon:'',link:'/auth/dashboard'},
     {name: 'Course',icon: '',link: '/auth/dashboard/course'},
     {name: 'Group',icon: '',link: "/auth/dashboard/group"},
-    {name: 'To\'lov',icon: '',link: '/auth/dashboard/payment'},
     {name: 'Teacher',icon: '',link: '/auth/dashboard/teacher'},
     {name: 'Pupil',icon: '',link: '/auth/dashboard/pupil'},
 ]

@@ -3,7 +3,6 @@ import {APP_API} from "../AppApi.js";
 import {toast} from "react-toastify";
 import {IS_STATUS} from "../../utils/IsStatus.js";
 import axios from "axios";
-import {BASE_URL} from "../BaseUrl.js";
 
 export const GetOnePayment = async (id) => {
     try {
@@ -144,6 +143,7 @@ export const GetTeacher = async () => {
 export const GetOneTeacher = async (id) => {
     try {
         const res = await BASE_CONFIG.doGetOne(APP_API.teacher, id)
+        console.log(res)
         return res.data
     } catch (err) {
         console.log(err.message)
@@ -186,6 +186,7 @@ export const SaveGroup=async (data,setCourseId,setTeacherId,setName,setStartData
         console.log(err)
     }
 }
+<<<<<<< HEAD
 // export const SaveGroup = async (data, setCourseId, setTeacherId, setName, setStartData, setEndData, getAll) => {
 //
 //     const check = {
@@ -288,3 +289,6 @@ export const DeletePupil = async (id) => {
 
 
 //
+=======
+//end group
+>>>>>>> cf8b987043161f95b858c1c8a3b7b5f951e2a98d

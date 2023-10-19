@@ -1,6 +1,5 @@
 import {Button, Offcanvas} from "react-bootstrap";
 import React, {useEffect, useState} from "react";
-import {AddPupil, DeletePupil, GetPupil} from "../../connection/service/AppService.js";
 import {Modal, ModalBody, ModalFooter, ModalHeader} from "reactstrap";
 import {createHashRouter} from "react-router-dom";
 import {toast} from "react-toastify";

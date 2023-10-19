@@ -14,7 +14,7 @@ export const Teacher=()=>{
     const [phoneNumber,setPhoneNumber] = useState('')
     const [password,setPassword] = useState('')
     const [show, setShow] = useState(false);
-
+    const [group,setGroup]=useState([])
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
@@ -22,6 +22,7 @@ export const Teacher=()=>{
         try {
             const res = await GetTeacher()
             setTeacher(res)
+            setGroup(res)
             setLoading(true)
         } catch (err) {
             console.log(err.message)
@@ -114,6 +115,7 @@ export const Teacher=()=>{
 const GetTeachers=({teacher,navigate})=>{
     const oneTeacher=(id)=>{
         navigate("/auth/dashboard/teacher/"+id)
+
     }
     return(
         <div>
