@@ -1,7 +1,9 @@
-import {BASE_CONFIG as BaseConfig, BASE_CONFIG} from "../BaseConfig.js";
+import {BASE_CONFIG} from "../BaseConfig.js";
 import {APP_API} from "../AppApi.js";
 import {toast} from "react-toastify";
 import {IS_STATUS} from "../../utils/IsStatus.js";
+import axios from "axios";
+import {BASE_URL} from "../BaseUrl.js";
 
 export const GetOnePayment = async (id) => {
     try {
@@ -119,8 +121,6 @@ export const AddTeacher =async(data,setFirstName,setLastName,setPhoneNumber,setP
       }
       const res = await BASE_CONFIG.doPost(APP_API.teacher+"/"+localStorage.getItem("id"), data)
       if (IS_STATUS(res.status)) {
-          localStorage.setItem("role",res.data.user.roles[0].roleName)
-          localStorage.setItem("token1", res.data.resToken.body)
           toast.success("Teacher qo'shildi")
           localStorage.setItem("role", res.data.user.roles[0].roleName)
           localStorage.setItem("token", res.data.resToken.body)
@@ -137,7 +137,6 @@ export const GetTeacher = async () => {
     try {
         const res = await BASE_CONFIG.doGet(APP_API.teacher)
         return res.data
-        console.log(res.data)
     } catch (err) {
         console.log(err)
     }
@@ -185,6 +184,22 @@ export const SaveGroup = async (data, setCourseId, setTeacherId, setName, setSta
         }
     } catch (err) {
         console.log(err)
+    }
+}
+export const changeActive=async(id,active) =>{
+    try {
+        await axios.put(BASE_URL+APP_API.group+'/active/'+id+'?active='+active)
+    }catch (err){
+        console.log(err)
+    }
+
+}
+export const GetOneGroup = async (id) => {
+    try {
+        const res = await BASE_CONFIG.doGetOne(APP_API.group, id)
+        return res.data
+    } catch (err) {
+        console.log(err.message)
     }
 }
 //end group

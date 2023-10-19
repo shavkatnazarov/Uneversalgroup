@@ -12,6 +12,7 @@ import uneversalgroup.uneversal.payload.GroupDto;
 import uneversalgroup.uneversal.repository.GroupRepository;
 import uneversalgroup.uneversal.service.GroupService;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -21,6 +22,13 @@ import java.util.UUID;
 public class GroupController implements GroupControllerImpl {
     private final GroupService groupService;
     private final GroupRepository groupRepository;
+
+    @Override
+    @GetMapping
+    public HttpEntity<?> getGroup() {
+        List<GroupDto> group = groupService.getGroup();
+        return ResponseEntity.ok(group);
+    }
 
     @Override
     @PostMapping("/add")

@@ -10,7 +10,7 @@ export const SideBar = () => {
         navigate("/")
     }
     return (
-        <aside className="left-sidebar shadow">
+        <aside className="left-sidebar ">
             <div>
                 <div className="brand-logo  justify-content-between">
                     <a href="#" className="text-nowrap logo-img" style={{textDecoration:'none'}}>
