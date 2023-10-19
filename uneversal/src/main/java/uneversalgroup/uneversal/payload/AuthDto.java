@@ -18,4 +18,5 @@ public class AuthDto {
     private String phoneNumber;
     private String password;
     private String prePassword;
+    private UUID groupId;
 }

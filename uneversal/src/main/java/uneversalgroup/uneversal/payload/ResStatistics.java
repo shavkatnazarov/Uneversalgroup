@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class ResStatistics {
-    private Integer categorySize;
-    private Integer productSize;
-    private Integer buySize;
-    private Integer protcent;
+    private Integer pupilSize;
+    private Integer teacherSize;
+    private Integer courseSize;
+    private Integer groupSize;
 }

@@ -30,6 +30,8 @@ public class User extends AbsEntity implements UserDetails {
 
     @Column(nullable = false)
     private String password;
+//    @ManyToMany
+//    private List<Group>groups;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "users_role",

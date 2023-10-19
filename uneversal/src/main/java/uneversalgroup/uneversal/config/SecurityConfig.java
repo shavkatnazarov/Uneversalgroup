@@ -76,14 +76,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeHttpRequests()
-                .antMatchers("/api/auth/**","/api/course/**","/api/attachment/**","/api/group/**")
+                .antMatchers("/api/auth/**","/api/course/**", "/api/statistics/**","/api/attachment/**")
                 .permitAll()
                 .antMatchers("/api/**")
                 .authenticated();
 
         http.addFilterBefore(jwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }
-
     @Override
     public void configure(WebSecurity web) throws Exception {
         super.configure(web);
