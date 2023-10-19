@@ -1,12 +1,16 @@
 import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
-import {Card, CardBody, CardHeader} from "react-bootstrap";
+import {Button, Card, CardBody, CardHeader} from "react-bootstrap";
 import {Loading} from "../pages/Loading.jsx";
 import {GetOneGroup} from "../connection/service/AppService.js";
+import {Modal, ModalBody, ModalFooter, ModalHeader} from "reactstrap";
 
 export const GroupItem=()=>{
     const [group,setGroup]=useState({})
     const [loading,setLoading]=useState(false)
+    const [modal, setModal] = useState(false);
+
+    const toggle = () => setModal(!modal);
     const id=useParams().id
     const getOneGroup=async ()=>{
         try {
@@ -28,12 +32,32 @@ export const GroupItem=()=>{
                         <h6 className={"text-primary"}>Gruppa nomi</h6>{group.name}
                     </CardHeader>
                     <CardBody>
-                        <button className={"btn btn-success"}>O'quvchi qushish</button>
+                        <Button color="danger" onClick={toggle}>
+                            Click Me
+                        </Button>
                     </CardBody>
                 </Card>
+
+
             ):(
                 <Loading/>
             )}
+            <>
+                <Modal isOpen={modal} toggle={toggle} >
+                    <ModalHeader toggle={toggle}>Modal title</ModalHeader>
+                    <ModalBody>
+
+                    </ModalBody>
+                    <ModalFooter>
+                        <Button color="primary" onClick={toggle}>
+                            Do Something
+                        </Button>{' '}
+                        <Button color="secondary" onClick={toggle}>
+                            Cancel
+                        </Button>
+                    </ModalFooter>
+                </Modal>
+            </>
         </div>
     )
 }
