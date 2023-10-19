@@ -50,18 +50,18 @@ export const Group = () => {
     //     }
     //     await SaveGroup(data, setCourseId, setTeacherId, setName, setStartDate, setEndData, getAll)
     // }
-    // const changeActives=async (id)=>{
-    //    try {
-    //        const arxiv=confirm("Arxivlaysizmi?")
-    //        if (arxiv){
-    //            await changeActive(id,false)
-    //            toast.success("arxivlandi")
-    //            window.location.reload()
-    //        }
-    //    }catch (err){
-    //        console.log(err)
-    //    }
-    // }
+    const changeActives=async (id)=>{
+       try {
+           const arxiv=confirm("Arxivlaysizmi?")
+           if (arxiv){
+               await changeActive(id,false)
+               toast.success("arxivlandi")
+               window.location.reload()
+           }
+       }catch (err){
+           console.log(err)
+       }
+    }
 
     useEffect(() => {
         getAll()
@@ -76,10 +76,10 @@ export const Group = () => {
             </div>
             <Card className={"mt-5"}>
                 <CardHeader>
-                    {/*{group.length!==0?(<h2 className={"text-primary text-center"}>Siz yaratgan kurslar</h2>):(<h2 className={"text-center text-danger"}>Hozirda kurslar mavjud emas</h2>)}*/}
+                    {group.length!==0?(<h2 className={"text-primary text-center"}>Siz yaratgan kurslar</h2>):(<h2 className={"text-center text-danger"}>Hozirda kurslar mavjud emas</h2>)}
                 </CardHeader>
                 <CardBody>
-                    {/*<GetGroups group={group} changeActives={changeActives} navigate={navigate}/>*/}
+                    <GetGroups group={group} changeActives={changeActives} navigate={navigate}/>
                 </CardBody>
             </Card>
             <Offcanvas show={show} placement={"end"} onHide={handleClose}>
@@ -133,40 +133,40 @@ export const Group = () => {
     )
 }
 
-// const GetGroups = ({group,changeActives,navigate}) => {
-//     const oneGroup=(id)=>{
-//         navigate("/auth/dashboard/group/"+ id)
-//     }
-//     return (
-//         <table className={"table"}>
-//             <thead>
-//             <tr>
-//                 <th>T/r</th>
-//                 <th>Gruppa nomi</th>
-//                 <th>Boshlanish vaqti</th>
-//                 <th>Tugash vaqti</th>
-//                 <th>Arxiv</th>
-//                 <th>O'quvchi </th>
-//                 <th>O'chirish</th>
-//             </tr>
-//             </thead>
-//             <tbody>
-//             {group.map((item,i)=>(
-//                 item.active?(
-//                     <tr>
-//                         <td>{i + 1}</td>
-//                         <td>{item.name}</td>
-//                         <td>{item.start_date}</td>
-//                         <td>{item.end_date}</td>
-//                         <td><button className={"btn btn-primary"} onClick={()=>changeActives(item.id)}><i className="bi bi-archive"></i></button></td>
-//                         <td><button className={"btn btn-success"} onClick={()=>oneGroup(item.id)}><i className="bi bi-person-fill-add"></i></button></td>
-//                         <td><button className={"btn btn-danger"} onClick={()=>oneGroup(item.id)}><i className="bi bi-trash"></i></button></td>
-//                     </tr>
-//                 ):(
-//                    <></>
-//                 )
-//             ))}
-//             </tbody>
-//         </table>
-//     )
-// }
+const GetGroups = ({group,changeActives,navigate}) => {
+    const oneGroup=(id)=>{
+        navigate("/auth/dashboard/group/"+ id)
+    }
+    return (
+        <table className={"table"}>
+            <thead>
+            <tr>
+                <th>T/r</th>
+                <th>Gruppa nomi</th>
+                <th>Boshlanish vaqti</th>
+                <th>Tugash vaqti</th>
+                <th>Arxiv</th>
+                <th>O'quvchi </th>
+                <th>O'chirish</th>
+            </tr>
+            </thead>
+            <tbody>
+            {group.map((item,i)=>(
+                item.active?(
+                    <tr>
+                        <td>{i + 1}</td>
+                        <td>{item.name}</td>
+                        <td>{item.start_date}</td>
+                        <td>{item.end_date}</td>
+                        <td><button className={"btn btn-primary"} onClick={()=>changeActives(item.id)}><i className="bi bi-archive"></i></button></td>
+                        <td><button className={"btn btn-success"} onClick={()=>oneGroup(item.id)}><i className="bi bi-person-fill-add"></i></button></td>
+                        <td><button className={"btn btn-danger"} onClick={()=>oneGroup(item.id)}><i className="bi bi-trash"></i></button></td>
+                    </tr>
+                ):(
+                   <></>
+                )
+            ))}
+            </tbody>
+        </table>
+    )
+}
