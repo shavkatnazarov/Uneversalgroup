@@ -41,10 +41,21 @@ public class AuthController {
         User user = authRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("getUser"));
         return ResponseEntity.ok(user);
     }
-    @PostMapping("/pupil/{id}")
-    public HttpEntity<?> addPupil(@PathVariable UUID id,@RequestParam UUID groupId, @RequestBody AuthDto authDto) {
-        ApiResponse<?> apiResponse = authService.addPupil(authDto, groupId, id);
-        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 400).body(apiResponse);
+    @PostMapping("/puple/{id}")
+    public HttpEntity<?> addPupil(@PathVariable UUID id, @RequestBody AuthDto authDto) {
+            ApiResponse<?> apiResponse = authService.addPupil(authDto,id);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+    }
+//    @DeleteMapping("/{id}")
+//    public HttpEntity<?>
+//    deletePupil(@PathVariable UUID id) {
+//        ApiResponse<?> apiResponse = authService.deletePupil(id);
+//        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+//    }
+    @GetMapping("/puple")
+    public HttpEntity<?> getPuple() {
+        List<AuthDto> puple = authService.getPuple();
+        return ResponseEntity.ok(puple);
     }
     @PostMapping("/teacher/{id}")
     public HttpEntity<?> addTeachers(@PathVariable UUID id,@RequestBody AuthDto authDto){
@@ -57,9 +68,9 @@ public class AuthController {
         List<AuthDto> teacher = authService.getTeacher();
         return ResponseEntity.ok(teacher);
     }
-    @GetMapping("/teacher/{id}")
-    public HttpEntity<?> getOneTeacher(@PathVariable UUID id) {
-        List<Group> teacherGroup = authService.getTeacherGroup(id);
+    @GetMapping("teacher/{id}")
+    public HttpEntity<?> getOneTeacher(@PathVariable UUID id,@RequestParam UUID teacherId) {
+        List<Group> teacherGroup = authService.getTeacherGroup(teacherId, id);
         return ResponseEntity.ok(teacherGroup);
     }
     private String generateToken(String phoneNumber) {
