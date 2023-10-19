@@ -56,6 +56,7 @@ public class AuthController {
     public HttpEntity<?> getPuple() {
         List<AuthDto> puple = authService.getPuple();
         return ResponseEntity.ok(puple);
+
     }
     @PostMapping("/teacher/{id}")
     public HttpEntity<?> addTeachers(@PathVariable UUID id,@RequestBody AuthDto authDto){

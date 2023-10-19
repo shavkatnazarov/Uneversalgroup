@@ -5,15 +5,14 @@ import {NotFount} from "../pages/NotFount.jsx";
 
 export const DashboardLayout = () => {
     const token = localStorage.getItem("token")
-    const role = localStorage.getItem("role")
 
     return (
         <div>
-            {token &&role==="ADMIN"?(
+            {token?(
             <div>
-                <div>
-                    <Header/>
-                </div>
+                    {/*<div>*/}
+                    {/*    <Header/>*/}
+                    {/*</div>*/}
                 <div style={{width: "20%",height: "100%",overflow: "auto"}} >
                     <SideBar/>
                 </div>
@@ -24,6 +23,7 @@ export const DashboardLayout = () => {
             ):(
                 <NotFount/>
             )}
+
         </div>
     )
 }
