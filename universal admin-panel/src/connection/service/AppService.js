@@ -2,7 +2,6 @@ import {BASE_CONFIG} from "../BaseConfig.js";
 import {APP_API} from "../AppApi.js";
 import {toast} from "react-toastify";
 import {IS_STATUS} from "../../utils/IsStatus.js";
-import axios from "axios";
 
 export const GetOnePayment = async (id) => {
     try {
@@ -101,36 +100,36 @@ export const GetOneCourse = async (id) => {
     }
 }
 //start teacher
-export const AddTeacher =async(data,setFirstName,setLastName,setPhoneNumber,setPassword)=>{
-  try {
-      const check={
-          ism:data.firstName.trim().length===0,
-          familya:data.lastName.trim().length===0,
-          tel:data.phoneNumber.trim().length!==9,
-          pas:data.password.length<=6,
-      }
-      if (check.ism||check.familya){
-          return toast.warning("Malumot bosh bolmasin")
-      }
-      if (check.tel){
-          return toast.warning("Telefon raqamda xatolik")
-      }
-      if (check.pas){
-          return toast.warning("parol 6ta belgidan kop bolsin")
-      }
-      const res = await BASE_CONFIG.doPost(APP_API.teacher+"/"+localStorage.getItem("id"), data)
-      if (IS_STATUS(res.status)) {
-          toast.success("Teacher qo'shildi")
-          localStorage.setItem("role", res.data.user.roles[0].roleName)
-          localStorage.setItem("token", res.data.resToken.body)
-          setFirstName('')
-          setLastName('')
-          setPhoneNumber('')
-          setPassword('')
-      }
-  }catch (err){
-      console.log(err)
-  }
+export const AddTeacher = async (data, setFirstName, setLastName, setPhoneNumber, setPassword) => {
+    try {
+        const check = {
+            ism: data.firstName.trim().length === 0,
+            familya: data.lastName.trim().length === 0,
+            tel: data.phoneNumber.trim().length !== 9,
+            pas: data.password.length <= 6,
+        }
+        if (check.ism || check.familya) {
+            return toast.warning("Malumot bosh bolmasin")
+        }
+        if (check.tel) {
+            return toast.warning("Telefon raqamda xatolik")
+        }
+        if (check.pas) {
+            return toast.warning("parol 6ta belgidan kop bolsin")
+        }
+        const res = await BASE_CONFIG.doPost(APP_API.teacher + "/" + localStorage.getItem("id"), data)
+        if (IS_STATUS(res.status)) {
+            toast.success("Teacher qo'shildi")
+            localStorage.setItem("role", res.data.user.roles[0].roleName)
+            localStorage.setItem("token", res.data.resToken.body)
+            setFirstName('')
+            setLastName('')
+            setPhoneNumber('')
+            setPassword('')
+        }
+    } catch (err) {
+        console.log(err)
+    }
 }
 export const GetTeacher = async () => {
     try {
@@ -140,7 +139,15 @@ export const GetTeacher = async () => {
         console.log(err)
     }
 }
-
+export const GetOneTeacher = async (id) => {
+    try {
+        const res = await BASE_CONFIG.doGetOne(APP_API.teacher, id)
+        console.log(res)
+        return res.data
+    } catch (err) {
+        console.log(err.message)
+    }
+}
 //end teacher
 
 //start group
@@ -180,6 +187,15 @@ export const SaveGroup = async (data, setCourseId, setTeacherId, setName, setSta
 }
 //end group
 //pupil
+export const GetOnePupil = async (id) => {
+    try {
+        const res = await BASE_CONFIG.doGetOne(APP_API.puple, id)
+        console.log(res)
+        return res.data
+    } catch (err) {
+        console.log(err.message)
+    }
+}
 export const AddPupil = async (data, setFirstName, setLastName, setPhoneNumber, setPassword) => {
     try {
         const check = {

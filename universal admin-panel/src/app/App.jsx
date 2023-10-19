@@ -14,8 +14,6 @@ import {TeacherItem} from "../pages/teacher/TeacherItem.jsx";
 import {GroupItem} from "../admin/GroupItem.jsx";
 import {PupilItem} from "../admin/pupil/PupilItem.jsx";
 
-
-
 function App() {
     return (
         <BrowserRouter>
