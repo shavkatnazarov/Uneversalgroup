@@ -82,6 +82,7 @@ public class AuthService implements UserDetailsService {
                 for (Role role : user.getRoles()) {
                     if (role == role1) {
                         AuthDto build = AuthDto.builder()
+                                .id(user.getId())
                                 .firstName(user.getFirstName())
                                 .lastName(user.getLastName())
                                 .phoneNumber(user.getPhoneNumber())
@@ -130,6 +131,7 @@ public class AuthService implements UserDetailsService {
                 for (Role role : user.getRoles()) {
                     if (role == role1) {
                         AuthDto build = AuthDto.builder()
+                                .id(user.getId())
                                 .firstName(user.getFirstName())
                                 .lastName(user.getLastName())
                                 .phoneNumber(user.getPhoneNumber())

@@ -55,7 +55,6 @@ public class GroupService implements GroupServiceImpl {
             boolean exist = groupRepository.existsGroupByNameEqualsIgnoreCase(groupDto.getName());
             Course course = courseRepository.findById(groupDto.getCourseId()).orElseThrow(() -> new ResolutionException("getCourseId"));
             User teacher = authRepository.findById(groupDto.getTeacherId()).orElseThrow(() -> new ResolutionException("getTeacherId"));
-
             List<Week_day> weekDays = new ArrayList<>();
             if (groupDto.getDayType().equals("TOQ")) {
                 Week_day MONDAY = weekDaysRepository.findById(1).orElseThrow(() -> new ResourceNotFoundException(404, "weekDay", "id", 1));
