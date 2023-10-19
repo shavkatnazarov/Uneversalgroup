@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import  {useEffect, useState} from "react";
 import {Card, CardBody, CardHeader} from "react-bootstrap";
 import {APP_API} from "../connection/AppApi.js";
 import {BASE_CONFIG as BaseConfig} from "../connection/BaseConfig.js";
@@ -21,8 +21,8 @@ export const Menu = () => {
     }, [])
 
     const statArr = [
-        {name: "uqituvchi", statistika: stat.teacherSize, icon: 'fas fa-chart-bar', about: "uqituvchilar soni"},
-        {name: "uquvchilar", statistika: stat.pupilSize, icon: 'fas fa-users', about: 'uquvchilarsoni  soni'},
+        {name: "uqituvchi", statistika: stat.pupilSize, icon: 'fa-light fa-chalkboard-user', about: "uqituvchilar soni"},
+        {name: "uquvchilar", statistika: stat.teacherSize, icon: 'fas fa-users', about: 'uquvchilarsoni  soni'},
         {name: "courslar", statistika: stat.courseSize, icon: 'fas fa-chart-pie', about: 'kurslar soni'},
         {name: "guruhlar", statistika: stat.groupSize, icon: 'fas fa-percent', about: 'guruhlar soni'}
     ]
@@ -34,11 +34,14 @@ export const Menu = () => {
                 <h1 className={"text-center text-primary"}>Statistika</h1>
                 <hr/>
             </div>
+            <div className={"d-flex justify-content-between"}>
             {statArr.map(item => (
             <div className={" d-flex align-items-center justify-content-between"}>
                 <Card >
+                    <i
+                        className={item.icon}/>
                     <CardHeader>
-                        <h5 className="card-title  text-uppercase text-muted mb-0">{item.name}</h5><i className={item.icon}/>
+                        <h5 className="card-title  text-uppercase text-muted mb-0">{item.name}</h5>
                     </CardHeader>
                     <CardBody>
                        <div> <span
@@ -50,6 +53,7 @@ export const Menu = () => {
                 </Card>
             </div>
             ))}
+            </div>
         </div>
     )
 }

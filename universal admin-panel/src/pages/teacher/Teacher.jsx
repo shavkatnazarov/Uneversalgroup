@@ -1,6 +1,7 @@
 import {Button, Card, CardBody, CardHeader, Offcanvas} from "react-bootstrap";
 import React, {useEffect, useState} from "react";
 import {AddTeacher, GetTeacher,} from "../../connection/service/AppService.js";
+import {toast} from "react-toastify";
 import {Loading} from "../Loading.jsx";
 import {useNavigate} from "react-router-dom";
 
@@ -112,8 +113,6 @@ export const Teacher=()=>{
     )
 }
 const GetTeachers=({teacher,navigate})=>{
-    console.log(teacher)
-
     const oneTeacher=(id)=>{
         navigate("/auth/dashboard/teacher/"+id)
 
@@ -140,9 +139,7 @@ const GetTeachers=({teacher,navigate})=>{
                         <td>+998-{item.phoneNumber}</td>
                         <td>{item.password}</td>
                         <td>
-
-                                <button className={"btn btn-success "} onClick={()=>oneTeacher(item.id)}>Bosing</button>
-
+                            <button className={"btn btn-success"} onClick={()=>oneTeacher(item.id)}>Bosing</button>
                         </td>
                     </tr>
                 ))}

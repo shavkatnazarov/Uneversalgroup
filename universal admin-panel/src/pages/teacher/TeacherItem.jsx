@@ -1,11 +1,10 @@
+import {Card,} from "react-bootstrap";
+import {Loading} from "../Loading.jsx";
 import { useParams} from "react-router-dom";
-import {Card} from "react-bootstrap";
-
 import React, {useEffect, useState} from "react";
 import {GetOneTeacher} from "../../connection/service/AppService.js";
 import {div} from "mdb-ui-kit/src/js/mdb/perfect-scrollbar/lib/dom.js";
 import {map} from "react-bootstrap/ElementChildren";
-import {Loading} from "../Loading.jsx";
 
 export const TeacherItem=()=>{
     const [loading, setLoading] = useState(false)
@@ -22,6 +21,7 @@ export const TeacherItem=()=>{
             console.log(res)
             setLoading(true)
         } catch (err) {
+            console.log(err.message)
         }
     }
     useEffect(() => {
@@ -58,7 +58,7 @@ export const TeacherItem=()=>{
 }
 const GroupByTeacher=({group})=>{
     return(
-        <div className={"table border"} >
+        <div className={"table border"} w>
             <thead>
             <tr>
                 <th>T/r</th>
