@@ -50,4 +50,11 @@ public class GroupController implements GroupControllerImpl {
         Group group = groupRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(404, "getGroupId", "groupId", id));
         return ResponseEntity.ok(group);
     }
+
+//    @Override
+//    @GetMapping("/sort-course-by/{id}")
+//    public HttpEntity<?> GroupAndCourse(@PathVariable Integer id) {
+//        List<Group> groups = groupRepository.GroupAndCourse(id);
+//        return ResponseEntity.ok(groups);
+//    }
 }

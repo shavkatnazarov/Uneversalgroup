@@ -25,10 +25,10 @@ export const GroupItem=()=>{
             {loading?(
                 <Card className={"mt-5 w-40"}>
                     <CardHeader className={"d-flex justify-content-between align-items-center"}>
-                        <h6 className={"text-primary"}>Gruppa nomi</h6>  {group.name}
+                        <h6 className={"text-primary"}>Gruppa nomi</h6>{group.name}
                     </CardHeader>
                     <CardBody>
-
+                        <button className={"btn btn-success"}>O'quvchi qushish</button>
                     </CardBody>
                 </Card>
             ):(
