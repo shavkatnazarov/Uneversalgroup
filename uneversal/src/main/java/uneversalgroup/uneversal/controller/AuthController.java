@@ -57,9 +57,9 @@ public class AuthController {
         List<AuthDto> teacher = authService.getTeacher();
         return ResponseEntity.ok(teacher);
     }
-    @GetMapping("teacher/{id}")
-    public HttpEntity<?> getOneTeacher(@PathVariable UUID id,@RequestParam UUID teacherId) {
-        List<Group> teacherGroup = authService.getTeacherGroup(teacherId, id);
+    @GetMapping("/teacher/{id}")
+    public HttpEntity<?> getOneTeacher(@PathVariable UUID id) {
+        List<Group> teacherGroup = authService.getTeacherGroup(id);
         return ResponseEntity.ok(teacherGroup);
     }
     private String generateToken(String phoneNumber) {
