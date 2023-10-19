@@ -42,16 +42,10 @@ public class AuthController {
         return ResponseEntity.ok(user);
     }
     @PostMapping("/puple/{id}")
-    public HttpEntity<?> addPupil(@PathVariable UUID id, @RequestBody AuthDto authDto) {
+    public HttpEntity<?> addPupil(@PathVariable UUID id, @RequestBody AuthDto authDto ) {
             ApiResponse<?> apiResponse = authService.addPupil(authDto,id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
-//    @DeleteMapping("/{id}")
-//    public HttpEntity<?>
-//    deletePupil(@PathVariable UUID id) {
-//        ApiResponse<?> apiResponse = authService.deletePupil(id);
-//        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
-//    }
     @GetMapping("/puple")
     public HttpEntity<?> getPuple() {
         List<AuthDto> puple = authService.getPuple();
@@ -70,8 +64,8 @@ public class AuthController {
         return ResponseEntity.ok(teacher);
     }
     @GetMapping("teacher/{id}")
-    public HttpEntity<?> getOneTeacher(@PathVariable UUID id,@RequestParam UUID teacherId) {
-        List<Group> teacherGroup = authService.getTeacherGroup(teacherId, id);
+    public HttpEntity<?> getOneTeacher(@PathVariable UUID id) {
+        List<Group> teacherGroup = authService.getTeacherGroup(id);
         return ResponseEntity.ok(teacherGroup);
     }
     private String generateToken(String phoneNumber) {
