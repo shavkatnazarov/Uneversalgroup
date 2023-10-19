@@ -3,12 +3,12 @@ import {Button, Card, CardBody, CardHeader, Offcanvas} from "react-bootstrap";
 import {changeActive, GetGroup, SaveGroup} from "../connection/service/AppService.js";
 import {BASE_CONFIG} from "../connection/BaseConfig.js";
 import {APP_API} from "../connection/AppApi.js";
-import {MultiSelect} from "react-multi-select-component";
 import {toast} from "react-toastify";
+import {useNavigate} from "react-router-dom";
 
 export const Group = () => {
     const [loading, setLoading] = useState(false)
-    const [selected, setSelected] = useState([]);
+    const navigate=useNavigate();
     const [group, setGroup] = useState([])
     const [dayType, setDayType] = useState('')
     const [teacher, setTeacher] = useState([])
@@ -73,7 +73,7 @@ export const Group = () => {
                     {group.length!==0?(<h2 className={"text-primary text-center"}>Siz yaratgan kurslar</h2>):(<h2 className={"text-center text-danger"}>Hozirda kurslar mavjud emas</h2>)}
                 </CardHeader>
                 <CardBody>
-                    <GetGroups group={group} changeActives={changeActives}/>
+                    <GetGroups group={group} changeActives={changeActives} navigate={navigate}/>
                 </CardBody>
             </Card>
             <Offcanvas show={show} placement={"end"} onHide={handleClose}>
@@ -127,7 +127,10 @@ export const Group = () => {
     )
 }
 
-const GetGroups = ({group,changeActives}) => {
+const GetGroups = ({group,changeActives,navigate}) => {
+    const oneGroup=(id)=>{
+        navigate("/auth/dashboard/group/"+ id)
+    }
     return (
         <table className={"table"}>
             <thead>
@@ -148,6 +151,7 @@ const GetGroups = ({group,changeActives}) => {
                         <td>{item.start_date}</td>
                         <td>{item.end_date}</td>
                         <td><button className={"btn btn-danger"} onClick={()=>changeActives(item.id)}>A</button></td>
+                        <td><button className={"btn btn-danger"} onClick={()=>oneGroup(item.id)}>G</button></td>
                     </tr>
                 ):(
                    <></>
