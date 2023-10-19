@@ -10,6 +10,7 @@ export const CourseItem=()=>{
     const navigate = useNavigate()
     const [loading, setLoading] = useState(false)
     const [course,setCourse]=useState({})
+    const [group,setGroup]=useState([])
     const id=useParams().id
     const getOneCourse = async () => {
         try {

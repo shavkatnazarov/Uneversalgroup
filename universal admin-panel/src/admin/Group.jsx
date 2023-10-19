@@ -139,7 +139,9 @@ const GetGroups = ({group,changeActives,navigate}) => {
                 <th>Gruppa nomi</th>
                 <th>Boshlanish vaqti</th>
                 <th>Tugash vaqti</th>
-                <th>Arxivlash</th>
+                <th>Arxiv</th>
+                <th>O'quvchi </th>
+                <th>O'chirish</th>
             </tr>
             </thead>
             <tbody>
@@ -150,8 +152,9 @@ const GetGroups = ({group,changeActives,navigate}) => {
                         <td>{item.name}</td>
                         <td>{item.start_date}</td>
                         <td>{item.end_date}</td>
-                        <td><button className={"btn btn-danger"} onClick={()=>changeActives(item.id)}>A</button></td>
-                        <td><button className={"btn btn-danger"} onClick={()=>oneGroup(item.id)}>G</button></td>
+                        <td><button className={"btn btn-primary"} onClick={()=>changeActives(item.id)}><i className="bi bi-archive"></i></button></td>
+                        <td><button className={"btn btn-success"} onClick={()=>oneGroup(item.id)}><i className="bi bi-person-fill-add"></i></button></td>
+                        <td><button className={"btn btn-danger"} onClick={()=>oneGroup(item.id)}><i className="bi bi-trash"></i></button></td>
                     </tr>
                 ):(
                    <></>
