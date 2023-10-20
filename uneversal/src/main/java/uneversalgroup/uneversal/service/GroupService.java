@@ -18,10 +18,7 @@ import uneversalgroup.uneversal.repository.GroupRepository;
 import uneversalgroup.uneversal.repository.WeekDaysRepository;
 
 import java.lang.module.ResolutionException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -158,5 +155,32 @@ public class GroupService implements GroupServiceImpl {
         }
     }
 
+    public ApiResponse<?>addPupilInGroup(UUID id,GroupDto groupDto) {
+        User pupil = authRepository.findById(groupDto.getPupilId()).orElseThrow(() -> new ResolutionException("getTeacherId"));
 
+        try {
+            Group pupil1 = Group.builder()
+                    .pupil(Collections.singletonList(pupil))
+                    .build();
+            groupRepository.save(pupil1);
+            return new ApiResponse<>("groupga uquvchi saqlandi", true);
+        } catch (Exception e) {
+
+            return new ApiResponse<>("xatolik" + e, false);
+        }
+    }
+    public List<GroupDto> getPupilGroup() {
+        List<Group> all = groupRepository.findAll();
+        List<GroupDto> groupDtoList = new ArrayList<>();
+        for (Group group : all) {
+            GroupDto groupDto = GroupDto.builder()
+                    .id(group.getId())
+                    .name(group.getName())
+                    .pupil((User) group.getPupil())
+
+                    .build();
+            groupDtoList.add(groupDto);
+        }
+        return groupDtoList;
+    }
 }

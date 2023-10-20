@@ -33,7 +33,7 @@ export const Pupil = () => {
             firstName, lastName, phoneNumber, password
         }
         try {
-            await AddPupil1(data, setFirstName, setLastName, setPhoneNumber, setPassword, getAll)
+            await AddPupil(data, setFirstName, setLastName, setPhoneNumber, setPassword, getAll)
             await getAll()
         } catch (err) {
             console.log(err.message)

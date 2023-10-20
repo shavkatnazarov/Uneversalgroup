@@ -64,4 +64,12 @@ public class GroupController implements GroupControllerImpl {
 //        List<Group> groups = groupRepository.GroupAndCourse(id);
 //        return ResponseEntity.ok(groups);
 //    }
+
+@PostMapping("/add/pupil")
+public HttpEntity<?> addPupilInGroup(@PathVariable UUID id,@RequestBody GroupDto groupDto) {
+    ApiResponse<?> apiResponse = groupService.addPupilInGroup(id,groupDto);
+    return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
 }
+
+}
+
