@@ -225,16 +225,15 @@ export const GetOneGroup = async (id) => {
         const res = await BASE_CONFIG.doGetOne(APP_API.group, id)
         return res.data
     } catch (err) {
-        console.log(err.message)
+        console.log(err)
     }
 }
 //end group
 
 
 //start pupil
-export const AddPupil = async (data, setFirstName, setLastName, setPhoneNumber, setPassword) => {
-    try {
-        const check = {
+export const AddPupil =async(data, setFirstName, setLastName, setPhoneNumber, setPassword)=>{
+        const check={
             ism: data.firstName.trim().length === 0,
             familya: data.lastName.trim().length === 0,
             tel: data.phoneNumber.trim().length !== 9,
@@ -249,6 +248,7 @@ export const AddPupil = async (data, setFirstName, setLastName, setPhoneNumber, 
         if (check.pas) {
             return toast.warning("parol    bolsin")
         }
+    try {
         const res = await BASE_CONFIG.doPost(APP_API.puple + "/" + localStorage.getItem("id"), data)
         if (IS_STATUS(res.status)) {
             localStorage.setItem("role", res.data.user.roles[0].roleName)
@@ -274,23 +274,24 @@ export const GetOnePupil = async (id) => {
         console.log(err.message)
     }
 }
-export const AddPupil = async (data, setFirstName, setLastName, setPhoneNumber, setPassword) => {
-    try {
-        const check = {
-            ism: data.firstName.trim().length === 0,
-            familya: data.lastName.trim().length === 0,
-            tel: data.phoneNumber.trim().length !== 9,
-            pas: data.password.length === 0,
+export const AddPupil1 = async (data, setFirstName, setLastName, setPhoneNumber, setPassword) => {
+
+        const check ={
+            ism1: data.firstName.trim().length === 0,
+            familya1: data.lastName.trim().length === 0,
+            tel1: data.phoneNumber.trim().length !== 9,
+            pas1: data.password.length === 0,
         }
-        if (check.ism || check.familya) {
+        if (check.ism1 || check.familya1) {
             return toast.warning(" ism yoki familya  bo'sh bolmasin")
         }
-        if (check.tel) {
+        if (check.tel1) {
             return toast.warning("Telefon raqamda xatolik")
         }
-        if (check.pas) {
+        if (check.pas1) {
             return toast.warning("parol    bolsin")
         }
+    try {
         const res = await BASE_CONFIG.doPost(APP_API.puple + "/" + localStorage.getItem("id"), data)
         if (IS_STATUS(res.status)) {
             localStorage.setItem("role", res.data.user.roles[0].roleName)

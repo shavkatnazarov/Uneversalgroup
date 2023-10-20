@@ -33,9 +33,8 @@ export const Teacher=()=>{
             firstName,lastName,phoneNumber,password
         }
         try {
-          const res=  await AddTeacher(data, setFirstName,setLastName,setPhoneNumber,setPassword, getAll)
+            await AddTeacher(data, setFirstName,setLastName,setPhoneNumber,setPassword, getAll)
             await getAll()
-            console.log(res)
         } catch (err) {
             console.log(err.message)
         }
