@@ -127,6 +127,7 @@ export const Group = () => {
                         </form>
                     </div>
                     <div style={{marginTop: '60%'}}>
+
                         <button className={"btn btn-primary w-100 mt-3"} onClick={() => saveGroup()}>Saqlash
                         </button>
                     </div>
