@@ -4,6 +4,7 @@ import {BASE_CONFIG} from "../connection/BaseConfig.js";
 import {APP_API} from "../connection/AppApi.js";
 import {toast} from "react-toastify";
 import {useNavigate} from "react-router-dom";
+import {GetGroup, SaveGroup} from "../connection/service/AppService.js";
 
 export const Group = () => {
     const [loading, setLoading] = useState(false)
@@ -20,7 +21,6 @@ export const Group = () => {
     const [active, setActive] = useState()
     const [show, setShow] = useState(false);
 
-    console.log(group)
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
@@ -36,13 +36,20 @@ export const Group = () => {
             console.log(err)
         }
     }
-    const saveGroup = async () => {
-        const data = {
-            courseId, teacherId, name, dayType, start_date, end_date
+    const saveGroup=async ()=>{
+        const data={
+            courseId,teacherId,name,dayType,start_date,end_date
         }
         console.log(data)
-        await SaveGroup(data, setCourseId, setTeacherId, setName, setStartDate, setEndData, getAll)
+        await SaveGroup(data,setCourseId,setTeacherId,setName,setStartDate,setEndData,getAll)
     }
+    // const saveGroup = async () => {
+    //     const data = {
+    //         courseId, teacherId, name, dayType, start_date, end_date
+    //
+    //     }
+    //     await SaveGroup(data, setCourseId, setTeacherId, setName, setStartDate, setEndData, getAll)
+    // }
     const changeActives=async (id)=>{
        try {
            const arxiv=confirm("Arxivlaysizmi?")
@@ -117,6 +124,7 @@ export const Group = () => {
                         </form>
                     </div>
                     <div style={{marginTop: '60%'}}>
+
                         <button className={"btn btn-primary w-100 mt-3"} onClick={() => saveGroup()}>Saqlash
                         </button>
                     </div>

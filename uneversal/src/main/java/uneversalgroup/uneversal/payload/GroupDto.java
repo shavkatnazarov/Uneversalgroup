@@ -26,5 +26,6 @@ public class GroupDto {
     private User teacher;
     private Day_type day;
     private List<SelectDto>weekDays;
+    private List<SelectUserDto>selectUserDto;
     private boolean active;
 }
