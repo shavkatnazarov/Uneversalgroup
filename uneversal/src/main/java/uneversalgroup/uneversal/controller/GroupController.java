@@ -70,6 +70,10 @@ public HttpEntity<?> addPupilInGroup(@PathVariable UUID id,@RequestBody GroupDto
     ApiResponse<?> apiResponse = groupService.addPupilInGroup(id,groupDto);
     return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
 }
-
+    @GetMapping("/pupil/{id}")
+    public HttpEntity<?> getProductByCategory(@PathVariable UUID id) {
+        List<Group> byPupilId = groupRepository.findByPupilId(id);
+        return ResponseEntity.ok(byPupilId);
+    }
 }
 
