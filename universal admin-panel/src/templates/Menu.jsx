@@ -38,8 +38,7 @@ export const Menu = () => {
             {statArr.map(item => (
             <div className={" d-flex align-items-center justify-content-between"}>
                 <Card >
-                    <i
-                        className={item.icon}/>
+                    <i c className={item.icon}/>
                     <CardHeader>
                         <h5 className="card-title  text-uppercase text-muted mb-0">{item.name}</h5>
                     </CardHeader>

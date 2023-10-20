@@ -3,8 +3,6 @@ import {Loading} from "../Loading.jsx";
 import { useParams} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import {GetOneTeacher} from "../../connection/service/AppService.js";
-import {div} from "mdb-ui-kit/src/js/mdb/perfect-scrollbar/lib/dom.js";
-import {map} from "react-bootstrap/ElementChildren";
 
 export const TeacherItem=()=>{
     const [loading, setLoading] = useState(false)

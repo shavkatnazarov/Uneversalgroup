@@ -41,6 +41,11 @@ public class AuthController {
         User user = authRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("getUser"));
         return ResponseEntity.ok(user);
     }
+    @GetMapping("/users/{id}")
+    public HttpEntity<?>getOnePupil(@PathVariable UUID id){
+        User pupil = authRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("getUser"));
+        return ResponseEntity.ok(pupil);
+    }
     @PostMapping("/puple/{id}")
     public HttpEntity<?> addPupil(@PathVariable UUID id, @RequestBody AuthDto authDto ) {
             ApiResponse<?> apiResponse = authService.addPupil(authDto,id);

@@ -51,6 +51,13 @@ public class GroupController implements GroupControllerImpl {
         return ResponseEntity.ok(group);
     }
 
+    @Override
+    @DeleteMapping("/{id}")
+    public HttpEntity<?> deleteGroup(@PathVariable UUID id) {
+        ApiResponse<?> apiResponse = groupService.deleteGroup(id);
+        return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
+    }
+
 //    @Override
 //    @GetMapping("/sort-course-by/{id}")
 //    public HttpEntity<?> GroupAndCourse(@PathVariable Integer id) {

@@ -1,10 +1,12 @@
 import {Button, Offcanvas} from "react-bootstrap";
 import React, {useEffect, useState} from "react";
 import {Modal, ModalBody, ModalFooter, ModalHeader} from "reactstrap";
-import {createHashRouter} from "react-router-dom";
+import {createHashRouter, useNavigate} from "react-router-dom";
 import {toast} from "react-toastify";
+import {AddPupil, DeletePupil, GetPupil} from "../../connection/service/AppService.js";
 
 export const Pupil = () => {
+    const navigate = useNavigate()
     const [loading, setLoading] = useState(false)
     const [pupil, setPupil] = useState([])
     const [firstName, setFirstName] = useState('')
@@ -53,7 +55,7 @@ export const Pupil = () => {
             <Button variant="primary" onClick={handleShow} className="me-2">
                 +
             </Button>
-            <GetPupils pupil={pupil} deletePupils={deletePupils}/>
+            <GetPupils pupil={pupil} deletePupils={deletePupils} navigate={navigate}/>
             <Offcanvas show={show} onHide={handleClose} placement={"end"}>
                 <Offcanvas.Header closeButton>
                     <Offcanvas.Title>Add pupil</Offcanvas.Title>
@@ -95,13 +97,17 @@ export const Pupil = () => {
     )
 }
 
-const GetPupils = ({pupil,deletePupils}) => {
+const GetPupils = ({pupil,deletePupils,navigate}) => {
     const [modal, setModal] = useState(false);
     const [id,setId]=useState('')
 
     const toggle = (id) =>{
         setModal(!modal);
         setId(id)
+    }
+    const onePupil=(id)=>{
+        navigate("/auth/dashboard/pupil/"+id)
+
     }
     return (
         <div>
@@ -130,7 +136,7 @@ const GetPupils = ({pupil,deletePupils}) => {
                     <th>Familya</th>
                     <th>Phone number</th>
                     <th>password</th>
-                    <th>action</th>
+                    <th colSpan={3} >action</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -141,10 +147,10 @@ const GetPupils = ({pupil,deletePupils}) => {
                         <td>{item.lastName}</td>
                         <td>+(998)-{item.phoneNumber}</td>
                         <td>{item.password}</td>
-                        <td><Button className={"btn btn-danger"} onClick={()=>toggle(item.id)}>
+                        <td ><Button className={"btn btn-danger"} onClick={()=>toggle(item.id)}>
                             delete
                         </Button></td>
-
+                            <Button className={"btn btn-info"} onClick={()=>onePupil(item.id)}>kurish</Button>
                     </tr>
                 ))}
                 </tbody>

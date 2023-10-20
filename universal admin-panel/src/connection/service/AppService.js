@@ -3,6 +3,7 @@ import {APP_API} from "../AppApi.js";
 import {toast} from "react-toastify";
 import {IS_STATUS} from "../../utils/IsStatus.js";
 import axios from "axios";
+import {BASE_URL} from "../BaseUrl.js";
 
 export const GetOnePayment = async (id) => {
     try {
@@ -186,33 +187,17 @@ export const SaveGroup=async (data,setCourseId,setTeacherId,setName,setStartData
         console.log(err)
     }
 }
-// export const SaveGroup = async (data, setCourseId, setTeacherId, setName, setStartData, setEndData, getAll) => {
-//
-//     const check = {
-//         courseId: data.courseId === "0",
-//         teacherId: data.teacherId === "0",
-//         name: data.name.trim().length === 0,
-//         startDate: data.start_date.length < 0,
-//         endDate: data.end_date.length < 0
-//     }
-//     if (check.courseId || check.teacherId || check.startDate || check.endDate) {
-//         return toast.warning("Bush joy bulmasin !")
-//     }
-//     try {
-//         const res = await BASE_CONFIG.doPost("group/add", data)
-//         if (IS_STATUS(res.status)) {
-//             getAll()
-//             setCourseId('')
-//             setTeacherId('')
-//             setName('')
-//             setStartData('')
-//             setEndData('')
-//             return toast.success("gruppa saqlandi")
-//         }
-//     } catch (err) {
-//         console.log(err)
-//     }
-// }
+export const DeleteGroup = async (id, getAll) => {
+    try {
+        const res = await BASE_CONFIG.doDelete(APP_API.group, id)
+        if (IS_STATUS(res.status)) {
+            getAll()
+            toast.success("O'chirib tashlandi")
+        }
+    } catch (err) {
+        console.log(err.message)
+    }
+}
 export const changeActive = async (id, active) => {
     try {
         await axios.put(BASE_URL + APP_API.group + '/active/' + id + '?active=' + active)
@@ -264,6 +249,49 @@ export const AddPupil = async (data, setFirstName, setLastName, setPhoneNumber, 
         console.log(err)
     }
 }
+//end group
+//pupil
+export const GetOnePupil = async (id) => {
+    try {
+        const res = await BASE_CONFIG.doGetOne(APP_API.puple1, id)
+        console.log(res)
+        return res.data
+    } catch (err) {
+        console.log(err.message)
+    }
+}
+export const AddPupil = async (data, setFirstName, setLastName, setPhoneNumber, setPassword) => {
+    try {
+        const check = {
+            ism: data.firstName.trim().length === 0,
+            familya: data.lastName.trim().length === 0,
+            tel: data.phoneNumber.trim().length !== 9,
+            pas: data.password.length === 0,
+        }
+        if (check.ism || check.familya) {
+            return toast.warning(" ism yoki familya  bo'sh bolmasin")
+        }
+        if (check.tel) {
+            return toast.warning("Telefon raqamda xatolik")
+        }
+        if (check.pas) {
+            return toast.warning("parol    bolsin")
+        }
+        const res = await BASE_CONFIG.doPost(APP_API.puple + "/" + localStorage.getItem("id"), data)
+        if (IS_STATUS(res.status)) {
+            localStorage.setItem("role", res.data.user.roles[0].roleName)
+            localStorage.setItem("token1", res.data.resToken.body)
+            toast.success("uquvchi qo'shildi")
+            setFirstName('')
+            setLastName('')
+            setPhoneNumber('')
+            setPassword('')
+        }
+    } catch (err) {
+        console.log(err)
+    }
+}
+
 
 
 export const GetPupil = async () => {
@@ -284,8 +312,4 @@ export const DeletePupil = async (id) => {
     }
 }
 
-//end pupil
 
-
-//
-//end group

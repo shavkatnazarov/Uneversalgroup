@@ -9,5 +9,6 @@ export const APP_API={
     downloadPhoto:BASE_URL+"/attachment/download?id=",
     payment:'/payment',
     teacher:'/auth/teacher',
+    puple1 :'/auth/users',
     puple:'/auth/puple'
 }
