@@ -187,33 +187,17 @@ export const SaveGroup=async (data,setCourseId,setTeacherId,setName,setStartData
         console.log(err)
     }
 }
-// export const SaveGroup = async (data, setCourseId, setTeacherId, setName, setStartData, setEndData, getAll) => {
-//
-//     const check = {
-//         courseId: data.courseId === "0",
-//         teacherId: data.teacherId === "0",
-//         name: data.name.trim().length === 0,
-//         startDate: data.start_date.length < 0,
-//         endDate: data.end_date.length < 0
-//     }
-//     if (check.courseId || check.teacherId || check.startDate || check.endDate) {
-//         return toast.warning("Bush joy bulmasin !")
-//     }
-//     try {
-//         const res = await BASE_CONFIG.doPost("group/add", data)
-//         if (IS_STATUS(res.status)) {
-//             getAll()
-//             setCourseId('')
-//             setTeacherId('')
-//             setName('')
-//             setStartData('')
-//             setEndData('')
-//             return toast.success("gruppa saqlandi")
-//         }
-//     } catch (err) {
-//         console.log(err)
-//     }
-// }
+export const DeleteGroup=async (id,getAll)=>{
+    try {
+        const res = await BASE_CONFIG.doDelete(APP_API.group,id)
+        if (IS_STATUS(res.status)){
+            getAll()
+            return toast.success("Ochirib tashlandi")
+        }
+    }catch (err){
+        console.log(err)
+    }
+}
 export const changeActive = async (id, active) => {
     try {
         await axios.put(BASE_URL + APP_API.group + '/active/' + id + '?active=' + active)
