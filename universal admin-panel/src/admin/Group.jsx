@@ -4,7 +4,7 @@ import {BASE_CONFIG} from "../connection/BaseConfig.js";
 import {APP_API} from "../connection/AppApi.js";
 import {toast} from "react-toastify";
 import {useNavigate} from "react-router-dom";
-import {GetGroup, SaveGroup} from "../connection/service/AppService.js";
+import {changeActive, DeleteCourse, DeleteGroup, GetGroup, SaveGroup} from "../connection/service/AppService.js";
 
 export const Group = () => {
     const [loading, setLoading] = useState(false)
@@ -43,13 +43,16 @@ export const Group = () => {
         console.log(data)
         await SaveGroup(data,setCourseId,setTeacherId,setName,setStartDate,setEndData,getAll)
     }
-    // const saveGroup = async () => {
-    //     const data = {
-    //         courseId, teacherId, name, dayType, start_date, end_date
-    //
-    //     }
-    //     await SaveGroup(data, setCourseId, setTeacherId, setName, setStartDate, setEndData, getAll)
-    // }
+    const deleteGroup = async (id) => {
+        try {
+            const delet=window.confirm("o'chirasanmi")
+            if (delet){
+                await DeleteGroup(id,getAll)
+            }
+        }catch (err){
+            console.log(err.message)
+        }
+    }
     const changeActives=async (id)=>{
        try {
            const arxiv=confirm("Arxivlaysizmi?")
@@ -79,7 +82,7 @@ export const Group = () => {
                     {group.length!==0?(<h2 className={"text-primary text-center"}>Siz yaratgan kurslar</h2>):(<h2 className={"text-center text-danger"}>Hozirda kurslar mavjud emas</h2>)}
                 </CardHeader>
                 <CardBody>
-                    <GetGroups group={group} changeActives={changeActives} navigate={navigate}/>
+                    <GetGroups group={group} changeActives={changeActives} navigate={navigate} deleteGroup={deleteGroup}/>
                 </CardBody>
             </Card>
             <Offcanvas show={show} placement={"end"} onHide={handleClose}>
@@ -134,7 +137,7 @@ export const Group = () => {
     )
 }
 
-const GetGroups = ({group,changeActives,navigate}) => {
+const GetGroups = ({group,changeActives,navigate,deleteGroup}) => {
     const oneGroup=(id)=>{
         navigate("/auth/dashboard/group/"+ id)
     }
@@ -161,7 +164,7 @@ const GetGroups = ({group,changeActives,navigate}) => {
                         <td>{item.end_date}</td>
                         <td><button className={"btn btn-primary"} onClick={()=>changeActives(item.id)}><i className="bi bi-archive"></i></button></td>
                         <td><button className={"btn btn-success"} onClick={()=>oneGroup(item.id)}><i className="bi bi-person-fill-add"></i></button></td>
-                        <td><button className={"btn btn-danger"} onClick={()=>oneGroup(item.id)}><i className="bi bi-trash"></i></button></td>
+                        <td><button className={"btn btn-danger"} onClick={()=>deleteGroup(item.id)}><i className="bi bi-trash"></i></button></td>
                     </tr>
                 ):(
                    <></>

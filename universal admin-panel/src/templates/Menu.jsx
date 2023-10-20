@@ -36,9 +36,8 @@ export const Menu = () => {
             </div>
             <div className={"d-flex justify-content-between"}>
             {statArr.map(item => (
-            <div className={" d-flex align-items-center justify-content-between"}>
-                <Card >
-                    <i c className={item.icon}/>
+                <Card className={"w-25"}>
+                    <i  className={item.icon}/>
                     <CardHeader>
                         <h5 className="card-title  text-uppercase text-muted mb-0">{item.name}</h5>
                     </CardHeader>
@@ -50,7 +49,6 @@ export const Menu = () => {
                         <div> <span className="text-nowrap">{item.about}</span></div>
                     </CardBody>
                 </Card>
-            </div>
             ))}
             </div>
         </div>

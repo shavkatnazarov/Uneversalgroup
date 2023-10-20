@@ -56,10 +56,7 @@ public class GroupService implements GroupServiceImpl {
             boolean exist = groupRepository.existsGroupByNameEqualsIgnoreCase(groupDto.getName());
             Course course = courseRepository.findById(groupDto.getCourseId()).orElseThrow(() -> new ResolutionException("getCourseId"));
             User teacher = authRepository.findById(groupDto.getTeacherId()).orElseThrow(() -> new ResolutionException("getTeacherId"));
-            List<User>pupil=new ArrayList<>();
-            for (SelectUserDto selectUserDto : groupDto.getSelectUserDto()) {
-                pupil.add(authRepository.findById(selectUserDto.getValue()).orElseThrow(()->new ResourceNotFoundException(404,"getUser","getUser",groupDto)));
-            }
+
             List<Week_day> weekDays = new ArrayList<>();
             if (groupDto.getDayType().equals("TOQ")) {
                 Week_day MONDAY = weekDaysRepository.findById(1).orElseThrow(() -> new ResourceNotFoundException(404, "weekDay", "id", 1));
@@ -72,7 +69,6 @@ public class GroupService implements GroupServiceImpl {
                     Group build = Group.builder()
                             .name(groupDto.getName())
                             .course(course)
-                            .pupil(pupil)
                             .teacher(teacher)
                             .dayType(groupDto.getDay())
                             .weekDays(weekDays)
@@ -90,17 +86,13 @@ public class GroupService implements GroupServiceImpl {
                 weekDays.add(TUESDAY);
                 weekDays.add(THURSDAY);
                 weekDays.add(SUNDAY);
-                List<User>pupil1=new ArrayList<>();
-                for (SelectUserDto selectUserDto : groupDto.getSelectUserDto()) {
-                    pupil1.add(authRepository.findById(selectUserDto.getValue()).orElseThrow(()->new ResourceNotFoundException(404,"getUser","getUser",groupDto)));
-                }
+
                 if (!exist) {
                     Group group = Group.builder()
                             .name(groupDto.getName())
                             .course(course)
                             .teacher(teacher)
                             .weekDays(weekDays)
-                            .pupil(pupil1)
                             .start_date(groupDto.getStart_date())
                             .end_date(groupDto.getEnd_date())
                             .active(true)
@@ -121,16 +113,12 @@ public class GroupService implements GroupServiceImpl {
                 weekDays.add(MONDAY);
                 weekDays.add(WEDNESDAY);
                 weekDays.add(FRIDAY);
-                List<User>pupil2=new ArrayList<>();
-                for (SelectUserDto selectUserDto : groupDto.getSelectUserDto()) {
-                    pupil2.add(authRepository.findById(selectUserDto.getValue()).orElseThrow(()->new ResourceNotFoundException(404,"getUser","getUser",groupDto)));
-                }
+
                 if (!exist) {
                     Group group1 = Group.builder()
                             .name(groupDto.getName())
                             .course(course)
                             .teacher(teacher)
-                            .pupil(pupil2)
                             .weekDays(weekDays)
                             .start_date(groupDto.getStart_date())
                             .end_date(groupDto.getEnd_date())
@@ -156,6 +144,17 @@ public class GroupService implements GroupServiceImpl {
             return new ApiResponse<>("Arxivlandi", true);
         } catch (Exception e) {
             return new ApiResponse<>("activda xatolik", false);
+        }
+    }
+
+    @Override
+    public ApiResponse<?> deleteGroup(UUID id) {
+        try {
+            Group group = groupRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(404, "getGroup", "groupId", id));
+            groupRepository.delete(group);
+            return new ApiResponse<>("group uchirildi", true);
+        } catch (Exception e) {
+            return new ApiResponse<>("xatolik", false);
         }
     }
 

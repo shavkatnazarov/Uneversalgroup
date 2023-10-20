@@ -10,5 +10,5 @@ public interface GroupControllerImpl {
     HttpEntity<?>addGroup(GroupDto groupDto);
     HttpEntity<?>changeActive(UUID id,boolean active);
     HttpEntity<?> getOneGroup(UUID id);
-//    HttpEntity<?>GroupAndCourse(Integer id);
+    HttpEntity<?>deleteGroup(UUID id);
 }

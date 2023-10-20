@@ -3,7 +3,7 @@ import React, {useEffect, useState} from "react";
 import {Modal, ModalBody, ModalFooter, ModalHeader} from "reactstrap";
 import {createHashRouter, useNavigate} from "react-router-dom";
 import {toast} from "react-toastify";
-import {AddPupil, DeletePupil, GetPupil} from "../../connection/service/AppService.js";
+import {AddPupil, AddPupil1, DeletePupil, GetPupil} from "../../connection/service/AppService.js";
 
 export const Pupil = () => {
     const navigate = useNavigate()
@@ -33,10 +33,10 @@ export const Pupil = () => {
             firstName, lastName, phoneNumber, password
         }
         try {
-            await AddPupil(data, setFirstName, setLastName, setPhoneNumber, setPassword, getAll)
+            await AddPupil1(data, setFirstName, setLastName, setPhoneNumber, setPassword, getAll)
             await getAll()
         } catch (err) {
-            console.log(err)
+            console.log(err.message)
         }
     }
     const deletePupils = async (id) => {
