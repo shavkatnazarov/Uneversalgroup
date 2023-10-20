@@ -25,7 +25,12 @@ export const GroupItem=()=>{
         getOneGroup()
     }, []);
     return(
-        <div className={"container"}>
+        <div >
+            <>
+                <Card className={"form-control mt-3"}>
+                    <h2 className={"text-center text-primary"}>O'quvchi qushish</h2>
+                </Card>
+            </>
             {loading?(
                 <Card className={"mt-5 w-40"}>
                     <CardHeader className={"d-flex justify-content-between align-items-center"}>
