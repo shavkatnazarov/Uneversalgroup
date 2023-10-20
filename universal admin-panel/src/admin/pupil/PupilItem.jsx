@@ -4,18 +4,17 @@ import {GetOnePupil} from "../../connection/service/AppService.js";
 import {Card} from "react-bootstrap";
 import {Loading} from "../../pages/Loading.jsx";
 
-export const PupilItem = ()=>{
+export const PupilItem = () => {
     const [loading, setLoading] = useState(false)
-    const [pupil,setPupil]=useState([])
-    const id=useParams().id
+    const [pupil, setPupil] = useState({})
+    const id = useParams().id
 
-    const getOnePupil = async() => {
+    const getOnePupil = async () => {
         try {
             const res = await GetOnePupil(id)
-            setPupil(res.data)
-            console.log(res.data)
+            setPupil(res)
+            console.log(res)
             setLoading(true)
-
         } catch (err) {
             console.log(err.message)
         }
@@ -23,25 +22,22 @@ export const PupilItem = ()=>{
     useEffect(() => {
         getOnePupil()
     }, []);
-    return(
+    return (
         <div>
             <div className={"m-5"}>
-                {loading ? (
-                    <div className={"d-flex align-items-center justify-content-between"}>
-                        <Card style={{ width: '18rem' }}>
-
-                            <Card.Body>
-                                <Card.Title>O'quvchi: {pupil.firstName} </Card.Title>
-                                <Card.Text>
-                                    <h6>Telefon raqami:</h6>
-                                    <h6>Paroli:  <i className="bi bi-key"></i>jkds</h6>
-                                </Card.Text>
-                            </Card.Body>
-                        </Card>
-                    </div>
-                ) : (
-                    <Loading/>
-                )}
+                <div className={"d-flex align-items-center justify-content-between"}>
+                    <Card style={{width: '18rem'}}>
+                        <Card.Body>
+                            <Card.Title>O'quvchi ismi: {pupil.firstName}<br/>
+                                O'quvchi familyasi : {pupil.lastName}
+                            </Card.Title>
+                            <Card.Text>
+                                <h6>Telefon raqami:{pupil.phoneNumber}</h6>
+                                <h6> <i className="bi bi-key"></i> Paroli:{pupil.password}</h6>
+                            </Card.Text>
+                        </Card.Body>
+                    </Card>
+                </div>
             </div>
         </div>
     )

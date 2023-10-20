@@ -1,4 +1,4 @@
-import {BASE_CONFIG} from "../BaseConfig.js";
+import {BASE_CONFIG as BaseConfig, BASE_CONFIG} from "../BaseConfig.js";
 import {APP_API} from "../AppApi.js";
 import {toast} from "react-toastify";
 import {IS_STATUS} from "../../utils/IsStatus.js";
@@ -189,7 +189,7 @@ export const SaveGroup = async (data, setCourseId, setTeacherId, setName, setSta
 //pupil
 export const GetOnePupil = async (id) => {
     try {
-        const res = await BASE_CONFIG.doGetOne(APP_API.puple, id)
+        const res = await BASE_CONFIG.doGetOne(APP_API.puple1, id)
         console.log(res)
         return res.data
     } catch (err) {
