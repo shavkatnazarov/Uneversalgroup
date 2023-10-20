@@ -134,7 +134,7 @@ export const Group = () => {
     )
 }
 
-const GetGroups = ({group,changeActives,navigate}) => {
+const GetGroups =({group,changeActives,navigate})=> {
     const oneGroup=(id)=>{
         navigate("/auth/dashboard/group/"+ id)
     }

@@ -1,4 +1,4 @@
-import {BASE_CONFIG as BaseConfig, BASE_CONFIG} from "../BaseConfig.js";
+import {BASE_CONFIG} from "../BaseConfig.js";
 import {APP_API} from "../AppApi.js";
 import {toast} from "react-toastify";
 import {IS_STATUS} from "../../utils/IsStatus.js";
@@ -212,7 +212,7 @@ export const SaveGroup=async (data,setCourseId,setTeacherId,setName,setStartData
 //         console.log(err)
 //     }
 // }
-export const changeActive = async (id, active) => {
+export const changeActive = async(id, active)=> {
     try {
         await axios.put(BASE_URL + APP_API.group + '/active/' + id + '?active=' + active)
     } catch (err) {

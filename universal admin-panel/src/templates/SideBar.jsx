@@ -14,7 +14,7 @@ export const SideBar = () => {
             <div>
                 <div className="brand-logo  justify-content-between">
                     <a href="#" className="text-nowrap logo-img" style={{textDecoration:'none'}}>
-                        <img src={rasm} width="100" style={{marginTop:'-70px',marginLeft:'50px'}} alt="" />
+                        <img src={rasm} width="100" style={{marginLeft:'50px',marginTop:'20px'}} alt="" />
                         <h3 style={{marginLeft:'-10px'}}>Universal   <span className={"text-danger"} >Academy</span></h3>
                     </a>
                     <div className="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
