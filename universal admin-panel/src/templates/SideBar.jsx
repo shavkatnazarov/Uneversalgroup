@@ -38,7 +38,7 @@ export const SideBar = () => {
                             </li>
                         </ul>
                     ))}
-                    <button style={{marginLeft:"30px",marginTop:'100px'}} className={"btn btn-danger "} onClick={() => logout()}>logout</button>
+                    <button style={{marginLeft:"30px",marginTop:'100px'}} className={"btn btn-danger "} onClick={() => logout()}>Chiqish <i className="bi bi-box-arrow-right"></i> </button>
                 </nav>
             </div>
         </aside>
