@@ -9,6 +9,7 @@ import uneversalgroup.uneversal.exception.ResourceNotFoundException;
 import uneversalgroup.uneversal.impl.controller.GroupControllerImpl;
 import uneversalgroup.uneversal.payload.ApiResponse;
 import uneversalgroup.uneversal.payload.GroupDto;
+import uneversalgroup.uneversal.payload.SelectUserDto;
 import uneversalgroup.uneversal.repository.GroupRepository;
 import uneversalgroup.uneversal.service.GroupService;
 
@@ -55,13 +56,26 @@ public class GroupController implements GroupControllerImpl {
     @DeleteMapping("/{id}")
     public HttpEntity<?> deleteGroup(@PathVariable UUID id) {
         ApiResponse<?> apiResponse = groupService.deleteGroup(id);
-        return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-//    @Override
+    //    @Override
 //    @GetMapping("/sort-course-by/{id}")
 //    public HttpEntity<?> GroupAndCourse(@PathVariable Integer id) {
 //        List<Group> groups = groupRepository.GroupAndCourse(id);
 //        return ResponseEntity.ok(groups);
 //    }
+
+    @PostMapping("/add/pupil")
+    public HttpEntity<?> addPupilInGroup(@RequestParam UUID groupId, @RequestBody List<SelectUserDto> userDtos) {
+        ApiResponse<?> apiResponse = groupService.addPupilInGroup(groupId, userDtos);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+    }
+
+    @GetMapping("/pupil/{id}")
+    public HttpEntity<?> getProductByCategory(@PathVariable UUID id) {
+        List<Group> byPupilId = groupRepository.findByPupilId(id);
+        return ResponseEntity.ok(byPupilId);
+    }
 }
+
