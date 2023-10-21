@@ -60,6 +60,7 @@ public class AuthService implements UserDetailsService {
                             .phoneNumber(authDto.getPhoneNumber())
                             .roles(Collections.singleton(pupil))
                             .password(authDto.getPassword())
+                            .pay(false)
                             .build();
                     authRepository.save(build);
                     return new ApiResponse<>("saqlandi", true);
@@ -143,6 +144,16 @@ public class AuthService implements UserDetailsService {
             return teacher;
         } catch (Exception e) {
             return null;
+        }
+    }
+    public ApiResponse<?> changePay(UUID id, boolean pay) {
+        try {
+            User getUser = authRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("getUser"));
+            getUser.setPay(pay);
+            authRepository.save(getUser);
+            return new ApiResponse<>("Arxivlandi", true);
+        } catch (Exception e) {
+            return new ApiResponse<>("activda xatolik", false);
         }
     }
     public List<Group> getTeacherGroup(UUID teacherId){
