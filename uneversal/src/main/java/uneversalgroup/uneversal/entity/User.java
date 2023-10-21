@@ -30,6 +30,7 @@ public class User extends AbsEntity implements UserDetails {
 
     @Column(nullable = false)
     private String password;
+
 //    @ManyToMany
 //    private List<Group>groups;
 
@@ -42,13 +43,15 @@ public class User extends AbsEntity implements UserDetails {
     private boolean credentialsNonExpired = true;
     private boolean accountNonLocked = true;
     private boolean accountNonExpired = true;
+    private boolean pay = false;
 
-    public User(String firstName, String lastName, String phoneNumber, String password, Set<Role> roles) {
+    public User(String firstName, String lastName, String phoneNumber, String password, Set<Role> roles, boolean pay) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
         this.password = password;
         this.roles = roles;
+        this.pay = pay;
 
     }
 
@@ -90,5 +93,6 @@ public class User extends AbsEntity implements UserDetails {
     public boolean isEnabled() {
         return enabled;
     }
+
 }
 

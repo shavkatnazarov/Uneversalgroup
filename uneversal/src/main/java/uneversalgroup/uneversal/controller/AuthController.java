@@ -78,6 +78,13 @@ public class AuthController {
         return jwtTokenProvider.generateToken(user.getId());
     }
 
+
+    @PutMapping("/pay/{id}")
+    public HttpEntity<?> changeActive(@PathVariable UUID id, @RequestParam(name = "pay") boolean pay) {
+        ApiResponse<?> apiResponse = authService.changePay(id, pay);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+    }
+
     public GetData getMal(User user, ResToken resToken) {
         return new GetData(user, resToken);
     }

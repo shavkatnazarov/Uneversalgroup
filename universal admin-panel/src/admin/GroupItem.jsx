@@ -2,9 +2,10 @@ import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import {Button, Card, CardBody, CardHeader} from "react-bootstrap";
 import {Loading} from "../pages/Loading.jsx";
-import {AddPupilInGroup, GetOneGroup, GetOnePupil, GetPupil} from "../connection/service/AppService.js";
+import {AddPupilInGroup, ChangePay, GetOneGroup, GetOnePupil, GetPupil} from "../connection/service/AppService.js";
 import {Modal, ModalBody, ModalFooter, ModalHeader, Table} from "reactstrap";
 import {MultiSelect} from "react-multi-select-component";
+import {toast} from "react-toastify";
 
 export const GroupItem = () => {
     const [selected, setSelected] = useState([])
@@ -47,7 +48,17 @@ export const GroupItem = () => {
         await AddPupilInGroup(id, selected, setModal)
     }
 
-
+    const changePay=async(id)=>{
+    try {
+        const pay=confirm("o'zgartirildi")
+        if (pay){
+            await ChangePay(id,true)
+            toast.success("tulov utdi")
+            window.location.reload()
+        }
+    }catch (err){
+        console.log(err)
+    }}
     useEffect(() => {
         getOneGroup()
     }, []);
@@ -67,8 +78,8 @@ export const GroupItem = () => {
                         <h6 className={"text-primary"}>Gruppa nomi</h6>{group.name}
                     </CardHeader>
                     <CardBody>
-                        <Button color="danger" onClick={toggle}>
-                            Click Me
+                        <Button color="danger" onClick={toggle} className={"form-control"}>
+                           saqlash
                         </Button>
                     </CardBody>
                 </Card>
@@ -79,17 +90,17 @@ export const GroupItem = () => {
             )}
             <>
                 <Modal isOpen={modal} toggle={toggle}>
-                    <ModalHeader toggle={toggle}>Modal title</ModalHeader>
+                    <ModalHeader toggle={toggle}>O'quvchi qushish</ModalHeader>
                     <ModalBody>
                         <MultiSelect options={pupil} value={selected} labelledBy={"select"} onChange={setSelected}/>
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="primary" onClick={() => savaPupil()}>
-                            Do Something
-                        </Button>{' '}
-                        <Button color="secondary" onClick={toggle}>
-                            Cancel
+                        <Button variant="danger" onClick={toggle}>
+                            Bekor qilish
                         </Button>
+                        <Button color="primary" onClick={() => savaPupil()}>
+                            Qushish
+                        </Button>{' '}
                     </ModalFooter>
                 </Modal>
             </>
@@ -117,7 +128,7 @@ export const GroupItem = () => {
                                             <td>{item.firstName}</td>
                                             <td>{item.lastName}</td>
                                             <td>{item.phoneNumber}</td>
-                                            <td> <Button className={"btn btn-danger"}>Mol</Button></td>
+                                            <td> <Button className={"btn btn-danger"} onClick={()=>changePay(item.id)}>Mol</Button></td>
                                         </tr>
                                     ))
                                 ):(

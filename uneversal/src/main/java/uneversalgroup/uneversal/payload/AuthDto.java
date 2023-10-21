@@ -19,4 +19,5 @@ public class AuthDto {
     private String password;
     private String prePassword;
     private UUID groupId;
+    private boolean pay;
 }
