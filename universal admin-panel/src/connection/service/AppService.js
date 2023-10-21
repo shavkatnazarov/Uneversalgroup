@@ -206,7 +206,8 @@ export const changeActive = async (id, active) => {
     }
 
 }
-export const GetOneGroup = async (id) => {
+export const
+    GetOneGroup = async (id) => {
     try {
         const res = await BASE_CONFIG.doGetOne(APP_API.group, id)
         return res.data
