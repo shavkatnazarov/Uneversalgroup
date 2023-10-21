@@ -2,9 +2,10 @@ import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import {Button, Card, CardBody, CardHeader} from "react-bootstrap";
 import {Loading} from "../pages/Loading.jsx";
-import {AddPupilInGroup, GetOneGroup, GetOnePupil, GetPupil} from "../connection/service/AppService.js";
+import {AddPupilInGroup, ChangePay, GetOneGroup, GetOnePupil, GetPupil} from "../connection/service/AppService.js";
 import {Modal, ModalBody, ModalFooter, ModalHeader, Table} from "reactstrap";
 import {MultiSelect} from "react-multi-select-component";
+import {toast} from "react-toastify";
 
 export const GroupItem = () => {
     const [selected, setSelected] = useState([])
@@ -13,6 +14,7 @@ export const GroupItem = () => {
     const [group, setGroup] = useState({})
     const [loading, setLoading] = useState(false)
     const [modal, setModal] = useState(false);
+    const [pay,setPay]=useState(false)
     console.log(group.pupil)
 
     const toggle = () => setModal(!modal);
@@ -47,7 +49,17 @@ export const GroupItem = () => {
         await AddPupilInGroup(id, selected, setModal)
     }
 
-
+    const changePay=async(id)=>{
+    try {
+        const pay=confirm("o'zgartirildi")
+        if (pay){
+            await ChangePay(id,true)
+            toast.success("tulov utdi")
+            window.location.reload()
+        }
+    }catch (err){
+        console.log(err)
+    }}
     useEffect(() => {
         getOneGroup()
     }, []);
