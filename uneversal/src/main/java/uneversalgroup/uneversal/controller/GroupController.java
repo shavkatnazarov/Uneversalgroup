@@ -14,6 +14,7 @@ import uneversalgroup.uneversal.repository.GroupRepository;
 import uneversalgroup.uneversal.service.GroupService;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @RestController
@@ -67,7 +68,7 @@ public class GroupController implements GroupControllerImpl {
 //    }
 
     @PostMapping("/add/pupil")
-    public HttpEntity<?> addPupilInGroup(@RequestParam UUID groupId, @RequestBody List<SelectUserDto> userDtos) {
+    public HttpEntity<?> addPupilInGroup(@RequestParam UUID groupId, @RequestBody Set<SelectUserDto> userDtos) {
         ApiResponse<?> apiResponse = groupService.addPupilInGroup(groupId, userDtos);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }

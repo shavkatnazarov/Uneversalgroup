@@ -3,9 +3,7 @@ import {useParams} from "react-router-dom";
 import {Button, Card, CardBody, CardHeader} from "react-bootstrap";
 import {Loading} from "../pages/Loading.jsx";
 import {AddPupilInGroup, GetOneGroup, GetOnePupil, GetPupil} from "../connection/service/AppService.js";
-import {Modal, ModalBody, ModalFooter, ModalHeader} from "reactstrap";
-import {BASE_CONFIG} from "../connection/BaseConfig.js";
-import {APP_API} from "../connection/AppApi.js";
+import {Modal, ModalBody, ModalFooter, ModalHeader, Table} from "reactstrap";
 import {MultiSelect} from "react-multi-select-component";
 
 export const GroupItem = () => {
@@ -15,7 +13,7 @@ export const GroupItem = () => {
     const [group, setGroup] = useState({})
     const [loading, setLoading] = useState(false)
     const [modal, setModal] = useState(false);
-    console.log(selected)
+    console.log(group.pupil)
 
     const toggle = () => setModal(!modal);
     const id = useParams().id
@@ -46,7 +44,7 @@ export const GroupItem = () => {
         const arr = []
         selected.map(item => (arr.push(item.value)))
         setPupilId(arr)
-        await AddPupilInGroup(selected, id)
+        await AddPupilInGroup(id, selected, setModal)
     }
 
 
@@ -95,6 +93,43 @@ export const GroupItem = () => {
                     </ModalFooter>
                 </Modal>
             </>
+            <div>
+                <Card>
+                    <CardHeader>
+                        <h2 className={"text-center text-primary"}>O'quvchilar ruyxati</h2>
+                    </CardHeader>
+                    <CardBody>
+                        <Table>
+                            <thead>
+                            <tr>
+                                <th>T/r</th>
+                                <th>Ism</th>
+                                <th>Familya</th>
+                                <th>Tel raqam</th>
+                                <th>Sozlamalar</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {loading ? (
+                                    group.pupil.map((item, i) => (
+                                        <tr>
+                                            <td>{i + 1}</td>
+                                            <td>{item.firstName}</td>
+                                            <td>{item.lastName}</td>
+                                            <td>{item.phoneNumber}</td>
+                                            <td><Button className={"btn btn-danger"}>Mol</Button></td>
+                                        </tr>
+                                    ))
+                                ):(
+                                <h1>Loading...</h1>)}
+                            </tbody>
+                        </Table>
+                    </CardBody>
+                </Card>
+            </div>
         </div>
     )
+}
+const GetPupils = ({pupil}) => {
+
 }

@@ -305,16 +305,19 @@ export const GetPupil = async () => {
 }
 export const DeletePupil = async (id) => {
     try {
-        await BaseConfig.doDelete(APP_API.puple, id)
+        await BASE_CONFIG.doDelete(APP_API.puple, id)
         toast.success("uquvchi o'chirildi")
     } catch (err) {
         toast.error("xatolik")
     }
 }
-export const AddPupilInGroup = async (data, id) => {
+export const AddPupilInGroup = async (id, data,setModal) => {
+    console.log(id)
     try {
-        await BaseConfig.doPost(APP_API.group + "/add/pupil" + "&&groupId=" + id, data)
+        await BASE_CONFIG.doPost(APP_API.group + "/add/pupil"+"?groupId="+id,  data)
         toast.success("uquvchi saqlandi")
+        setModal(false)
+
     } catch (err) {
         console.log(err)
         toast.error(err.message)

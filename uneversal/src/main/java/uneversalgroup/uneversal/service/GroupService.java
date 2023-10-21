@@ -155,7 +155,7 @@ public class GroupService implements GroupServiceImpl {
         }
     }
 
-    public ApiResponse<?> addPupilInGroup(UUID groupId, List<SelectUserDto> selectUserDtos) {
+    public ApiResponse<?> addPupilInGroup(UUID groupId, Set<SelectUserDto> selectUserDtos) {
         try {
             Group group = groupRepository.findById(groupId).orElseThrow(() -> new org.springframework.data.rest.webmvc.ResourceNotFoundException("group"));
             for (SelectUserDto selectUserDto : selectUserDtos) {
