@@ -31,14 +31,16 @@ export const Menu = () => {
         <div className="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6"
              data-sidebartype="full" data-sidebar-position="fixed" data-header-position="fixed">
             <div>
-                <h1 className={"text-center text-primary"}>Statistika</h1>
+                <Card className={"mt-5"}>
+                    <h1 className={"text-center text-primary"}>Statistika</h1>
+                </Card>
                 <hr/>
             </div>
-            <div className={"d-flex justify-content-between"}>
+            <div className={"d-flex align-items-center justify-content-between"}>
             {statArr.map(item => (
-                <Card className={"w-25"}>
-                    <i  className={item.icon}/>
-                    <CardHeader>
+                <Card style={{width:"300px"}}>
+                    <CardHeader className={"d-flex align-items-center justify-content-between"}>
+                    <i className={item.icon}/>
                         <h5 className="card-title  text-uppercase text-muted mb-0">{item.name}</h5>
                     </CardHeader>
                     <CardBody>

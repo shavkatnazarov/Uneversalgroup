@@ -298,7 +298,6 @@ export const AddPupil1 = async (data, setFirstName, setLastName, setPhoneNumber,
 export const GetPupil = async () => {
     try {
         const res = await BASE_CONFIG.doGet(APP_API.puple)
-        console.log(res.data)
         return res.data
     } catch (err) {
         console.log(err)
