@@ -161,6 +161,7 @@ public class GroupService implements GroupServiceImpl {
             for (SelectUserDto selectUserDto : selectUserDtos) {
                 User pupil = authRepository.findById(selectUserDto.getValue()).orElseThrow(() -> new ResolutionException("getPupilId"));
                 group.getPupil().add(pupil);
+
             }
             groupRepository.save(group);
             return new ApiResponse<>("groupga uquvchi saqlandi", true);

@@ -14,7 +14,6 @@ export const GroupItem = () => {
     const [group, setGroup] = useState({})
     const [loading, setLoading] = useState(false)
     const [modal, setModal] = useState(false);
-    const [pay,setPay]=useState(false)
     console.log(group.pupil)
 
     const toggle = () => setModal(!modal);
@@ -79,8 +78,8 @@ export const GroupItem = () => {
                         <h6 className={"text-primary"}>Gruppa nomi</h6>{group.name}
                     </CardHeader>
                     <CardBody>
-                        <Button color="danger" onClick={toggle}>
-                            Click Me
+                        <Button color="danger" onClick={toggle} className={"form-control"}>
+                           saqlash
                         </Button>
                     </CardBody>
                 </Card>
@@ -91,17 +90,17 @@ export const GroupItem = () => {
             )}
             <>
                 <Modal isOpen={modal} toggle={toggle}>
-                    <ModalHeader toggle={toggle}>Modal title</ModalHeader>
+                    <ModalHeader toggle={toggle}>O'quvchi qushish</ModalHeader>
                     <ModalBody>
                         <MultiSelect options={pupil} value={selected} labelledBy={"select"} onChange={setSelected}/>
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="primary" onClick={() => savaPupil()}>
-                            Do Something
-                        </Button>{' '}
-                        <Button color="secondary" onClick={toggle}>
-                            Cancel
+                        <Button variant="danger" onClick={toggle}>
+                            Bekor qilish
                         </Button>
+                        <Button color="primary" onClick={() => savaPupil()}>
+                            Qushish
+                        </Button>{' '}
                     </ModalFooter>
                 </Modal>
             </>
@@ -129,7 +128,7 @@ export const GroupItem = () => {
                                             <td>{item.firstName}</td>
                                             <td>{item.lastName}</td>
                                             <td>{item.phoneNumber}</td>
-                                            <td> <Button className={"btn btn-danger"}>Mol</Button></td>
+                                            <td> <Button className={"btn btn-danger"} onClick={()=>changePay(item.id)}>Mol</Button></td>
                                         </tr>
                                     ))
                                 ):(
