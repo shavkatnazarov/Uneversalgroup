@@ -117,7 +117,7 @@ export const GroupItem = () => {
                                             <td>{item.firstName}</td>
                                             <td>{item.lastName}</td>
                                             <td>{item.phoneNumber}</td>
-                                            <td><Button className={"btn btn-danger"}>Mol</Button></td>
+                                            <td> <Button className={"btn btn-danger"}>Mol</Button></td>
                                         </tr>
                                     ))
                                 ):(
