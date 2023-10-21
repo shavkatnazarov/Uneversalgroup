@@ -4,7 +4,12 @@ import {BASE_CONFIG} from "../connection/BaseConfig.js";
 import {APP_API} from "../connection/AppApi.js";
 import {toast} from "react-toastify";
 import {useNavigate} from "react-router-dom";
-import {changeActive, DeleteCourse, DeleteGroup, GetGroup, SaveGroup} from "../connection/service/AppService.js";
+import {
+    changeActive,
+    DeleteGroup,
+    GetGroup,
+    SaveGroup
+} from "../connection/service/AppService.js";
 
 export const Group = () => {
     const [loading, setLoading] = useState(false)

@@ -47,17 +47,17 @@ export const Teacher=()=>{
     return(
         <div>
             <div className={"d-flex align-items-center justify-content-between mt-5"}>
-                <h2 className={"text-primary"}>Teacher section </h2>
+                <h2 className={"text-primary"}>O'qituvchi bo'limi </h2>
                 <Button variant="primary"  onClick={handleShow} className="me-2">
-                    add teacher
+                    O'qituvchi qo'shish+
                 </Button>
             </div>
             <div className={'mt-5'}>
                 <Card>
                     <CardHeader>
                         {teacher.length !== 0 ? (
-                            <h2 className={"text-primary text-center"}>Siz yaratgan teacherlar</h2>) : (
-                            <h2 style={{color: 'red'}} className={"text-center"}>Xozirda teacherlar mavjud emas</h2>)
+                            <h2 className={"text-primary text-center"}>Siz yaratgan o'qituvchilar</h2>) : (
+                            <h2 style={{color: 'red'}} className={"text-center"}>Xozirda o'qituvchilar mavjud emas</h2>)
                         }
                     </CardHeader>
                     <CardBody>
@@ -76,25 +76,25 @@ export const Teacher=()=>{
             </div>
             <Offcanvas show={show} onHide={handleClose} placement={"end"} >
                 <Offcanvas.Header closeButton>
-                    <Offcanvas.Title>Add</Offcanvas.Title>
+                    <Offcanvas.Title>O'qituvchi qo'shish</Offcanvas.Title>
                 </Offcanvas.Header>
                 <Offcanvas.Body>
                   <div>
                       <form>
-                          <label htmlFor="firstName" className={"fw-bold  m-2"}>Teacher ismini kiriting</label>
-                          <input type="text" placeholder={"Teacher ismini kiriting"} className={"form-control"}
+                          <label htmlFor="firstName" className={"fw-bold  m-2"}>O'qituvchi ismini kiriting</label>
+                          <input type="text" placeholder={"O'qituvchi ismini kiriting"} className={"form-control"}
                                  onChange={(e) => setFirstName(e.target.value)} value={firstName} id={"firstName"} name={"firstName"}/>
-                          <label htmlFor="lastName" className={"fw-bold  m-2"}>Teacher familyasini kiriting</label>
-                          <input type={"text"} placeholder={"Teacher familyasini kiriting"} className={"form-control"}
+                          <label htmlFor="lastName" className={"fw-bold  m-2"}>O'qituvchi familyasini kiriting</label>
+                          <input type={"text"} placeholder={"O'qituvchi familyasini kiriting"} className={"form-control"}
                                  onChange={(e) => setLastName(e.target.value)} value={lastName} id={"lastName"}
                                  name={"lastName"}/>
-                          <label htmlFor="phoneNumber" className={"fw-bold  m-2"}>Teacher phoneNumber</label>
-                          <input type="number" placeholder={"Teacher phoneNumberini kiritng"}
+                          <label htmlFor="phoneNumber" className={"fw-bold  m-2"}>O'qituvchi telefoni</label>
+                          <input type="number" placeholder={"O'qituvchi telefon raqamini kiritng"}
                                  className={"form-control"}
                                  onChange={(e) => setPhoneNumber(e.target.value)} value={phoneNumber} id={"phoneNumber"}
                                  name={"phoneNumber"}/>
-                          <label htmlFor="password" className={"fw-bold  m-2"}>Teacher password</label>
-                          <input type="password" placeholder={"Teacher passwordini kiritng"}
+                          <label htmlFor="password" className={"fw-bold  m-2"}>O'qituvchi paroli</label>
+                          <input type="password" placeholder={"O'qituvchi paroli  kiritng"}
                                  className={"form-control"}
                                  onChange={(e) => setPassword(e.target.value)} value={password} id={"password"}
                                  name={"password"}/>
@@ -124,8 +124,8 @@ const GetTeachers=({teacher,navigate})=>{
                     <th>T/r</th>
                     <th>Ismi</th>
                     <th>Familya</th>
-                    <th>Phone number</th>
-                    <th>password</th>
+                    <th>Telefon raqami</th>
+                    <th>paroli</th>
                     <th>Ma'lumot</th>
                 </tr>
                 </thead>

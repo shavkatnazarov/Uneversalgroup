@@ -36,7 +36,7 @@ export const TeacherItem=()=>{
                             <Card.Body>
                                 <Card.Title>O'qtuvchi: {teacher.firstName} {teacher.lastName}</Card.Title>
                                 <Card.Text>
-                                    <h6>Telefon raqami: (+998) {teacher.phoneNumber}</h6>
+                                    <h6>Telefon raqami: <br/> (+998) {teacher.phoneNumber}</h6>
                                     <h6>Paroli:  <i className="bi bi-key"></i>{teacher.password}</h6>
                                 </Card.Text>
                             </Card.Body>
@@ -65,7 +65,7 @@ const GroupByTeacher=({group})=>{
             </thead>
             <tbody>
             {group.length===0?(
-                <h6>Hozircha group yuq</h6>
+                <h6>Hozircha gruppa yuq</h6>
             ):
                 group.map((item,i)=>(
                         <tr>

@@ -13,4 +13,7 @@ public interface GroupRepository extends JpaRepository<Group, UUID> {
     @Query(value = "select * from guruhlar where teacher_id=?1", nativeQuery = true )
      List<Group> getGroupByTeacherId(UUID id);
 
+    @Query(value = "select * from guruhlar where course_id=?1", nativeQuery = true )
+    List<Group> getGroupByCourseId(Integer   id);
+
 }
