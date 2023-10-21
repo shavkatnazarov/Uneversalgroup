@@ -27,7 +27,7 @@ public class GroupDto {
     private UUID pupilId;
     private User pupil;
     private Day_type day;
-    private List<SelectDto>weekDays;
-    private List<SelectUserDto>selectUserDto;
+    private List<SelectDto> weekDays;
+    private List<SelectUserDto> selectPupil;
     private boolean active;
 }

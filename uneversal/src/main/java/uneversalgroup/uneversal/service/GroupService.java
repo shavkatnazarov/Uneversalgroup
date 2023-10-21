@@ -155,13 +155,14 @@ public class GroupService implements GroupServiceImpl {
         }
     }
 
-    public ApiResponse<?>addPupilInGroup(UUID id,GroupDto groupDto) {
-        User pupil = authRepository.findById(groupDto.getPupilId()).orElseThrow(() -> new ResolutionException("getPupilId"));
+    public ApiResponse<?> addPupilInGroup(UUID groupId, List<SelectUserDto> selectUserDtos) {
         try {
-            Group pupil1 = Group.builder()
-                    .pupil(Collections.singletonList(pupil))
-                    .build();
-            groupRepository.save(pupil1);
+            Group group = groupRepository.findById(groupId).orElseThrow(() -> new org.springframework.data.rest.webmvc.ResourceNotFoundException("group"));
+            for (SelectUserDto selectUserDto : selectUserDtos) {
+                User pupil = authRepository.findById(selectUserDto.getValue()).orElseThrow(() -> new ResolutionException("getPupilId"));
+                group.getPupil().add(pupil);
+            }
+            groupRepository.save(group);
             return new ApiResponse<>("groupga uquvchi saqlandi", true);
         } catch (Exception e) {
 

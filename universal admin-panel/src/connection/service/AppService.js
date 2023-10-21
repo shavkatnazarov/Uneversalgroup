@@ -161,20 +161,20 @@ export const GetGroup = async () => {
         console.log(err)
     }
 }
-export const SaveGroup=async (data,setCourseId,setTeacherId,setName,setStartData,setEndData,getAll)=>{
-    const check={
-        courseId: data.courseId==="0",
-        teacherId: data.teacherId==="0",
-        name:data.name.trim().length===0,
-        start_date: data.start_date.length<0,
-        end_date: data.end_date.length<0
+export const SaveGroup = async (data, setCourseId, setTeacherId, setName, setStartData, setEndData, getAll) => {
+    const check = {
+        courseId: data.courseId === "0",
+        teacherId: data.teacherId === "0",
+        name: data.name.trim().length === 0,
+        start_date: data.start_date.length < 0,
+        end_date: data.end_date.length < 0
     }
-    if (check.courseId||check.teacherId||check.name||check.start_date||check.end_date){
+    if (check.courseId || check.teacherId || check.name || check.start_date || check.end_date) {
         return toast.warning("yuqal")
     }
     try {
-       const res = await BASE_CONFIG.doPost("/group/add",data)
-        if (IS_STATUS(res.status)){
+        const res = await BASE_CONFIG.doPost("/group/add", data)
+        if (IS_STATUS(res.status)) {
             getAll()
             setTeacherId('')
             setCourseId('')
@@ -183,18 +183,18 @@ export const SaveGroup=async (data,setCourseId,setTeacherId,setName,setStartData
             setEndData('')
             return toast.success("saqalndi")
         }
-    }catch (err){
+    } catch (err) {
         console.log(err)
     }
 }
-export const DeleteGroup=async (id,getAll)=>{
+export const DeleteGroup = async (id, getAll) => {
     try {
-        const res = await BASE_CONFIG.doDelete(APP_API.group,id)
-        if (IS_STATUS(res.status)){
+        const res = await BASE_CONFIG.doDelete(APP_API.group, id)
+        if (IS_STATUS(res.status)) {
             getAll()
             return toast.success("Ochirib tashlandi")
         }
-    }catch (err){
+    } catch (err) {
         console.log(err)
     }
 }
@@ -262,21 +262,21 @@ export const GetOnePupil = async (id) => {
 }
 export const AddPupil1 = async (data, setFirstName, setLastName, setPhoneNumber, setPassword) => {
 
-        const check ={
-            ism1: data.firstName.trim().length === 0,
-            familya1: data.lastName.trim().length === 0,
-            tel1: data.phoneNumber.trim().length !== 9,
-            pas1: data.password.length === 0,
-        }
-        if (check.ism1 || check.familya1) {
-            return toast.warning(" ism yoki familya  bo'sh bolmasin")
-        }
-        if (check.tel1) {
-            return toast.warning("Telefon raqamda xatolik")
-        }
-        if (check.pas1) {
-            return toast.warning("parol    bolsin")
-        }
+    const check = {
+        ism1: data.firstName.trim().length === 0,
+        familya1: data.lastName.trim().length === 0,
+        tel1: data.phoneNumber.trim().length !== 9,
+        pas1: data.password.length === 0,
+    }
+    if (check.ism1 || check.familya1) {
+        return toast.warning(" ism yoki familya  bo'sh bolmasin")
+    }
+    if (check.tel1) {
+        return toast.warning("Telefon raqamda xatolik")
+    }
+    if (check.pas1) {
+        return toast.warning("parol    bolsin")
+    }
     try {
         const res = await BASE_CONFIG.doPost(APP_API.puple + "/" + localStorage.getItem("id"), data)
         if (IS_STATUS(res.status)) {
@@ -292,7 +292,6 @@ export const AddPupil1 = async (data, setFirstName, setLastName, setPhoneNumber,
         console.log(err)
     }
 }
-
 
 
 export const GetPupil = async () => {
@@ -312,5 +311,13 @@ export const DeletePupil = async (id) => {
         toast.error("xatolik")
     }
 }
-
+export const AddPupilInGroup = async (data, id) => {
+    try {
+        await BaseConfig.doPost(APP_API.group + "/add/pupil" + "&&groupId=" + id, data)
+        toast.success("uquvchi saqlandi")
+    } catch (err) {
+        console.log(err)
+        toast.error(err.message)
+    }
+}
 
