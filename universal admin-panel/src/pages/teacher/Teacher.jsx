@@ -138,7 +138,7 @@ const GetTeachers=({teacher,navigate})=>{
                         <td>+998-{item.phoneNumber}</td>
                         <td>{item.password}</td>
                         <td>
-                            <button className={"btn btn-success"} onClick={()=>oneTeacher(item.id)}>Bosing</button>
+                            <button className={"btn btn-primary"} onClick={()=>oneTeacher(item.id)}><i className="bi bi-journal-bookmark-fill"></i></button>
                         </td>
                     </tr>
                 ))}

@@ -1,4 +1,4 @@
-import {Button, Offcanvas} from "react-bootstrap";
+import {Button, Card, CardBody, CardHeader, Offcanvas} from "react-bootstrap";
 import React, {useEffect, useState} from "react";
 import {Modal, ModalBody, ModalFooter, ModalHeader} from "reactstrap";
 import {createHashRouter, useNavigate} from "react-router-dom";
@@ -51,11 +51,22 @@ export const Pupil = () => {
 
     return (
         <div className={"container"}>
-            <h1 className={"text-info text-center align-items-center justify-content-center"}>O'quvchi qushish</h1>
-            <Button variant="primary" onClick={handleShow} className="me-2">
-                +
-            </Button>
-            <GetPupils pupil={pupil} deletePupils={deletePupils} navigate={navigate}/>
+            <div className={"d-flex align-items-center justify-content-between mt-5"}>
+                <h2 className={"text-primary text-center align-items-center justify-content-center"}>O'quvchi
+                    qushish</h2>
+                <Button variant="primary" onClick={handleShow} className="me-2">
+                    O'quvchi qushish+
+                </Button>
+            </div>
+            <Card className={"mt-5"}>
+                <CardHeader>{pupil.length === 0 ? (
+                    <h2 className={"text-center text-danger"}>Hozirda o'quvchilar mavjud emas</h2>) : (
+                    <h2 className={"text-center text-primary"}>Siz yaratgan uquvchila</h2>)}</CardHeader>
+                <CardBody>
+                    <GetPupils pupil={pupil} deletePupils={deletePupils} navigate={navigate}/>
+
+                </CardBody>
+            </Card>
             <Offcanvas show={show} onHide={handleClose} placement={"end"}>
                 <Offcanvas.Header closeButton>
                     <Offcanvas.Title>Add pupil</Offcanvas.Title>
@@ -97,23 +108,23 @@ export const Pupil = () => {
     )
 }
 
-const GetPupils = ({pupil,deletePupils,navigate}) => {
+const GetPupils = ({pupil, deletePupils, navigate}) => {
     const [modal, setModal] = useState(false);
-    const [id,setId]=useState('')
+    const [id, setId] = useState('')
 
-    const toggle = (id) =>{
+    const toggle = (id) => {
         setModal(!modal);
         setId(id)
     }
-    const onePupil=(id)=>{
-        navigate("/auth/dashboard/pupil/"+id)
+    const onePupil = (id) => {
+        navigate("/auth/dashboard/pupil/" + id)
 
     }
     return (
         <div>
 
-            <Modal isOpen={modal} toggle={()=>toggle("")}>
-                <ModalHeader toggle={()=>toggle('')}>Modal title</ModalHeader>
+            <Modal isOpen={modal} toggle={() => toggle("")}>
+                <ModalHeader toggle={() => toggle('')}>Modal title</ModalHeader>
                 <ModalBody>
                     <h1 className={"text-danger"}>
                         O'chirmoqchimisiz
@@ -123,7 +134,7 @@ const GetPupils = ({pupil,deletePupils,navigate}) => {
                     <Button className={"brn btn-success"} onClick={() => deletePupils(id)}>
                         ha
                     </Button>{' '}
-                    <Button className={"btn btn-secondary"} onClick={()=>toggle("")}>
+                    <Button className={"btn btn-secondary"} onClick={() => toggle("")}>
                         Cancel
                     </Button>
                 </ModalFooter>
@@ -134,9 +145,10 @@ const GetPupils = ({pupil,deletePupils,navigate}) => {
                     <th>T/r</th>
                     <th>Ismi</th>
                     <th>Familya</th>
-                    <th>Phone number</th>
-                    <th>password</th>
-                    <th colSpan={3} >action</th>
+                    <th>Telfon numer</th>
+                    <th>Parol</th>
+                    <th>o'chirish</th>
+                    <th>action</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -147,10 +159,14 @@ const GetPupils = ({pupil,deletePupils,navigate}) => {
                         <td>{item.lastName}</td>
                         <td>+(998)-{item.phoneNumber}</td>
                         <td>{item.password}</td>
-                        <td ><Button className={"btn btn-danger"} onClick={()=>toggle(item.id)}>
-                            delete
-                        </Button></td>
-                            <Button className={"btn btn-info"} onClick={()=>onePupil(item.id)}>kurish</Button>
+                        <td><Button className={"btn btn-danger"} onClick={() => toggle(item.id)}>
+                            <i className={"fa fa-trash"}></i>
+                        </Button>
+                        </td>
+                        <td>
+                            <Button className={"btn btn-success"} onClick={() => onePupil(item.id)}><i className="bi bi-eye"></i></Button>
+
+                        </td>
                     </tr>
                 ))}
                 </tbody>

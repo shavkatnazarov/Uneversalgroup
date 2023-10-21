@@ -213,16 +213,16 @@ navigate("/auth/dashboard/course/"+id)
                     <td>
                         <button type="button" className="btn btn-danger" onClick={event => setA({img:item.photoId})} data-bs-toggle="modal"
                                 data-bs-target="#exampleModals">
-                            Rasm
+                            <i className="bi bi-image-fill"></i>
                         </button>
                     </td>
                     <td>
-                        <button className={"btn btn-success"} onClick={()=>oneCourse(item.id)}>Bosing</button>
+                        <button className={"btn btn-success"} onClick={()=>oneCourse(item.id)}><i className="bi bi-info-circle"></i></button>
                     </td>
                     <td>
                         <button type="button" className="btn btn-warning" onClick={event => setA({desc:item.description})} data-bs-toggle="modal"
                                 data-bs-target="#exampleModals1">
-                            Xaqida
+                            <i className="bi bi-list-ul"></i>
                         </button>
                     </td>
                     <td>
