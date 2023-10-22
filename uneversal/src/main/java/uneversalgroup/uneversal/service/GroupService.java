@@ -2,20 +2,15 @@ package uneversalgroup.uneversal.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import uneversalgroup.uneversal.entity.Course;
-import uneversalgroup.uneversal.entity.Group;
-import uneversalgroup.uneversal.entity.User;
-import uneversalgroup.uneversal.entity.Week_day;
+import uneversalgroup.uneversal.entity.*;
+import uneversalgroup.uneversal.entity.enums.DayTypeName;
 import uneversalgroup.uneversal.exception.ResourceNotFoundException;
 import uneversalgroup.uneversal.impl.service.GroupServiceImpl;
 import uneversalgroup.uneversal.payload.ApiResponse;
 import uneversalgroup.uneversal.payload.GroupDto;
 import uneversalgroup.uneversal.payload.SelectDto;
 import uneversalgroup.uneversal.payload.SelectUserDto;
-import uneversalgroup.uneversal.repository.AuthRepository;
-import uneversalgroup.uneversal.repository.CourseRepository;
-import uneversalgroup.uneversal.repository.GroupRepository;
-import uneversalgroup.uneversal.repository.WeekDaysRepository;
+import uneversalgroup.uneversal.repository.*;
 
 import java.lang.module.ResolutionException;
 import java.util.*;
@@ -27,6 +22,7 @@ public class GroupService implements GroupServiceImpl {
     private final CourseRepository courseRepository;
     private final AuthRepository authRepository;
     private final WeekDaysRepository weekDaysRepository;
+    private final PupilAttendanceMonthRepository pupilAttendanceMonthRepository;
 
 
     @Override
@@ -34,14 +30,7 @@ public class GroupService implements GroupServiceImpl {
         List<Group> all = groupRepository.findAll();
         List<GroupDto> groupDtoList = new ArrayList<>();
         for (Group group : all) {
-            GroupDto groupDto = GroupDto.builder()
-                    .id(group.getId())
-                    .name(group.getName())
-                    .start_date(group.getStart_date())
-                    .end_date(group.getEnd_date())
-                    .teacher(group.getTeacher())
-                    .active(group.isActive())
-                    .build();
+            GroupDto groupDto = GroupDto.builder().id(group.getId()).name(group.getName()).start_date(group.getStart_date()).end_date(group.getEnd_date()).teacher(group.getTeacher()).active(group.isActive()).build();
             groupDtoList.add(groupDto);
         }
         return groupDtoList;
@@ -63,16 +52,7 @@ public class GroupService implements GroupServiceImpl {
                 weekDays.add(WEDNESDAY);
                 weekDays.add(FRIDAY);
                 if (!exist) {
-                    Group build = Group.builder()
-                            .name(groupDto.getName())
-                            .course(course)
-                            .teacher(teacher)
-                            .dayType(groupDto.getDay())
-                            .weekDays(weekDays)
-                            .start_date(groupDto.getStart_date())
-                            .end_date(groupDto.getEnd_date())
-                            .active(true)
-                            .build();
+                    Group build = Group.builder().name(groupDto.getName()).course(course).teacher(teacher).dayType(groupDto.getDay()).weekDays(weekDays).start_date(groupDto.getStart_date()).end_date(groupDto.getEnd_date()).active(true).build();
                     groupRepository.save(build);
                     return new ApiResponse<>("group saqlandi", true);
                 }
@@ -85,15 +65,7 @@ public class GroupService implements GroupServiceImpl {
                 weekDays.add(SUNDAY);
 
                 if (!exist) {
-                    Group group = Group.builder()
-                            .name(groupDto.getName())
-                            .course(course)
-                            .teacher(teacher)
-                            .weekDays(weekDays)
-                            .start_date(groupDto.getStart_date())
-                            .end_date(groupDto.getEnd_date())
-                            .active(true)
-                            .build();
+                    Group group = Group.builder().name(groupDto.getName()).course(course).teacher(teacher).weekDays(weekDays).start_date(groupDto.getStart_date()).end_date(groupDto.getEnd_date()).active(true).build();
                     groupRepository.save(group);
                     return new ApiResponse<>("group saqlandi", true);
                 }
@@ -112,15 +84,7 @@ public class GroupService implements GroupServiceImpl {
                 weekDays.add(FRIDAY);
 
                 if (!exist) {
-                    Group group1 = Group.builder()
-                            .name(groupDto.getName())
-                            .course(course)
-                            .teacher(teacher)
-                            .weekDays(weekDays)
-                            .start_date(groupDto.getStart_date())
-                            .end_date(groupDto.getEnd_date())
-                            .active(true)
-                            .build();
+                    Group group1 = Group.builder().name(groupDto.getName()).course(course).teacher(teacher).weekDays(weekDays).start_date(groupDto.getStart_date()).end_date(groupDto.getEnd_date()).active(true).build();
                     groupRepository.save(group1);
                     return new ApiResponse<>("group saqlandi", true);
                 }
@@ -160,8 +124,35 @@ public class GroupService implements GroupServiceImpl {
             Group group = groupRepository.findById(groupId).orElseThrow(() -> new org.springframework.data.rest.webmvc.ResourceNotFoundException("group"));
             for (SelectUserDto selectUserDto : selectUserDtos) {
                 User pupil = authRepository.findById(selectUserDto.getValue()).orElseThrow(() -> new ResolutionException("getPupilId"));
+                Date startDate = group.getStart_date();
+                Date endDate = group.getEnd_date();
+                int startMonth = startDate.getMonth() + 1;
+                int endMonth = endDate.getMonth() + 1;
+                List<PupilAttendanceMonth> pupilAttendanceMonths = new ArrayList<>();
+                int startYear = startDate.getYear() + 1900;
+                int endYear = endDate.getYear() + 1900;
+                int tr = 0;
+                if (startYear != endYear) {
+                    tr++;
+                }
+                if (tr > 0) {
+                    for (int i = startMonth; i <= 12; i++) {
+                        PupilAttendanceMonth save = pupilAttendanceMonthRepository.save(PupilAttendanceMonth.builder().nowMonth(i).monthSum((group.getCourse().getPrice())).isPay(false).build());
+                        pupilAttendanceMonths.add(save);
+                    }
+                    for (int i = 1; i <= endMonth; i++) {
+                        PupilAttendanceMonth save = pupilAttendanceMonthRepository.save(PupilAttendanceMonth.builder().nowMonth(i).monthSum((group.getCourse().getPrice())).isPay(false).build());
+                        pupilAttendanceMonths.add(save);
+                    }
+                } else {
+                    for (int i = startMonth; i <= endMonth; i++) {
+                        PupilAttendanceMonth save = pupilAttendanceMonthRepository.save(PupilAttendanceMonth.builder().nowMonth(i).monthSum((group.getCourse().getPrice())).isPay(false).build());
+                        pupilAttendanceMonths.add(save);
+                    }
+                }
+                pupil.setPupilAttendanceMonths(pupilAttendanceMonths);
+                authRepository.save(pupil);
                 group.getPupil().add(pupil);
-
             }
             groupRepository.save(group);
             return new ApiResponse<>("groupga uquvchi saqlandi", true);

@@ -11,20 +11,15 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import uneversalgroup.uneversal.entity.Course;
-import uneversalgroup.uneversal.entity.Group;
-import uneversalgroup.uneversal.entity.Role;
-import uneversalgroup.uneversal.entity.User;
+import uneversalgroup.uneversal.entity.*;
 import uneversalgroup.uneversal.payload.*;
 import uneversalgroup.uneversal.repository.AuthRepository;
 import uneversalgroup.uneversal.repository.GroupRepository;
+import uneversalgroup.uneversal.repository.PupilAttendanceMonthRepository;
 import uneversalgroup.uneversal.repository.RoleRepository;
 import uneversalgroup.uneversal.security.JwtTokenProvider;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -33,6 +28,7 @@ public class AuthService implements UserDetailsService {
     private final AuthRepository authRepository;
     private final RoleRepository roleRepository;
     private final GroupRepository groupRepository;
+    private final PupilAttendanceMonthRepository pupilAttendanceMonthRepository;
 
 //    @Autowired
 //    public PasswordEncoder pas(){
@@ -47,21 +43,15 @@ public class AuthService implements UserDetailsService {
     public UserDetails getUserById(UUID id) {
         return authRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("getUser"));
     }
-    public ApiResponse<?>addPupil(AuthDto authDto, UUID userId) {
+
+    public ApiResponse<?> addPupil(AuthDto authDto, UUID userId) {
         try {
             User user = authRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("user"));
             Role role1 = roleRepository.findById(1).orElseThrow(() -> new ResourceNotFoundException("role"));
             Role pupil = roleRepository.findById(3).orElseThrow(() -> new ResourceNotFoundException("role"));
             for (Role role : user.getRoles()) {
                 if (role.equals(role1)) {
-                    User build = User.builder()
-                            .firstName(authDto.getFirstName())
-                            .lastName(authDto.getLastName())
-                            .phoneNumber(authDto.getPhoneNumber())
-                            .roles(Collections.singleton(pupil))
-                            .password(authDto.getPassword())
-                            .pay(false)
-                            .build();
+                    User build = User.builder().firstName(authDto.getFirstName()).lastName(authDto.getLastName()).phoneNumber(authDto.getPhoneNumber()).roles(Collections.singleton(pupil)).password(authDto.getPassword()).pay(false).build();
                     authRepository.save(build);
                     return new ApiResponse<>("saqlandi", true);
                 }
@@ -80,14 +70,7 @@ public class AuthService implements UserDetailsService {
             for (User user : all) {
                 for (Role role : user.getRoles()) {
                     if (role == role1) {
-                        AuthDto build = AuthDto.builder()
-                                .id(user.getId())
-                                .firstName(user.getFirstName())
-                                .lastName(user.getLastName())
-                                .phoneNumber(user.getPhoneNumber())
-                                .password(user.getPassword())
-                                .pay(user.isPay())
-                                .build();
+                        AuthDto build = AuthDto.builder().id(user.getId()).firstName(user.getFirstName()).lastName(user.getLastName()).phoneNumber(user.getPhoneNumber()).password(user.getPassword()).pay(user.isPay()).build();
                         pupil.add(build);
                     }
                 }
@@ -98,31 +81,27 @@ public class AuthService implements UserDetailsService {
             return null;
         }
     }
-    public ApiResponse<?> addTeacher(UUID id, AuthDto authDto){
+
+    public ApiResponse<?> addTeacher(UUID id, AuthDto authDto) {
         try {
             User user = authRepository.findById(id).orElseThrow(() -> new uneversalgroup.uneversal.exception.ResourceNotFoundException(404, "getUser", "user", id));
             Role adminRole = roleRepository.findById(1).orElseThrow(() -> new uneversalgroup.uneversal.exception.ResourceNotFoundException(404, "getRole", "id", id));
             Role teacherRole = roleRepository.findById(2).orElseThrow(() -> new uneversalgroup.uneversal.exception.ResourceNotFoundException(404, "getRole", "id", id));
             for (Role role : user.getRoles()) {
-                if (role.equals(adminRole)){
-                    User build = User.builder()
-                            .firstName(authDto.getFirstName())
-                            .lastName(authDto.getLastName())
-                            .phoneNumber(authDto.getPhoneNumber())
-                            .password(authDto.getPassword())
-                            .roles(Collections.singleton(teacherRole))
-                            .build();
+                if (role.equals(adminRole)) {
+                    User build = User.builder().firstName(authDto.getFirstName()).lastName(authDto.getLastName()).phoneNumber(authDto.getPhoneNumber()).password(authDto.getPassword()).roles(Collections.singleton(teacherRole)).build();
                     authRepository.save(build);
-                    return new ApiResponse<>("O'qtuvchi qoshildi",true);
+                    return new ApiResponse<>("O'qtuvchi qoshildi", true);
                 }
-                return new ApiResponse<>("Faqat admin qusha oladi",false);
+                return new ApiResponse<>("Faqat admin qusha oladi", false);
             }
-            return new ApiResponse<>("xatolik",false);
+            return new ApiResponse<>("xatolik", false);
 
-        }catch (Exception e){
-            return new ApiResponse<>("Xatolik",false);
+        } catch (Exception e) {
+            return new ApiResponse<>("Xatolik", false);
         }
     }
+
     public List<AuthDto> getTeacher() {
         try {
             List<User> all = authRepository.findAll();
@@ -131,13 +110,7 @@ public class AuthService implements UserDetailsService {
             for (User user : all) {
                 for (Role role : user.getRoles()) {
                     if (role == role1) {
-                        AuthDto build = AuthDto.builder()
-                                .id(user.getId())
-                                .firstName(user.getFirstName())
-                                .lastName(user.getLastName())
-                                .phoneNumber(user.getPhoneNumber())
-                                .password(user.getPassword())
-                                .build();
+                        AuthDto build = AuthDto.builder().id(user.getId()).firstName(user.getFirstName()).lastName(user.getLastName()).phoneNumber(user.getPhoneNumber()).password(user.getPassword()).build();
                         teacher.add(build);
                     }
                 }
@@ -147,24 +120,30 @@ public class AuthService implements UserDetailsService {
             return null;
         }
     }
+
     public ApiResponse<?> changePay(UUID id, boolean pay) {
         try {
             User getUser = authRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("getUser"));
-            getUser.setPay(pay);
+            Date date = new Date();
+            for (PupilAttendanceMonth pupilAttendanceMonth : getUser.getPupilAttendanceMonths()) {
+                if (pupilAttendanceMonth.getNowMonth() == (date.getMonth() + 1)) {
+                    pupilAttendanceMonth.setPay(!pupilAttendanceMonth.isPay());
+                    pupilAttendanceMonthRepository.save(pupilAttendanceMonth);
+                }
+            }
             authRepository.save(getUser);
             return new ApiResponse<>("Tulangan ruyxatiga qushildi", true);
         } catch (Exception e) {
             return new ApiResponse<>("xatolik", false);
         }
     }
-    public List<Group> getTeacherGroup(UUID teacherId){
+
+    public List<Group> getTeacherGroup(UUID teacherId) {
         return groupRepository.getGroupByTeacherId(teacherId);
     }
 
     public HttpEntity<?> login(LoginDto request, AuthenticationManager authenticationManager) {
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(request.getPhoneNumber(), request.getPassword())
-        );
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getPhoneNumber(), request.getPassword()));
         User user = authRepository.findUserByPhoneNumber(request.getPhoneNumber()).orElseThrow(() -> new ResourceNotFoundException("getUser"));
         ResToken resToken = new ResToken(generateToken(request.getPhoneNumber()));
         System.out.println(ResponseEntity.ok(getMal(user, resToken)));

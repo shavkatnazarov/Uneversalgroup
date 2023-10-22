@@ -39,6 +39,10 @@ public class User extends AbsEntity implements UserDetails {
             joinColumns = {@JoinColumn(name = "users_id")},
             inverseJoinColumns = {@JoinColumn(name = "role_id")})
     private Set<Role> roles;
+
+    @ManyToMany
+    private List<PupilAttendanceMonth> pupilAttendanceMonths;
+
     private boolean enabled = true;
     private boolean credentialsNonExpired = true;
     private boolean accountNonLocked = true;

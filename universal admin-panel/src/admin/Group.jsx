@@ -114,11 +114,11 @@ export const Group = () => {
                             <input type="text" placeholder={"coure nomini kiritng"} className={"form-control"}
                                    onChange={(e) => setName(e.target.value)} value={name} id={"name"} name={"name"}/>
                             <label htmlFor="start_date" className={"fw-bold  m-2"}>Gruppa boshlanishi</label>
-                            <input type="number" placeholder={"Gruppa boshlanish vaqti"} className={"form-control"}
+                            <input type="date" placeholder={"Gruppa boshlanish vaqti"} className={"form-control"}
                                    onChange={(e) => setStartDate(e.target.value)} value={start_date} id={"start_date"}
                                    name={"start_date"}/>
                             <label htmlFor="end_date" className={"fw-bold  m-2"}>Gruppa tugashi</label>
-                            <input type="number" placeholder={"Guruppa tugash vaqti"} className={"form-control"}
+                            <input type="date" placeholder={"Guruppa tugash vaqti"} className={"form-control"}
                                    onChange={(e) => setEndData(e.target.value)} value={end_date} id={"end_date"}
                                    name={"end_date"}/>
                             <label className={"fw-bold  m-2"} htmlFor="daytype">Kunni tanlang</label>

@@ -14,7 +14,7 @@ export const GroupItem = () => {
     const [group, setGroup] = useState({})
     const [loading, setLoading] = useState(false)
     const [modal, setModal] = useState(false);
-    console.log(group.pupil)
+    const date = new Date();
 
     const toggle = () => setModal(!modal);
     const id = useParams().id
@@ -22,7 +22,6 @@ export const GroupItem = () => {
     const getAll = async () => {
         try {
             const res = await GetPupil()
-            console.log(res)
             const arr = []
             res.map(item => {
                 const obj = {label: item.firstName, value: item.id}
@@ -49,23 +48,23 @@ export const GroupItem = () => {
         await AddPupilInGroup(id, selected, setModal)
     }
 
-    const changePay=async(id)=>{
-    try {
-        const paymen=confirm("o'zgartirildi")
-        if (paymen){
-            await ChangePay(id,true)
-            toast.success("tulov utdi")
-            console.log(id)
+    const changePay = async (id) => {
+        try {
+            const paymen = confirm("o'zgartirildi")
+            if (paymen) {
+                await ChangePay(id, true)
+                toast.success("tulov utdi")
+                console.log(id)
+            }
+        } catch (err) {
+            console.log(err)
         }
-    }catch (err){
-        console.log(err)
-    }}
-    useEffect(() => {
-        getOneGroup()
-    }, []);
+    }
     useEffect(() => {
         getAll()
+        getOneGroup()
     }, []);
+
     return (
         <div>
             <>
@@ -80,7 +79,7 @@ export const GroupItem = () => {
                     </CardHeader>
                     <CardBody>
                         <Button color="danger" onClick={toggle} className={"form-control"}>
-                           saqlash
+                            saqlash
                         </Button>
                     </CardBody>
                 </Card>
@@ -121,18 +120,21 @@ export const GroupItem = () => {
                                 <th>Sozlamalar</th>
                             </tr>
                             </thead>
-                            <tbody >
+                            <tbody>
                             {loading ? (
-                                    group.pupil.map((item, i) => (
-                                        <tr>
-                                            <td style={{backgroundColor:"red"}}>{i + 1}</td>
-                                            <td style={{backgroundColor:"red"}}>{item.firstName}</td>
-                                            <td style={{backgroundColor:"red"}}>{item.lastName}</td>
-                                            <td style={{backgroundColor:"red"}}>{item.phoneNumber}</td>
-                                            <td style={{backgroundColor:"red"}}> <Button className={"btn btn-danger"} onClick={()=>changePay(item.id)}>Mol</Button></td>
-                                        </tr>
-                                    ))
-                                ):(
+                                group.pupil.map((item, i) => (
+                                    <tr>
+                                        <td>{i + 1}</td>
+                                        <td>{item.firstName}</td>
+                                        <td>{item.lastName}</td>
+                                        <td>{item.phoneNumber}</td>
+                                        <td><Button
+                                            className={!!item.pupilAttendanceMonths.filter(items => items.nowMonth === (date.getMonth() + 1))[0].pay ? "btn btn-primary" : "btn btn-danger"}
+                                            onClick={() => changePay(item.id)}>Mol</Button>
+                                        </td>
+                                    </tr>
+                                ))
+                            ) : (
                                 <h1>Loading...</h1>)}
                             </tbody>
                         </Table>

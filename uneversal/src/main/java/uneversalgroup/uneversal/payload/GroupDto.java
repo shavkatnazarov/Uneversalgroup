@@ -7,6 +7,7 @@ import uneversalgroup.uneversal.entity.User;
 import uneversalgroup.uneversal.entity.Week_day;
 import uneversalgroup.uneversal.entity.enums.DayTypeName;
 
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,9 +20,9 @@ public class GroupDto {
     private UUID id;
     private Integer courseId;
     private String dayType;
-    private String end_date;
+    private Date end_date;
     private String name;
-    private String start_date;
+    private Date start_date;
     private UUID teacherId;
     private User teacher;
     private UUID pupilId;

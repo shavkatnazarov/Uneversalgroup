@@ -5,6 +5,7 @@ import uneversalgroup.uneversal.entity.enums.DayTypeName;
 import uneversalgroup.uneversal.entity.template.AbsEntity;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
@@ -22,10 +23,10 @@ public class Group extends AbsEntity {
     private User teacher;
 
     @Column(nullable = false)
-    private String start_date;
+    private Date start_date;
 
     @Column(nullable = false)
-    private String end_date;
+    private Date end_date;
 
     @ManyToMany
     private List<Week_day> weekDays;
