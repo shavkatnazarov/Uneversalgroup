@@ -152,9 +152,9 @@ public class AuthService implements UserDetailsService {
             User getUser = authRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("getUser"));
             getUser.setPay(pay);
             authRepository.save(getUser);
-            return new ApiResponse<>("Arxivlandi", true);
+            return new ApiResponse<>("Tulangan ruyxatiga qushildi", true);
         } catch (Exception e) {
-            return new ApiResponse<>("activda xatolik", false);
+            return new ApiResponse<>("xatolik", false);
         }
     }
     public List<Group> getTeacherGroup(UUID teacherId){

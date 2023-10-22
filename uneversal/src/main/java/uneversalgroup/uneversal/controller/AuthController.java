@@ -29,7 +29,7 @@ public class AuthController {
     private final AuthRepository authRepository;
     private final GroupRepository groupRepository;
     private final AuthenticationManager authenticationManager;
-    private final JwtTokenProvider jwtTokenProvider ;
+    private final JwtTokenProvider jwtTokenProvider;
 
     @PostMapping("/login")
     public HttpEntity<?> login(@RequestBody LoginDto request) {
@@ -41,26 +41,30 @@ public class AuthController {
         User user = authRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("getUser"));
         return ResponseEntity.ok(user);
     }
+
     @GetMapping("/users/{id}")
-    public HttpEntity<?>getOnePupil(@PathVariable UUID id){
+    public HttpEntity<?> getOnePupil(@PathVariable UUID id) {
         User pupil = authRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("getUser"));
         return ResponseEntity.ok(pupil);
     }
+
     @PostMapping("/puple/{id}")
-    public HttpEntity<?> addPupil(@PathVariable UUID id, @RequestBody AuthDto authDto ) {
-            ApiResponse<?> apiResponse = authService.addPupil(authDto,id);
+    public HttpEntity<?> addPupil(@PathVariable UUID id, @RequestBody AuthDto authDto) {
+        ApiResponse<?> apiResponse = authService.addPupil(authDto, id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
+
     @GetMapping("/puple")
     public HttpEntity<?> getPuple() {
         List<AuthDto> puple = authService.getPuple();
         return ResponseEntity.ok(puple);
 
     }
+
     @PostMapping("/teacher/{id}")
-    public HttpEntity<?> addTeachers(@PathVariable UUID id,@RequestBody AuthDto authDto){
+    public HttpEntity<?> addTeachers(@PathVariable UUID id, @RequestBody AuthDto authDto) {
         ApiResponse<?> apiResponse = authService.addTeacher(id, authDto);
-        return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
     @GetMapping("/teacher")
@@ -68,24 +72,24 @@ public class AuthController {
         List<AuthDto> teacher = authService.getTeacher();
         return ResponseEntity.ok(teacher);
     }
+
     @GetMapping("teacher/{id}")
     public HttpEntity<?> getOneTeacher(@PathVariable UUID id) {
         List<Group> teacherGroup = authService.getTeacherGroup(id);
         return ResponseEntity.ok(teacherGroup);
     }
+
     private String generateToken(String phoneNumber) {
         User user = authRepository.findUserByPhoneNumber(phoneNumber).orElseThrow(() -> new UsernameNotFoundException("getUser"));
         return jwtTokenProvider.generateToken(user.getId());
     }
-
-
     @PutMapping("/pay/{id}")
     public HttpEntity<?> changeActive(@PathVariable UUID id, @RequestParam(name = "pay") boolean pay) {
         ApiResponse<?> apiResponse = authService.changePay(id, pay);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
-
     public GetData getMal(User user, ResToken resToken) {
         return new GetData(user, resToken);
     }
+
 }

@@ -22,6 +22,7 @@ export const GroupItem = () => {
     const getAll = async () => {
         try {
             const res = await GetPupil()
+            console.log(res)
             const arr = []
             res.map(item => {
                 const obj = {label: item.firstName, value: item.id}
@@ -54,7 +55,6 @@ export const GroupItem = () => {
         if (paymen){
             await ChangePay(id,true)
             toast.success("tulov utdi")
-            window.location.reload()
             console.log(id)
         }
     }catch (err){
