@@ -121,15 +121,15 @@ export const GroupItem = () => {
                                 <th>Sozlamalar</th>
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbody >
                             {loading ? (
                                     group.pupil.map((item, i) => (
                                         <tr>
-                                            <td>{i + 1}</td>
-                                            <td>{item.firstName}</td>
-                                            <td>{item.lastName}</td>
-                                            <td>{item.phoneNumber}</td>
-                                            <td> <Button className={"btn btn-danger"} onClick={()=>changePay(item.id)}>Mol</Button></td>
+                                            <td style={{backgroundColor:"red"}}>{i + 1}</td>
+                                            <td style={{backgroundColor:"red"}}>{item.firstName}</td>
+                                            <td style={{backgroundColor:"red"}}>{item.lastName}</td>
+                                            <td style={{backgroundColor:"red"}}>{item.phoneNumber}</td>
+                                            <td style={{backgroundColor:"red"}}> <Button className={"btn btn-danger"} onClick={()=>changePay(item.id)}>Mol</Button></td>
                                         </tr>
                                     ))
                                 ):(
