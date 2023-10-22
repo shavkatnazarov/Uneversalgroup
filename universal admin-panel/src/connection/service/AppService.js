@@ -207,7 +207,8 @@ export const changeActive = async (id, active) => {
 }
 export const ChangePay=async (id,pay)=>{
     try {
-        await axios.put(BASE_URL+APP_API.puple1+"/pay/"+id+"?pay="+pay)
+        await axios.put(BASE_URL+APP_API.puple+"/pay/"+id+"?pay="+pay)
+        console.log(id)
     }catch (err){
         console.log(err)
     }

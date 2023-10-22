@@ -50,11 +50,12 @@ export const GroupItem = () => {
 
     const changePay=async(id)=>{
     try {
-        const pay=confirm("o'zgartirildi")
-        if (pay){
+        const paymen=confirm("o'zgartirildi")
+        if (paymen){
             await ChangePay(id,true)
             toast.success("tulov utdi")
             window.location.reload()
+            console.log(id)
         }
     }catch (err){
         console.log(err)

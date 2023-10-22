@@ -84,7 +84,7 @@ export const Group = () => {
             </div>
             <Card className={"mt-5"}>
                 <CardHeader>
-                    {group.length!==0?(<h2 className={"text-primary text-center"}>Siz yaratgan kurslar</h2>):(<h2 className={"text-center text-danger"}>Hozirda kurslar mavjud emas</h2>)}
+                    {group.length!==0?(<h2 className={"text-primary text-center"}>Siz yaratgan gruppalar</h2>):(<h2 className={"text-center text-danger"}>Hozirda gruppalar mavjud emas</h2>)}
                 </CardHeader>
                 <CardBody>
                     <GetGroups group={group} changeActives={changeActives} navigate={navigate} deleteGroup={deleteGroup}/>

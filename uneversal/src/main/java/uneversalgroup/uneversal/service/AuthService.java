@@ -86,6 +86,7 @@ public class AuthService implements UserDetailsService {
                                 .lastName(user.getLastName())
                                 .phoneNumber(user.getPhoneNumber())
                                 .password(user.getPassword())
+                                .pay(user.isPay())
                                 .build();
                         pupil.add(build);
                     }

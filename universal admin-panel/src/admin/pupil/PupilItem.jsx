@@ -26,7 +26,7 @@ export const PupilItem = () => {
         <div>
             <div className={"m-5"}>
                 <div className={"d-flex align-items-center justify-content-between"}>
-                    <Card style={{width: '18rem'}}>
+                    <Card style={{width: '18rem',}}>
                         <Card.Body>
                             <Card.Title>O'quvchi ismi: {pupil.firstName}<br/>
                                 O'quvchi familyasi : {pupil.lastName}
