@@ -111,7 +111,7 @@ export const Group = () => {
                                     <option value={item.id}>{item.firstName} {item.lastName}</option>))}
                             </select>
                             <label htmlFor="name" className={"fw-bold  m-2"}>Gruppa nomi</label>
-                            <input type="text" placeholder={"coure nomini kiritng"} className={"form-control"}
+                            <input type="text" placeholder={"Gruppa nomini kiritng"} className={"form-control"}
                                    onChange={(e) => setName(e.target.value)} value={name} id={"name"} name={"name"}/>
                             <label htmlFor="start_date" className={"fw-bold  m-2"}>Gruppa boshlanishi</label>
                             <input type="date" placeholder={"Gruppa boshlanish vaqti"} className={"form-control"}
