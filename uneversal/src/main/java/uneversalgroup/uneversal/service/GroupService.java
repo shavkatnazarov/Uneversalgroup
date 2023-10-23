@@ -178,20 +178,4 @@ public class GroupService implements GroupServiceImpl {
 
         }
     }
-//    public List<GroupDto> getPupilGroup() {
-//
-//        List<Group> all = groupRepository.findAll();
-//        List<GroupDto> groupDtoList = new ArrayList<>();
-//        for (Group group : all) {
-//            GroupDto groupDto = GroupDto.builder()
-//                    .id(group.getId())
-//                    .name(group.getName())
-//                    .pupil((User) group.getPupil())
-//
-//                    .build();
-//            groupDtoList.add(groupDto);
-//        }
-//        return groupDtoList;
-//    }
 }
-//}
