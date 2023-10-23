@@ -161,6 +161,23 @@ public class GroupService implements GroupServiceImpl {
             return new ApiResponse<>("xatolik" + e, false);
         }
     }
+    public ApiResponse<?>deletePupilInGroup(UUID uuid,UUID groupId){
+        try{
+            User user = authRepository.findById(uuid).orElseThrow(() -> new ResourceNotFoundException(404,"getUser","id",uuid));
+            Group group = groupRepository.findById(groupId).orElseThrow(() -> new org.springframework.data.rest.webmvc.ResourceNotFoundException("getGroup"));
+            for (User user1 : group.getPupil()) {
+                if (user1.equals(user)){
+                    group.getPupil().remove(user);
+                }else {
+                    return new ApiResponse<>("bu oquvchi guruhda mavjud emas",false);
+                }
+            }
+            return new ApiResponse<>("o'chirildi",true);
+        }catch (Exception e){
+            return new ApiResponse<>("xatolik" + e, false);
+
+        }
+    }
 //    public List<GroupDto> getPupilGroup() {
 //
 //        List<Group> all = groupRepository.findAll();

@@ -78,5 +78,12 @@ public class GroupController implements GroupControllerImpl {
         List<Group> byPupilId = groupRepository.findByPupilId(id);
         return ResponseEntity.ok(byPupilId);
     }
+
+    @DeleteMapping("/pupil/{id}")
+    public HttpEntity<?> deletePupilInGroup(@PathVariable UUID uuid, @RequestParam(name = "pupilId") UUID groupId) {
+        ApiResponse<?> apiResponse = groupService.deletePupilInGroup(uuid, groupId);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+    }
+
 }
 
