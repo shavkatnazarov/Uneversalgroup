@@ -130,7 +130,7 @@ export const GroupItem = () => {
                                         <td>{item.phoneNumber}</td>
                                         <td><Button
                                             className={!!item.pupilAttendanceMonths.filter(items => items.nowMonth === (date.getMonth() + 1))[0].pay ? "btn btn-primary" : "btn btn-danger"}
-                                            onClick={() => changePay(item.id)}>Mol</Button>
+                                            onClick={() => changePay(item.id)}>To'lov</Button>
                                         </td>
                                     </tr>
                                 ))
